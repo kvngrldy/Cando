@@ -17,8 +17,34 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   category.init({
-    name: DataTypes.STRING,
-    departmentId: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: `Nama Category Harus Di Isi`
+        },
+        notEmpty: {
+          args: true,
+          msg: `Nama Category Harus Di Isi`
+        }
+      }
+    },
+    departmentId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: `Department ID Harus Di Isi`
+        },
+        notEmpty: {
+          args: true,
+          msg: `Department ID Harus Di Isi`
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'category',

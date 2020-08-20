@@ -16,12 +16,90 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   todo.init({
-    title: DataTypes.STRING,
-    deadline: DataTypes.DATE,
-    priority: DataTypes.STRING,
-    description: DataTypes.STRING,
-    categoryId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Title To Do Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Title To Do Harus di Isi'
+        }
+      }
+    },
+    deadline: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Deadline To Do Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Deadline To Do Harus di Isi'
+        }
+      }
+    },
+    priority: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Priority To Do Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Priority To Do Harus di Isi'
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Deskripsi To Do Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Deskripsi To Do Harus di Isi'
+        }
+      }
+    },
+    categoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Category ID To Do Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Category ID To Do Harus di Isi'
+        }
+      }
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'User ID To Do Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'User ID To Do Harus di Isi'
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'todo',

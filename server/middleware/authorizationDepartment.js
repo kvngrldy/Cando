@@ -11,7 +11,7 @@ async function authorizationDepartment(req, res, next) {
         }
         else {
 
-            throw { msg: 'Not Authorized in this Department', status: 400 }
+            throw { msg: 'Not Authorized in this Department', status: 404 }
         }
     }
     catch (err) {

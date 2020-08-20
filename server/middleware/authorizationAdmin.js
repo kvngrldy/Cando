@@ -7,10 +7,9 @@ async function authorizationAdmin(req, res, next) {
 
     try {
         if (position !== "admin") {
-            throw { msg: `Kamu tidak terotorisasi untuk ini, hubungi Admin` }
+            throw { msg: `Kamu tidak terotorisasi untuk ini, hubungi Admin`, status: 404 }
         }
         else {
-            res.send('masuk else')
             next()
         }
 

@@ -5,14 +5,30 @@ function errHandler(err, req, res, next) {
 
     switch (err.name) {
         case "JsonWebTokenError":
-            let data = {
-                msg: 'Token Tidak Dikenal'
+            
+            let msg ='Token Tidak Dikenal'
+            
+            res.status(400).json(msg)
+
+        case "SequelizeValidationError":
+            let errors = err.errors.map(err=>{
+                return err.message
+            })
+            let tampilan = errors.join(',')
+            res.status(400).json(tampilan)
+
+        default:
+            if(err.status === undefined){
+                err.status = 500
             }
-            res.status(500).json(data)
+            if(err.msg === undefined){
+                err.msg = 'Internal Server Error'
+            }
+            res.status(err.status).json(err.msg)
     }
 
 
-    res.status(500).json(err)
+
 }
 
 

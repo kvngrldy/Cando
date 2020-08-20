@@ -4,8 +4,9 @@ const e = require('express')
 class CategoryController {
     static async create(req, res, next) {
         let { name, departmentId } = req.body
-        let newCategory = await category.create({ name, departmentId })
+
         try {
+            let newCategory = await category.create({ name, departmentId })
             if (!newCategory) {
                 throw { msg: `Tidak dapat create Category`, status: 400 }
             }
@@ -15,13 +16,14 @@ class CategoryController {
         }
         catch (err) {
             next(err)
+            // res.status(500).json(err)
         }
     }
 
     static async findOne(req, res, next) {
         let { id } = req.params
         try {
-            let findOneCategory = await category.findOne({ where: { id },include:{model:todo, separate:true, order:[['deadline','desc']] } })
+            let findOneCategory = await category.findOne({ where: { id }, include: { model: todo, separate: true, order: [['deadline', 'desc']] } })
             if (!findOneCategory) {
                 throw { msg: `Category tidak di temukan`, status: 400 }
             }
@@ -30,7 +32,7 @@ class CategoryController {
             }
         }
         catch (err) {
-
+            next(err)
         }
     }
 
@@ -39,10 +41,10 @@ class CategoryController {
         try {
             let deletedCategory = await category.destroy({ where: { id } })
             if (!deletedCategory) {
-                throw { msg: `Tidak berhasil delete`, status: 400 }
+                throw { msg: `Tidak Berhasil Delete`, status: 400 }
             }
             else {
-                res.status(200).json('berhasil delete')
+                res.status(200).json('Berhasil Delete')
             }
 
         }
@@ -59,7 +61,7 @@ class CategoryController {
                 throw { msg: `Category tidak di temukan`, status: 400 }
             }
             else {
-                let updatedCategory = await category.update({ name, departmentId }, { where: { id } })
+                await category.update({ name, departmentId }, { where: { id } })
                 let newCategoryData = await category.findOne({ where: { id } })
                 res.status(200).json(newCategoryData)
             }
