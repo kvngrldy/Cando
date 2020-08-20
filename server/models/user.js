@@ -1,4 +1,5 @@
 'use strict';
+const { hashPassword } = require('../helpers/bcryptjs')
 const {
   Model
 } = require('sequelize');
@@ -16,14 +17,84 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   user.init({
-    name: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
-    position: DataTypes.STRING,
-    imageUrl: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Nama User Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Nama User Harus di Isi',
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Password User Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Password User Harus di Isi',
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Email User Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Email User Harus di Isi',
+        }
+      }
+    },
+    position: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'Position User Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Position User Harus di Isi',
+        }
+      }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: 'ImageUrl User Harus di Isi'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'ImageUrl User Harus di Isi',
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'user',
+    hooks: {
+      beforeCreate: (userData) => {
+        userData.password = hashPassword(userData.password)
+      }
+    }
   });
   return user;
 };

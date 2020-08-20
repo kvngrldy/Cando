@@ -7,12 +7,8 @@ class CategoryController {
 
         try {
             let newCategory = await category.create({ name, departmentId })
-            if (!newCategory) {
-                throw { msg: `Tidak dapat create Category`, status: 400 }
-            }
-            else {
-                res.status(201).json(newCategory)
-            }
+            res.status(201).json(newCategory)
+
         }
         catch (err) {
             next(err)

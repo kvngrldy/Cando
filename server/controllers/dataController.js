@@ -2,39 +2,25 @@ const { department, category, todo, user, department_user } = require('../models
 
 class DataController {
     static async findAllDepartment(req, res, next) {
-        try {
-            let allDepartment = await department.findAll()
-            if (!allDepartment) {
-                throw { msg: `Tidak ada department yang terdaftar`, status: 400 }
-            }
-            else {
-                let allUser = await user.findAll()
-                // res.status(200).json(allUser)
-                res.status(200).json({ allDepartment, allUser })
-            }
-        }
-        catch (err) {
-            next(err)
-        }
+
+        let allDepartment = await department.findAll()
+        let allUser = await user.findAll()
+        res.status(200).json({ allDepartment, allUser })
 
     }
     static async findAllData(req, res, next) {
         let { id } = req.params
-        try {
-            let allData = await department.findOne({ where: { id }, include: { model: category, separate: true, order: [['id', 'asc']], include: { model: todo, separate: true, order: [["deadline", "asc"]], include: { model: user } } } })
+        let allData = await department.findOne({ where: { id }, include: { model: category, separate: true, order: [['id', 'asc']], include: { model: todo, separate: true, order: [["deadline", "asc"]], include: { model: user } } } })
+        let allUserInDepartment = await department_user.findAll({ where: { departmentId: id }, include: { model: user } })
+        let allUser = allUserInDepartment.map(data => {
+            return data.user
+        })
+        let departmentName = allData.name
+        let categories = allData.categories
 
-            let allUserInDepartment = await department_user.findAll({ where: { departmentId: id }, include: { model: user } })
-            let allUser = allUserInDepartment.map(data => {
-                return data.user
-            })
-            let departmentName = allData.name
-            let categories = allData.categories
+        res.status(200).json({ departmentName, allUser, categories })
 
-            res.status(200).json({ departmentName, allUser, categories })
-        }
-        catch (err) {
-            next(err)
-        }
+
     }
 
 
