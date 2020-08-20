@@ -1,10 +1,13 @@
 const CategoryController = require('../controllers/categoryController')
+const authorizationAdmin = require('../middleware/authorizationAdmin')
 
 const categoryRoute = require('express').Router()
 
-categoryRoute.post('/', CategoryController.create)
-categoryRoute.delete('/:id', CategoryController.delete)
-categoryRoute.put('/:id', CategoryController.edit)
+categoryRoute.post('/',  authorizationAdmin, CategoryController.create)
+categoryRoute.delete('/:id', authorizationAdmin, CategoryController.delete)
+categoryRoute.put('/:id', authorizationAdmin, CategoryController.edit)
+categoryRoute.get('/:id',CategoryController.findOne)
+
 
 
 module.exports = categoryRoute

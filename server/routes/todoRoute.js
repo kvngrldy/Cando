@@ -1,10 +1,12 @@
 const TodoController = require('../controllers/todoController')
+const authorizationEditTodo = require('../middleware/authorizationEditTodo')
+const authorizationAdmin = require('../middleware/authorizationAdmin')
 
 const todoRoute = require('express').Router()
 
-todoRoute.post('/', TodoController.createTodo)
-todoRoute.put('/:id', TodoController.editTodo)
+todoRoute.post('/', authorizationAdmin, TodoController.createTodo)
+todoRoute.put('/:id', authorizationEditTodo, TodoController.editTodo)
 todoRoute.get('/:id', TodoController.findOne)
-todoRoute.delete('/:id', TodoController.deleteTodo)
+todoRoute.delete('/:id', authorizationAdmin, TodoController.deleteTodo)
 
 module.exports = todoRoute

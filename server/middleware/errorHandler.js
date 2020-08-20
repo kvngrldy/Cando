@@ -3,9 +3,16 @@
 
 function errHandler(err, req, res, next) {
 
+    switch (err.name) {
+        case "JsonWebTokenError":
+            let data = {
+                msg: 'Token Tidak Dikenal'
+            }
+            res.status(500).json(data)
+    }
 
 
-    console.log('masuk err handler')
+    res.status(500).json(err)
 }
 
 

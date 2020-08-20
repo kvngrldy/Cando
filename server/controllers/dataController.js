@@ -19,9 +19,12 @@ class DataController {
     static async findAllData(req, res, next) {
         let { id } = req.params
         try {
-            let allData = await department.findAll({ where: { id }, include: { model: category, separate: true, order: [['id', 'asc']], include: { model: todo, separate: true, order: [["deadline", "asc"]], include: { model: user } } } })
+            let allData = await department.findOne({ where: { id }, include: { model: category, separate: true, order: [['id', 'asc']], include: { model: todo, separate: true, order: [["deadline", "asc"]], include: { model: user } } } })
+            let departmentName = allData.name
+            let categories = allData.categories
 
-            res.status(200).json(allData)
+
+            res.status(200).json({ departmentName, categories })
         }
         catch (err) {
             next(err)
