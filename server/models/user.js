@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       user.hasMany(models.todo, { foreignKey: 'userId' })
+      user.hasMany(models.department_user, { foreignKey: 'userId' })
     }
   };
   user.init({

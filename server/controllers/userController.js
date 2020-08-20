@@ -13,8 +13,8 @@ class UserController {
             }
             else {
 
-
                 let userData = await user.findOne({ where: { email } })
+                
                 if (!userData) {
                     throw { msg: `Password atau Email Salah`, status: 400 }
                 }
@@ -24,9 +24,9 @@ class UserController {
                         throw { msg: `Password atau Email Salah`, status: 400 }
                     }
                     else {
-                        let token = createToken({ id: userData.id, name: userData.name, email: userData.email, position: userData.position })
+                        let token = createToken({ id: userData.id, name: userData.name, email: userData.email, position: userData.position, imageUrl: userData.imageUrl })
 
-                        res.status(200).json({ token, name: userData.name })
+                        res.status(200).json({ token, name: userData.name, email: userData.email, position: userData.position, imageUrl: userData.imageUrl })
                     }
                 }
             }
@@ -38,6 +38,11 @@ class UserController {
         }
 
     }
+
+    // static async createUser(req, res, next) {
+
+    // }
+
 }
 
 module.exports = UserController

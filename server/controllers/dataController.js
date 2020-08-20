@@ -1,4 +1,4 @@
-const { department, category, todo, user } = require('../models')
+const { department, category, todo, user, department_user } = require('../models')
 
 class DataController {
     static async findAllDepartment(req, res, next) {
@@ -8,7 +8,9 @@ class DataController {
                 throw { msg: `Tidak ada department yang terdaftar`, status: 400 }
             }
             else {
-                res.status(200).json(allDepartment)
+                let allUser = await user.findAll()
+                // res.status(200).json(allUser)
+                res.status(200).json({ allDepartment, allUser })
             }
         }
         catch (err) {
@@ -20,16 +22,21 @@ class DataController {
         let { id } = req.params
         try {
             let allData = await department.findOne({ where: { id }, include: { model: category, separate: true, order: [['id', 'asc']], include: { model: todo, separate: true, order: [["deadline", "asc"]], include: { model: user } } } })
+
+            let allUserInDepartment = await department_user.findAll({ where: { departmentId: id }, include: { model: user } })
+            let allUser = allUserInDepartment.map(data => {
+                return data.user
+            })
             let departmentName = allData.name
             let categories = allData.categories
 
-
-            res.status(200).json({ departmentName, categories })
+            res.status(200).json({ departmentName, allUser, categories })
         }
         catch (err) {
             next(err)
         }
     }
+
 
 
 

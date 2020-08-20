@@ -20,7 +20,7 @@ describe('Test Find All Department', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .expect(data => {
-                expect(Array.isArray(data.body)).toBe(true)
+                expect(data.body).toBeTruthy()
             })
             .end(err => {
                 if (err) {

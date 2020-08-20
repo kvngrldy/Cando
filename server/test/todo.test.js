@@ -46,34 +46,34 @@ describe('Test To Do Create', () => {
     })
 
 
-    test('To Do Create gagal with Member Account', (done) => {
-        let dummyTodo = {
-            title: "todo 14",
-            deadline: "2020-05-17T01:03:10.000Z",
-            priority: "low",
-            description: "Di sini ada siapa ya",
-            categoryId: 1,
-            userId: 5
-        }
-        request(app)
-            .post('/data/todo')
-            .send(dummyTodo)
-            .set('token', tokenMember)
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .expect(data => {
-                expect(data.body).toBe('Kamu tidak terotorisasi untuk ini, hubungi Admin')
-            })
-            .end(err => {
-                if (err) {
-                    done(err)
-                }
-                else {
-                    done()
-                }
+    // test('To Do Create berhasil with Member Account', (done) => {
+    //     let dummyTodo = {
+    //         title: "todo 14",
+    //         deadline: "2020-05-17T01:03:10.000Z",
+    //         priority: "low",
+    //         description: "Di sini ada siapa ya",
+    //         categoryId: 1,
+    //         userId: 5
+    //     }
+    //     request(app)
+    //         .post('/data/todo')
+    //         .send(dummyTodo)
+    //         .set('token', tokenMember)
+    //         .expect('Content-Type', /json/)
+    //         .expect(201)
+    //         .expect(data => {
+    //             expect(data.body.title).toBe()
+    //         })
+    //         .end(err => {
+    //             if (err) {
+    //                 done(err)
+    //             }
+    //             else {
+    //                 done()
+    //             }
 
-            })
-    })
+    //         })
+    // })
 
     test('To Do Create Gagal with Admin Account Title is Empty String', (done) => {
         let dummyTodo = {
