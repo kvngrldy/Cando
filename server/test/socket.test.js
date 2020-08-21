@@ -1,5 +1,7 @@
 const io = require('socket.io-client')
+// const app = require('../app')
 // const socket = io('http://localhost:3001')
+const { server } = require('../app')
 
 
 describe('Suite of unit tests', function() {
