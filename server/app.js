@@ -17,6 +17,10 @@ app.use(homeRoute)
 
 app.use(errHandler)
 
-app.listen(port, (req, res) => {
-    console.log(`listening to port :${port}`)
-})
+if (process.env.NODE_ENV != 'test') {
+    app.listen(port, (req, res) => {
+        console.log(`listening to port: ${port}`)
+    })
+}
+
+module.exports = app
