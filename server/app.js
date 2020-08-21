@@ -70,7 +70,8 @@ io.on('connection', socket => {
   })
 
   socket.on('exit-room', (data) => {
-    socket.leave(data.roomName, () => {
+    socket.join(data.roomName, () => {
+      // console.log(data);
       const roomIndex = rooms.findIndex(room => room.name === data.roomName)
       const remainUsers = rooms[roomIndex].users.filter(user => user.index !== data.exitUser[0].index)
       rooms[roomIndex].users = remainUsers
@@ -78,15 +79,15 @@ io.on('connection', socket => {
       if (remainUsers.length === 0) {
         rooms[roomIndex].messages = []
       }
-
+      // console.log(rooms[roomIndex]);
       io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
+    })
+    socket.leave(data.roomName, () => {
       io.emit('updated-rooms', rooms)
     })
   })
 
   socket.on('typing-start', ({ name, room }) => {
-    // console.log(data);
-    // console.log(name, room);
     socket.join(room, () => {
       // console.log(name);
       io.sockets.in(room).emit('typing-start', name)
@@ -98,17 +99,10 @@ io.on('connection', socket => {
   })
 })
 
-
-
 if (process.env.NODE_ENV != 'test') {
   server.listen(PORT, (req, res) => {
     console.log(`listening to port: ${PORT}`)
   })
 }
-// else {
-//     app.listen(port, (req, res) => {
-//         console.log(`listening to port: ${port}`)
-//     })
-// }
 
 module.exports = { app, server }
