@@ -36,9 +36,24 @@ describe('Suite of unit tests', function () {
     done();
   });
 
-  only.describe('Room tests', function () {
-    
-    
+  describe('Room tests', function () {
+
+    test("echos message", function (done) {
+
+      socket.once("connect", function () {
+        socket.once("echo", function (message) {
+          message.should.equal("Hello World");
+
+          socket.disconnect();
+          done();
+        });
+
+        socket.emit("echo", "Hello World");
+      });
+    });
+
+
+
     // test('get all rooms', (done) => {
     //   socket.emit('get-rooms')
 

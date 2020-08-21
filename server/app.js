@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express();
 const server = require('http').createServer(app)
-const io = require('socket.io')(server)
+const io = require('socket.io').listen(server)
 const PORT = process.env.PORT || 3001
 const cors = require('cors')
 const createRoom = require('./helpers/rooms')
@@ -20,7 +20,15 @@ app.use(errHandler)
 
 let rooms = createRoom()
 
-io.on('connection', socket => {
+io.sockets.on('connection', socket => {
+
+  socket.on('echo', function (msg, callback) {
+    callback = callback || function () { };
+    socket.emit('echo', msg)
+    callback(null, "Done.")
+  })
+
+
 
   socket.on('get-rooms', () => {
     // console.log(rooms);
