@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../app')
+const { app } = require('../app')
 const { verifyToken, createToken } = require('../helpers/jwt')
 let dummyAdmin = { id: 1, name: "user 1", email: 'user1@gmail.com', position: 'admin' }
 let dummyMember = { id: 2, name: 'user 2', email: 'user2@gmail.com', position: 'member' }
@@ -356,7 +356,7 @@ describe('Test Category Edit', () => {
             })
     })
     test('Test Category Edit Gagal dengan Admin Account DepartmentID Empty String', (done) => {
-        let dummyData = { name: 'this is my life now', departmentId:'' }
+        let dummyData = { name: 'this is my life now', departmentId: '' }
         request(app)
             .put(`/data/category/1`)
             .send(dummyData)
@@ -377,7 +377,7 @@ describe('Test Category Edit', () => {
     })
 
     test('Test Category Edit Gagal dengan Admin Account Name dan  DepartmentID Empty String', (done) => {
-        let dummyData = { name: '', departmentId:'' }
+        let dummyData = { name: '', departmentId: '' }
         request(app)
             .put(`/data/category/1`)
             .send(dummyData)
@@ -396,6 +396,6 @@ describe('Test Category Edit', () => {
                 }
             })
     })
-    
+
 
 })

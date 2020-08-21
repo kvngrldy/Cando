@@ -35,12 +35,10 @@ export default function Home() {
       username: localStorage.name
     }
     socket.emit('join-room', payload)
-    history.push(`/room`)
+    history.push(`/room/${roomName}`)
   }
 
   socket.on('updated-rooms', (rooms) => {
-    // console.log('ini balikan datanya dari create room hehe', rooms);
-    console.log(rooms);
     setRooms(rooms)
   })
 

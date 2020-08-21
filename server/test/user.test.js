@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../app')
+const { app } = require('../app')
 const { verifyToken, createToken } = require('../helpers/jwt')
 const e = require('express')
 let dummyAdmin = { id: 4, name: "user 4", email: 'user4@gmail.com', position: 'admin' }
