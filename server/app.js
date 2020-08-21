@@ -1,9 +1,9 @@
 // Semangat the pake bcrypt js ya
 const express = require('express')
 const app = express();
-const server = require('http').createServer()
+const server = require('http').createServer(app)
 const io = require('socket.io')(server)
-const port = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001
 const cors = require('cors')
 
 const errHandler = require('./middleware/errorHandler')
@@ -116,8 +116,8 @@ io.on('connection', socket => {
 
 
 if (process.env.NODE_ENV != 'test') {
-    server.listen(port, (req, res) => {
-        console.log(`listening to port: ${port}`)
+    server.listen(PORT, (req, res) => {
+        console.log(`listening to port: ${PORT}`)
     })
 } 
 // else {
