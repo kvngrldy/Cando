@@ -14,9 +14,9 @@ const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-function TodoAndProfile() {
+function TodoAndProfile({route}) {
   return (
-    <Tab.Navigator tabBarOptions={{showLabel: true, showIcon: true}} >
+    <Tab.Navigator value={route.params} tabBarOptions={{showLabel: true, showIcon: true}} >
       <Tab.Screen options={{tabBarIcon: () => (<FontAwesomeIcon icon={faTasks} /> )}} name="TASKS" component={Todo} />
       <Tab.Screen options={{tabBarIcon: () => (<FontAwesomeIcon icon={faUser} /> )}} name="PROFILE" component={Profile} />
     </Tab.Navigator>

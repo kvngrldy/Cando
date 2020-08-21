@@ -52,10 +52,7 @@ const Todo = ({ navigation }) => {
                         </View>
                         <View style={styles.btn}>
                             <View style={styles.done}>
-                                <Button title="DONE" />
-                            </View>
-                            <View style={styles.trash}>
-                                <Button title="TRASH" />
+                                <Button title="CHANGE STATUS" />
                             </View>
                         </View>
                     </View>
@@ -68,10 +65,7 @@ const Todo = ({ navigation }) => {
                         </View>
                         <View style={styles.btn}>
                             <View style={styles.done}>
-                                <Button title="DONE" />
-                            </View>
-                            <View style={styles.trash}>
-                                <Button title="TRASH" />
+                                <Button title="CHANGE STATUS" />
                             </View>
                         </View>
                     </View>
@@ -106,7 +100,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        marginBottom: 2,
+        marginBottom: 20,
         textAlign: "center",
         height: 30
     },
@@ -123,13 +117,9 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     done: {
-        width: 300,
-        marginLeft: 10,
-        marginBottom: 10
-    },
-    trash: {
-        width: 300,
-        marginLeft: 10,
-        marginBottom: 20
+        width: 200,
+        marginLeft: 60,
+        marginBottom: 10,
+        marginTop: 20
     }
 })

@@ -35,17 +35,44 @@ function Room() {
                     <div className="chat-section">
                         <div className="chat-board">
                             <div className="chat-box">
-                                <div>
+                                <div className="chat-online-box">
                                     <div className="chat-online">
-
+                                        <h2>MEETING ROOM</h2>
+                                    </div>
+                                    <div className="people-box">
+                                        <div className="online">
+                                            <img className="profile-picture" alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvyDUUx4x7Iu6xetTkfi_LwDDzfNnJDn-S0Q&usqp=CAU" />
+                                            <p className="name">Gregorius Eldwin Pradipta</p>
+                                        </div>
+                                        <div className="online">
+                                            <img className="profile-picture" alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvyDUUx4x7Iu6xetTkfi_LwDDzfNnJDn-S0Q&usqp=CAU" />
+                                            <p className="name">Kevin Geraldy</p>
+                                        </div>
+                                        <div className="online">
+                                            <img className="profile-picture" alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvyDUUx4x7Iu6xetTkfi_LwDDzfNnJDn-S0Q&usqp=CAU" />
+                                            <p className="name">Theodorus Arie Sugiharto</p>
+                                        </div>
+                                        <div className="online">
+                                            <img className="profile-picture" alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvyDUUx4x7Iu6xetTkfi_LwDDzfNnJDn-S0Q&usqp=CAU" />
+                                            <p className="name">Roy Willis</p>
+                                        </div>
+                                        <div className="online">
+                                            <img className="profile-picture" alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvyDUUx4x7Iu6xetTkfi_LwDDzfNnJDn-S0Q&usqp=CAU" />
+                                            <p className="name">Handana Williyantoro</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="chat">
-
+                                <div className="chat-division">
+                                    <div className="chat-app-box">
+                                        
                                     </div>
-                                    <div className="chat-bar">
-
+                                    <div className="chat-bar-box">
+                                        <div className="chat-bar">
+                                        <div className="chat">
+                                            <input className="textbox" type="text" placeholder="Enter message here..." />
+                                            <button className="send" >SEND</button>
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

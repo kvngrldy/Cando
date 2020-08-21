@@ -209,3 +209,115 @@
   background-color: white;
   color: red;
 }
+
+.chat-box{
+  display: flex;
+}
+
+.chat-online-box{
+  width: 25%;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0px 0px 10px grey;
+  z-index: 5;
+  overflow-y: scroll;
+}
+
+.chat-online-box::-webkit-scrollbar{
+  display: none;
+}
+
+.chat-division{
+  height: 100%;
+  width: 75%;
+}
+
+.chat-app-box{
+  width: 100%;
+  height: 90%;
+  background-color: white;
+}
+
+.chat-bar-box{
+  background-color: white;
+  width: 100%;
+  height: 10%;
+  box-shadow: 0px 0px 5px grey;
+}
+
+.online-title{
+  height: 20%;
+  width: 100%;
+  border-bottom: 2px solid whitesmoke;
+  z-index: 10;
+}
+
+.chat-online{
+  width: 100%;
+  height: 10%;
+  border-bottom: 2px solid grey;
+  text-align: center;
+}
+
+.chat-online > h2{
+  margin-top: 7%;
+}
+
+.online{
+  width: 100%;
+  display: flex;
+  height: 15%;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.profile-picture{
+  width: 50px;
+  height: 50px;
+  margin-left: 10%;
+  border: 0.5px solid black;
+}
+
+.name{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 2%;
+  margin-left: 5px;
+}
+
+.chat{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.chat-bar{
+  width: 100%;
+  height: 100%;
+}
+
+.textbox{
+  width: 50%;
+  height: 40px;
+  border-top: none;
+  border-bottom: 2px solid black;
+  border-right: none;
+  border-left: none;
+  background-color: transparent;
+  margin-right: 30px;
+  margin-top: auto;
+  margin-bottom: auto;
+  outline: none;
+}
+
+.send{
+  background-color:turquoise;
+  width: 80px;
+  height: 43px;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+  outline: none;
+}

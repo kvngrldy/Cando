@@ -1,24 +1,62 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, Image, AsyncStorage } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-const Profile = () => {
+const Profile = ({ route }) => {
+
+    let { name, email, position, imageUrl } = route.params
+    let [debug, setDebug] = useState('')
+    let [userId, setUserId] = useState('')
+
+    useEffect(() => {
+        fetch('https://dummycando.herokuapp.com/data', {
+                method: 'get'
+        })
+        .then(res => res.json())
+        .then(check => {
+            for(let i = 0 ; i < check.allUser.length ; i++){
+                if(check.allUser[i].email === email){
+                    setUserId(check.allUser[i].id)
+                }
+            }
+        })
+        .catch(err => console.log)
+    }, [])
+
+    useEffect(() => {
+        AsyncStorage.getItem('token')
+        .then(data => {
+            return fetch(`https://dummycando.herokuapp.com/data/${userId}`, {
+                method: 'get',
+                headers: {
+                    "token": data
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(response => {
+            setDebug(response)
+        })
+        .catch(err => console.log)
+    }, [userId])
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.task}>
+                <Text>{JSON.stringify(debug)}</Text>
                 <View style={styles.description}>
                     <View>
-                        <Image resizeMode="center" style={{ width: "50%", height: 150, borderRadius: 100000, borderWidth: 1, borderColor: "black", marginBottom: 50, marginTop: 50, marginLeft: "25%" }} source={{ uri: 'https://upload.wikimedia.org/wikipedia/en/a/aa/Bart_Simpson_200px.png' }} />
+                        <Image resizeMode="center" style={{ width: "50%", height: 150, borderRadius: 100000, borderWidth: 1, borderColor: "black", marginBottom: 50, marginTop: 50, marginLeft: "25%" }} source={{ uri: imageUrl }} />
                     </View>
                     <View>
-                        <Text style={styles.category}>Bartholomew JoJo Simpson</Text>
+                        <Text style={styles.category}>{name}</Text>
                     </View>
                     <View>
-                        <Text style={styles.email}>bart@gmail.com</Text>
+                        <Text style={styles.email}>{email}</Text>
                     </View>
                     <View>
-                        <Text style={styles.position}>Software Engineer</Text>
+                        <Text style={styles.position}>{position}</Text>
                     </View>
                     <View>
                         <Text style={styles.department}>Technology Information</Text>

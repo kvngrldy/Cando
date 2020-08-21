@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 const Login = ({ navigation }) => {
@@ -22,17 +23,43 @@ const Login = ({ navigation }) => {
 
   function loginHandler(event) {
     event.preventDefault()
-    if(!email || !password){
-      setStatus('All fields are required!')
-    } else {
-      navigation.navigate("TodoPage")
-    }
+    fetch('https://dummycando.herokuapp.com/data/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if(data === 'Password dan Email Harus Di Isi' || data === 'Password atau Email Salah'){
+          setStatus(data)
+        } else {
+          navigation.navigate("TodoPage", {
+            screen: 'PROFILE',
+            params: {
+              name: data.name,
+              email: data.email,
+              imageUrl: data.imageUrl,
+              position: data.position
+            }
+          })
+          return data
+        }
+      })
+      .then(access => {
+        AsyncStorage.setItem('token', access.token)
+      })
+      .catch(err => console.log)
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>CANDO</Text>
-      <Text style={styles.textStatus}>{JSON.stringify(status)}</Text>
+      <Text style={styles.textStatus}>{status}</Text>
       <View style={styles.inputContainer}>
         <TextInput style={styles.inputs}
           placeholder="Email"
