@@ -1,4 +1,4 @@
-const { user, department, department_user } = require('../models')
+const { user, department, department_user, todo, category } = require('../models')
 const { checkPassword, hashPassword } = require('../helpers/bcryptjs')
 const { createToken } = require('../helpers/jwt')
 
@@ -130,6 +130,26 @@ class UserController {
             next(err)
         }
 
+    }
+    static async findOneUserData(req, res, next) {
+        let { id, name, email, position, imageUrl } = req.userData
+        let userData = { id, name, email, position, imageUrl }
+        let departmentId = await department_user.findAll({ where: { userId: id } })
+        let kodeDepartment = departmentId.map(a => {
+            return a.departmentId
+        })
+        let departmentList = await department.findAll()
+        let userDept = departmentList.filter(a => {
+            return kodeDepartment.filter(b => a.id = b)
+        })
+        userDept = userDept.map(a => {
+            return a.name
+        })
+        let userTodo = await todo.findAll({ where: { userId: id }, include: { model: category, include: { model: department } } })
+
+
+
+        res.status(200).json({ userData, userDept, userTodo })
     }
 
 }
