@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1598070117665" clover="3.2.0">
-  <project timestamp="1598070117665" name="All files">
-    <metrics statements="339" coveredstatements="312" conditionals="72" coveredconditionals="61" methods="47" coveredmethods="41" elements="458" coveredelements="414" complexity="0" loc="339" ncloc="339" packages="6" files="24" classes="24"/>
+<coverage generated="1598103133030" clover="3.2.0">
+  <project timestamp="1598103133031" name="All files">
+    <metrics statements="344" coveredstatements="321" conditionals="90" coveredconditionals="72" methods="44" coveredmethods="41" elements="478" coveredelements="434" complexity="0" loc="344" ncloc="344" packages="6" files="23" classes="23"/>
     <package name="server">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="app.js" path="D:\Hacktiv8\Final_Project\Cando\server\app.js">
+      <file name="app.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\app.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
         <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
         <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
         <line num="17" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
-        <line num="21" count="4" type="stmt"/>
-        <line num="23" count="4" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="152" coveredstatements="132" conditionals="40" coveredconditionals="33" methods="20" coveredmethods="17"/>
-      <file name="categoryController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\categoryController.js">
-        <metrics statements="32" coveredstatements="32" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+      <metrics statements="165" coveredstatements="144" conditionals="58" coveredconditionals="44" methods="20" coveredmethods="17"/>
+      <file name="categoryController.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\controllers\categoryController.js">
+        <metrics statements="35" coveredstatements="35" conditionals="10" coveredconditionals="9" methods="4" coveredmethods="4"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
-        <line num="22" count="3" type="stmt"/>
-        <line num="23" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="27" count="2" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="37" count="2" type="stmt"/>
-        <line num="38" count="2" type="stmt"/>
-        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="40" count="1" type="stmt"/>
+        <line num="9" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="43" count="1" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="52" count="5" type="stmt"/>
-        <line num="53" count="5" type="stmt"/>
-        <line num="54" count="5" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
         <line num="55" count="5" type="stmt"/>
-        <line num="56" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="60" count="4" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="69" count="4" type="stmt"/>
-        <line num="74" count="4" type="stmt"/>
+        <line num="56" count="5" type="stmt"/>
+        <line num="57" count="5" type="stmt"/>
+        <line num="58" count="5" type="stmt"/>
+        <line num="59" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="63" count="4" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="72" count="4" type="stmt"/>
+        <line num="77" count="4" type="stmt"/>
       </file>
-      <file name="dataController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\dataController.js">
+      <file name="dataController.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\controllers\dataController.js">
         <metrics statements="18" coveredstatements="16" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -78,8 +81,8 @@
         <line num="39" count="0" type="stmt"/>
         <line num="47" count="4" type="stmt"/>
       </file>
-      <file name="todoController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\todoController.js">
-        <metrics statements="26" coveredstatements="26" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <file name="todoController.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\controllers\todoController.js">
+        <metrics statements="33" coveredstatements="32" conditionals="10" coveredconditionals="7" methods="4" coveredmethods="4"/>
         <line num="1" count="4" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
@@ -96,19 +99,26 @@
         <line num="35" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
+        <line num="38" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="39" count="1" type="stmt"/>
-        <line num="43" count="2" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="45" count="2" type="stmt"/>
-        <line num="47" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="62" count="4" type="stmt"/>
+        <line num="40" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="58" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="73" count="4" type="stmt"/>
       </file>
-      <file name="userController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\userController.js">
-        <metrics statements="76" coveredstatements="58" conditionals="28" coveredconditionals="22" methods="9" coveredmethods="6"/>
+      <file name="userController.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\controllers\userController.js">
+        <metrics statements="79" coveredstatements="61" conditionals="36" coveredconditionals="27" methods="9" coveredmethods="6"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -147,49 +157,52 @@
         <line num="85" count="1" type="stmt"/>
         <line num="90" count="3" type="stmt"/>
         <line num="91" count="3" type="stmt"/>
-        <line num="92" count="3" type="stmt"/>
+        <line num="92" count="3" type="cond" truecount="3" falsecount="1"/>
         <line num="93" count="3" type="stmt"/>
-        <line num="94" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="95" count="1" type="stmt"/>
-        <line num="99" count="2" type="stmt"/>
-        <line num="101" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="102" count="1" type="stmt"/>
-        <line num="105" count="1" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
+        <line num="95" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="100" count="2" type="stmt"/>
+        <line num="102" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="103" count="1" type="stmt"/>
         <line num="106" count="1" type="stmt"/>
-        <line num="113" count="2" type="stmt"/>
-        <line num="119" count="1" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
+        <line num="114" count="2" type="stmt"/>
         <line num="120" count="1" type="stmt"/>
         <line num="121" count="1" type="stmt"/>
-        <line num="123" count="1" type="stmt"/>
+        <line num="122" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="123" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="124" count="1" type="stmt"/>
-        <line num="125" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="126" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
         <line num="127" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="128" count="0" type="stmt"/>
-        <line num="131" count="1" type="stmt"/>
-        <line num="132" count="1" type="stmt"/>
-        <line num="136" count="0" type="stmt"/>
-        <line num="141" count="0" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
+        <line num="128" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="129" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="134" count="1" type="stmt"/>
+        <line num="138" count="0" type="stmt"/>
         <line num="143" count="0" type="stmt"/>
         <line num="144" count="0" type="stmt"/>
         <line num="145" count="0" type="stmt"/>
+        <line num="146" count="0" type="stmt"/>
         <line num="147" count="0" type="stmt"/>
-        <line num="148" count="0" type="stmt"/>
+        <line num="149" count="0" type="stmt"/>
         <line num="150" count="0" type="stmt"/>
-        <line num="151" count="0" type="stmt"/>
         <line num="152" count="0" type="stmt"/>
-        <line num="153" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="153" count="0" type="stmt"/>
         <line num="154" count="0" type="stmt"/>
-        <line num="158" count="0" type="stmt"/>
-        <line num="159" count="0" type="stmt"/>
-        <line num="164" count="0" type="stmt"/>
-        <line num="169" count="4" type="stmt"/>
+        <line num="155" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+        <line num="161" count="0" type="stmt"/>
+        <line num="166" count="0" type="stmt"/>
+        <line num="171" count="4" type="stmt"/>
       </file>
     </package>
     <package name="server.helpers">
-      <metrics statements="19" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="4"/>
-      <file name="bcryptjs.js" path="D:\Hacktiv8\Final_Project\Cando\server\helpers\bcryptjs.js">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+      <file name="bcryptjs.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\helpers\bcryptjs.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -198,7 +211,7 @@
         <line num="11" count="2" type="stmt"/>
         <line num="14" count="4" type="stmt"/>
       </file>
-      <file name="jwt.js" path="D:\Hacktiv8\Final_Project\Cando\server\helpers\jwt.js">
+      <file name="jwt.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\helpers\jwt.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -206,21 +219,10 @@
         <line num="9" count="36" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
       </file>
-      <file name="rooms.js" path="D:\Hacktiv8\Final_Project\Cando\server\helpers\rooms.js">
-        <metrics statements="8" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
-      </file>
     </package>
     <package name="server.middleware">
       <metrics statements="57" coveredstatements="56" conditionals="23" coveredconditionals="22" methods="6" coveredmethods="6"/>
-      <file name="authentication.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authentication.js">
+      <file name="authentication.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\middleware\authentication.js">
         <metrics statements="14" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -237,7 +239,7 @@
         <line num="27" count="2" type="stmt"/>
         <line num="36" count="4" type="stmt"/>
       </file>
-      <file name="authorizationAdmin.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authorizationAdmin.js">
+      <file name="authorizationAdmin.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\middleware\authorizationAdmin.js">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="6" count="24" type="stmt"/>
@@ -248,7 +250,7 @@
         <line num="19" count="3" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
       </file>
-      <file name="authorizationDepartment.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authorizationDepartment.js">
+      <file name="authorizationDepartment.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\middleware\authorizationDepartment.js">
         <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
@@ -261,7 +263,7 @@
         <line num="18" count="1" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
       </file>
-      <file name="authorizationEditTodo.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authorizationEditTodo.js">
+      <file name="authorizationEditTodo.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\middleware\authorizationEditTodo.js">
         <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -276,26 +278,26 @@
         <line num="24" count="2" type="stmt"/>
         <line num="31" count="4" type="stmt"/>
       </file>
-      <file name="errorHandler.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\errorHandler.js">
+      <file name="errorHandler.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\middleware\errorHandler.js">
         <metrics statements="13" coveredstatements="13" conditionals="7" coveredconditionals="7" methods="2" coveredmethods="2"/>
         <line num="6" count="34" type="cond" truecount="3" falsecount="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
-        <line num="14" count="14" type="stmt"/>
-        <line num="15" count="20" type="stmt"/>
-        <line num="17" count="13" type="stmt"/>
-        <line num="18" count="13" type="stmt"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="15" count="17" type="stmt"/>
+        <line num="17" count="11" type="stmt"/>
+        <line num="18" count="11" type="stmt"/>
         <line num="21" count="33" type="cond" truecount="2" falsecount="0"/>
-        <line num="22" count="13" type="stmt"/>
+        <line num="22" count="11" type="stmt"/>
         <line num="24" count="33" type="cond" truecount="2" falsecount="0"/>
-        <line num="25" count="13" type="stmt"/>
+        <line num="25" count="11" type="stmt"/>
         <line num="27" count="33" type="stmt"/>
         <line num="35" count="4" type="stmt"/>
       </file>
     </package>
     <package name="server.models">
       <metrics statements="52" coveredstatements="51" conditionals="9" coveredconditionals="6" methods="14" coveredmethods="14"/>
-      <file name="category.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\category.js">
+      <file name="category.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\models\category.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -304,7 +306,7 @@
         <line num="19" count="4" type="stmt"/>
         <line num="52" count="4" type="stmt"/>
       </file>
-      <file name="department.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\department.js">
+      <file name="department.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\models\department.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -313,7 +315,7 @@
         <line num="19" count="4" type="stmt"/>
         <line num="25" count="4" type="stmt"/>
       </file>
-      <file name="department_user.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\department_user.js">
+      <file name="department_user.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\models\department_user.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -322,7 +324,7 @@
         <line num="18" count="4" type="stmt"/>
         <line num="25" count="4" type="stmt"/>
       </file>
-      <file name="index.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\index.js">
+      <file name="index.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\models\index.js">
         <metrics statements="20" coveredstatements="19" conditionals="9" coveredconditionals="6" methods="3" coveredmethods="3"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
@@ -345,7 +347,7 @@
         <line num="35" count="4" type="stmt"/>
         <line num="37" count="4" type="stmt"/>
       </file>
-      <file name="todo.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\todo.js">
+      <file name="todo.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\models\todo.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -354,7 +356,7 @@
         <line num="18" count="4" type="stmt"/>
         <line num="107" count="4" type="stmt"/>
       </file>
-      <file name="user.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\user.js">
+      <file name="user.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\models\user.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="2" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -368,7 +370,7 @@
     </package>
     <package name="server.routes">
       <metrics statements="47" coveredstatements="47" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="categoryRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\categoryRoute.js">
+      <file name="categoryRoute.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\routes\categoryRoute.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -379,7 +381,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
       </file>
-      <file name="dataRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\dataRoute.js">
+      <file name="dataRoute.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\routes\dataRoute.js">
         <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -402,14 +404,14 @@
         <line num="21" count="4" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
       </file>
-      <file name="homeRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\homeRoute.js">
+      <file name="homeRoute.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\routes\homeRoute.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
       </file>
-      <file name="todoRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\todoRoute.js">
+      <file name="todoRoute.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\routes\todoRoute.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -420,7 +422,7 @@
         <line num="13" count="4" type="stmt"/>
         <line num="15" count="4" type="stmt"/>
       </file>
-      <file name="userRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\userRoute.js">
+      <file name="userRoute.js" path="D:\Hacktiv8\PHASE-3\FINALLLLLL\Cando\server\routes\userRoute.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>

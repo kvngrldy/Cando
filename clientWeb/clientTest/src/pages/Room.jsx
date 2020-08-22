@@ -14,8 +14,15 @@ export default function Room() {
   socket.on('room-detail', (roomDetail) => {
     setRoomData(roomDetail)
     setChats(roomDetail.messages)
-    // console.log(roomDetail);
+    console.log(roomDetail, `detail`)
+    
   })
+
+  useEffect (() => {
+    console.log('tessssss')
+  }, [roomData])
+
+  
 
   const exitRoom = () => {
     // console.log(roomData);

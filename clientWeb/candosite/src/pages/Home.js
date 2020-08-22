@@ -1,92 +1,99 @@
-import React, { useState,  useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-
+import Sidebar from '../components/Sidebar'
+import { Form, Button } from 'react-bootstrap'
+import Card from '../components/Card'
 function Home() {
 
-    useEffect(() => {
-        checkAuthentication()
-    }, [])
+    const [isEditCategory, setIsEditCategory] = useState(false)
 
-    let history = useHistory()
-
-    function goToPage(page) {
-        history.push(page)
-    }
-
-    async function checkAuthentication() {
-        let data = await localStorage.getItem('token')
-        if(!data || data === null){
-            history.push('/login')
-        }
-    }
-
-    function logout(event){
-        event.preventDefault()
-        localStorage.removeItem('token')
-        history.push("/login")
+    function categoryEdit() {
+        setIsEditCategory(!isEditCategory)
     }
 
     return (
         <div className="board-background">
             <div className="board-container">
                 <div className="board-display">
-                    <div className="board-sidebar">
-                        <div className="title-section">
-                            <h2 className="room-title">CANDO</h2>
-                        </div>
-                        <div style={{ height: '90%' }}>
-                            <div style={{ marginTop: '20%' }} className="room-section">
-                                <h2 onClick={() => goToPage('/')} className="room-text">KANBAN</h2>
-                            </div>
-                            <div className="room-section">
-                                <h2 onClick={() => goToPage('/room')} className="room-text">MEETING ROOM 1</h2>
-                            </div>
-                            <div className="room-section">
-                                <h2 onClick={() => goToPage('/room')} className="room-text">MEETING ROOM 2</h2>
-                            </div>
-                            <div className="room-section">
-                                <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>
-                            </div>
-                        </div>
-                    </div>
+
+                    <Sidebar></Sidebar>
+
                     <div className="main-content">
                         <div className="main-section">
                             <div className="kanban-section">
-                                <div className="kanban-board">
-                                    <div className="kanban-title">
-                                        <p>BACKLOG</p>
-                                    </div>
-                                    <div className="kanban-body">
+                                <div className="kanban-header">
+                                    <h1>Department Name</h1>
+                                </div>
+                                <div className="kanban-group">
+                                    <div className="kanban-board">
+                                        {isEditCategory == false ? <div className="kanban-title">
+                                            <p>BACKLOG</p>
+                                            <span style={{ color: 'grey', marginTop: '2px' }}>
+                                                <i onClick={() => categoryEdit()} class="fas fa-ellipsis-h cursor"></i>
+                                            </span>
 
+                                        </div> : <div className="kanban-title-edit">
+
+                                                <Form.Group controlId="exampleForm.ControlInput1" style={{ padding: '0px'}}>
+                                                    
+                                                    <Form.Control size="sm" type="text" placeholder="Category Name..." />
+                                                </Form.Group>
+                                                <span>
+                                                   <Button onClick={() => categoryEdit()} variant="primary" size="sm" className="mb-3">Edit</Button> 
+                                                </span>
+                                                
+
+                                            </div>}
+
+                                        <div className="kanban-body">
+                                            <Card></Card>
+                                            <Card></Card>
+                                            <Card></Card>
+                                            <Card></Card>
+                                        </div>
+                                    </div>
+                                    <div className="kanban-board">
+                                        <div className="kanban-title">
+                                            <p>DEVELOPMENT</p>
+                                            <span style={{ color: 'grey', marginTop: '2px' }}>
+                                                <i class="fas fa-ellipsis-h cursor"></i>
+                                            </span>
+                                        </div>
+                                        <div className="kanban-body">
+                                            <Card></Card>
+                                            <Card></Card>
+                                        </div>
+                                    </div>
+                                    <div className="kanban-board">
+                                        <div className="kanban-title">
+                                            <p>PRODUCTION</p>
+                                            <span style={{ color: 'grey', marginTop: '2px' }}>
+                                                <i class="fas fa-ellipsis-h cursor"></i>
+                                            </span>
+                                        </div>
+                                        <div className="kanban-body">
+                                            <Card></Card>
+
+                                        </div>
+                                    </div>
+                                    <div className="kanban-board">
+                                        <div className="kanban-title">
+                                            <p>DONE</p>
+                                            <span style={{ color: 'grey', marginTop: '2px' }}>
+                                                <i class="fas fa-ellipsis-h cursor"></i>
+                                            </span>
+                                        </div>
+                                        <div className="kanban-body">
+                                            <Card></Card>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="kanban-board">
-                                    <div className="kanban-title">
-                                        <p>DEVELOPMENT</p>
-                                    </div>
-                                    <div className="kanban-body">
 
-                                    </div>
-                                </div>
-                                <div className="kanban-board">
-                                    <div className="kanban-title">
-                                        <p>PRODUCTION</p>
-                                    </div>
-                                    <div className="kanban-body">
-
-                                    </div>
-                                </div>
-                                <div className="kanban-board">
-                                    <div className="kanban-title">
-                                        <p>DONE</p>
-                                    </div>
-                                    <div className="kanban-body">
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
