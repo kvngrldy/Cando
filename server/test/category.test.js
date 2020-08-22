@@ -123,6 +123,29 @@ describe('Test Category Create', () => {
     })
 
 
+    test('Category Create with Admin Account DepartmentId tidak terdaftar', (done) => {
+        let dummyCategory = { name: 'Test Category', departmentId:10000 }
+        request(app)
+            .post('/data/category')
+            .send(dummyCategory)
+            .set('token', tokenAdmin)
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .expect(data => {
+                expect(data.body).toBe('Department Tidak Terdaftar')
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+
+            })
+    })
+
+
 })
 
 describe('Test Category FindOne', () => {

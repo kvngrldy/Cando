@@ -26,7 +26,25 @@ class UserController {
                     else {
                         let token = createToken({ id: userData.id, name: userData.name, email: userData.email, position: userData.position, imageUrl: userData.imageUrl })
 
-                        res.status(200).json({ token, name: userData.name, email: userData.email, position: userData.position, imageUrl: userData.imageUrl })
+                        let departmentId = await department_user.findAll({ where: { userId: userData.id } })
+                        let departmentList = await department.findAll()
+
+                        let kodeDepartment = departmentId.map(a => {
+                            return a.departmentId
+                        })
+                        let userDept = []
+                        for (let i = 0; i < kodeDepartment.length; i++) {
+                            for (let j = 0; j < departmentList.length; j++) {
+                                if (kodeDepartment[i] === departmentList[j].id) {
+                                    userDept.push(departmentList[j])
+                                }
+                            }
+                        }
+                        userDept = userDept.map(a => {
+                            return { id: a.id, name: a.name }
+                        })
+                        // res.status(200).json(userDept)
+                        res.status(200).json({ token, name: userData.name, email: userData.email, position: userData.position, imageUrl: userData.imageUrl, userDept })
                     }
                 }
             }
@@ -53,6 +71,7 @@ class UserController {
                     let newUser = await user.create({ name, password, email, position, imageUrl })
 
                     await department_user.create({ userId: newUser.id, departmentId })
+
                     res.status(201).json(newUser)
 
                 }
