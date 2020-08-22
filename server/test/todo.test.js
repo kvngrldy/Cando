@@ -8,6 +8,7 @@ let tokenMember = createToken(dummyMember)
 let realTodoId = 1
 let fakeTodoId = 10000
 let createdTodoId = ''
+let createdTodoData;
 
 
 describe('Test To Do Create', () => {
@@ -27,7 +28,8 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(201)
             .expect(data => {
-                // createdTodoId = data.body.id
+                createdTodoId = data.body.id
+                createdTodoData = data.body
                 expect(data.body.priority).toBe(dummyTodo.priority)
                 expect(data.body.categoryId).toBe(dummyTodo.categoryId)
                 expect(data.body.title).toBe(dummyTodo.title)
@@ -331,7 +333,7 @@ describe('Test To Do Find One', () => {
 
 describe('Test To Do Edit To Do', () => {
     test('Test To Do Berhasil Edit', (done) => {
-        let dummyData = { title: 'babababa' }
+        let dummyData = { title: 'babababa',deadline:createdTodoData.deadline,priority:createdTodoData.priority,description:createdTodoData.description,categoryId:createdTodoData.categoryId, userId: 1 }
         request(app)
             .put(`/data/todo/${createdTodoId}`)
             .set('token', tokenAdmin)
@@ -394,6 +396,74 @@ describe('Test To Do Edit To Do', () => {
 
             })
     })
+
+    test('Test To Do Gagal Edit, User ID tidak di isi', (done) => {
+        let dummyData = { title: 'babababa' }
+        request(app)
+            .put(`/data/todo/${createdTodoId}`)
+            .set('token', tokenAdmin)
+            .send(dummyData)
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .expect(data => {
+                expect(data.body).toBe('User ID harus di isi')
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+
+            })
+    })
+
+    test('Test To Do Gagal Edit, User ID tidak terdaftar', (done) => {
+        let dummyData = { title: 'babababa', userId:100000 }
+        request(app)
+            .put(`/data/todo/${createdTodoId}`)
+            .set('token', tokenAdmin)
+            .send(dummyData)
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .expect(data => {
+                expect(data.body).toBe('User tidak terdaftar')
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+
+            })
+    })
+
+    test('Test To Do Gagal Edit, Category ID tidak terdaftar', (done) => {
+        let dummyData = { title: 'babababa', categoryId:100000, userId:1 }
+        request(app)
+            .put(`/data/todo/${createdTodoId}`)
+            .set('token', tokenAdmin)
+            .send(dummyData)
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .expect(data => {
+                expect(data.body).toBe('Category tidak terdaftar')
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+
+            })
+    })
+    
+
 })
 
 describe('Test To Do Delete To Do', () => {

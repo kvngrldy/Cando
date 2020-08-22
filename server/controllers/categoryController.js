@@ -6,7 +6,7 @@ class CategoryController {
         let { name, departmentId } = req.body
 
         try {
-            if (!departmentId) throw { msg: 'Department ID harus di isi', status: 400 }
+            if (!departmentId) throw { msg: 'Department ID Harus Di Isi', status: 400 }
             let findDepartment = await department.findOne({ where: { id: departmentId } })
             if (!findDepartment) throw { msg: 'Department Tidak Terdaftar', status: 400 }
             let newCategory = await category.create({ name, departmentId })

@@ -35,15 +35,16 @@ class TodoController {
         let { title, deadline, priority, description, categoryId, userId } = req.body
         let { id } = req.params
         try {
+            if (!userId) throw { msg: `User ID harus di isi`, status: 400 }
             let findUser = await user.findOne({ where: { id: userId } })
             if (!findUser) throw { msg: `User tidak terdaftar`, status: 400 }
             let findCategory = await category.findOne({ where: { id: categoryId } })
-            if (!findCategory) throw { msg: `Department tidak terdaftar`, status: 400 }
+            if (!findCategory) throw { msg: `Category tidak terdaftar`, status: 400 }
             let editedTodo = await todo.update({ title, deadline, priority, description, categoryId, userId }, { where: { id } })
-            if (editedTodo) {
-                let newEditedData = await todo.findOne({ where: { id } })
-                res.status(200).json(newEditedData)
-            }
+            let newEditedData = await todo.findOne({ where: { id } })
+            res.status(200).json(newEditedData)
+
+
         }
         catch (err) {
             next(err)

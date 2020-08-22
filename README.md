@@ -409,7 +409,7 @@ User tidak terdaftar
 Category ID tidak terdaftar
 
 ```
-Department tidak terdaftar
+Category tidak terdaftar
 ```
 <br>
 
