@@ -257,7 +257,7 @@ describe('Test Remove User From Department', () => {
         let dummyData = { userId: createdUserId, departmentId: 1 }
         request(app)
             .delete('/data/remove')
-            .set('token',tokenAdmin)
+            .set('token', tokenAdmin)
             .send(dummyData)
             .expect('Content-Type', /json/)
             .expect(200)

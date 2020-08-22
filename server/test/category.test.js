@@ -356,7 +356,7 @@ describe('Test Category Edit', () => {
             })
     })
     test('Test Category Edit Gagal dengan Admin Account DepartmentID Empty String', (done) => {
-        let dummyData = { name: 'this is my life now', departmentId:'' }
+        let dummyData = { name: 'this is my life now', departmentId: '' }
         request(app)
             .put(`/data/category/1`)
             .send(dummyData)
@@ -377,7 +377,7 @@ describe('Test Category Edit', () => {
     })
 
     test('Test Category Edit Gagal dengan Admin Account Name dan  DepartmentID Empty String', (done) => {
-        let dummyData = { name: '', departmentId:'' }
+        let dummyData = { name: '', departmentId: '' }
         request(app)
             .put(`/data/category/1`)
             .send(dummyData)
@@ -396,6 +396,6 @@ describe('Test Category Edit', () => {
                 }
             })
     })
-    
+
 
 })

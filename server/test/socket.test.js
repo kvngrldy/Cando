@@ -1,78 +1,91 @@
 const io = require('socket.io-client')
-// const socket = io('http://localhost:3001')
 
 
-describe('Suite of unit tests', function() {
+// const server = require('../server')
+
+
+describe('Suite of unit tests', function () {
 
   var socket;
 
-  beforeEach(function(done) {
-      // Setup
-      socket = io.connect('http://localhost:3001', {
-          'reconnection delay' : 0
-          , 'reopen delay' : 0
-          , 'force new connection' : true
-      });
-      socket.on('connect', function() {
-          console.log('worked...');
-          done();
-      });
-      socket.on('disconnect', function() {
-          console.log('disconnected...');
-      })
-  });
-
-  afterEach(function(done) {
-      // Cleanup
-      if(socket.connected) {
-          console.log('disconnecting...');
-          socket.disconnect();
-      } else {
-          // There will not be a connection unless you have done() in beforeEach, socket.on('connect'...)
-          console.log('no connection to break...');
-      }
+  beforeEach(function (done) {
+    // Setup
+    socket = io.connect('http://localhost:3001', {
+      'reconnection delay': 0
+      , 'reopen delay': 0
+      , 'force new connection': true
+    });
+    socket.on('connect', function () {
+      console.log('worked...');
       done();
+    });
+    socket.on('disconnect', function () {
+      console.log('disconnected...');
+    })
   });
 
-  describe('Room tests', function() {
+  afterEach(function (done) {
+    // Cleanup
+    if (socket.connected) {
+      console.log('disconnecting...');
+      socket.disconnect();
+    } else {
+      // There will not be a connection unless you have done() in beforeEach, socket.on('connect'...)
+      console.log('no connection to break...');
+    }
+    done();
+  });
+
+  describe('Room tests', function () {
+
+    test('echo', (done) => {
+      socket.emit('echo')
+      socket.on('echo', (data) => {
+        expect(data).toBe('masuk echo')
+        done()
+      })
+    })
+
+
+
+
     test('get all rooms', (done) => {
       socket.emit('get-rooms')
-  
       socket.on('updated-rooms', (data) => {
         expect(data).toBeInstanceOf(Array)
         done()
       })
     })
-  
-    test('create room', (done) => {
-      const data = {
-        roomName: 'Meeting room 1',
-        admin: 'Budi',
-      }
-  
-      socket.emit('create-room', data)
-  
-      socket.on('updated-rooms', dataRes => {
-        expect(dataRes).toBeInstanceOf(Array)
-        expect(dataRes[0]).toBeInstanceOf(Object)
-        expect(dataRes[0]).toHaveProperty('name')
-        expect(dataRes[0]).toHaveProperty('admin')
-        expect(dataRes[0]).toHaveProperty('users')
-        expect(dataRes[0]).toHaveProperty('messages')
-        expect(dataRes[0].name).toBe(data.roomName)
-        expect(dataRes[0].admin).toBe(data.admin)
-        done()
-      })
-    })
-    
+
+    // test('create room', (done) => {
+    //   const data = {
+    //     roomName: 'Teknologi Informasi',
+    //     admin: 'admin',
+    //   }
+
+    //   socket.emit('create-room', data)
+
+    //   socket.on('updated-rooms', dataRes => {
+    //     expect(dataRes).toBeInstanceOf(Array)
+    //     expect(dataRes[0]).toBeInstanceOf(Object)
+    //     expect(dataRes[0]).toHaveProperty('name')
+    //     expect(dataRes[0]).toHaveProperty('admin')
+    //     expect(dataRes[0]).toHaveProperty('users')
+    //     expect(dataRes[0]).toHaveProperty('messages')
+    //     expect(dataRes[0].name).toBe(data.roomName)
+    //     expect(dataRes[0].admin).toBe(data.admin)
+    //     done()
+    //   })
+    // })
+
     test('join in a room', (done) => {
       const data = {
-        roomName: 'Meeting room 1',
+        roomName: 'Teknologi Informasi',
         username: 'Budi'
       }
-  
+
       socket.emit('join-room', data)
-  
+
       socket.on('room-detail', dataRes => {
         console.log(dataRes);
         expect(dataRes).toBeInstanceOf(Object)
@@ -89,10 +102,10 @@ describe('Suite of unit tests', function() {
         done()
       })
     })
-  
+
     test('exit from a room', (done) => {
       const data = {
-        roomName: 'Meeting room 1',
+        roomName: 'Teknologi Informasi',
         exitUser: [
           {
             name: 'Budi',
@@ -101,29 +114,33 @@ describe('Suite of unit tests', function() {
         ]
       }
       socket.emit('exit-room', data)
-  
+
       socket.on('room-detail', dataRes => {
-        console.log(dataRes);
         expect(dataRes).toBeInstanceOf(Object)
         expect(dataRes).toHaveProperty('name')
         expect(dataRes).toHaveProperty('admin')
         expect(dataRes).toHaveProperty('users')
         expect(dataRes).toHaveProperty('messages')
+      })
+      socket.on('updated-rooms', dataRes => {
+        expect(dataRes).toBeInstanceOf(Array)
+        expect(dataRes[0].users).not.toBe(data.exitUser[0].name)
         done()
       })
+
     })
   })
-  
-  describe('Chat tests', function() {
+
+  describe('Chat tests', function () {
     test('Sending message to the chat', (done) => {
       const data = {
-        roomName: 'Meeting room 1',
+        roomName: 'Teknologi Informasi',
         sender: 'Budi',
         message: 'test message'
       }
-  
+
       socket.emit('send-message', data)
-  
+
       socket.on('room-detail', dataRes => {
         expect(dataRes).toBeInstanceOf(Object)
         expect(dataRes).toHaveProperty('name')
@@ -142,24 +159,21 @@ describe('Suite of unit tests', function() {
         done()
       })
     })
+
+    test('Show typing message', (done) => {
+      let payload = {
+        room: 'Teknologi Informasi',
+        name: 'Budi'
+      }
+      socket.emit('typing-start', payload)
+
+      socket.on('typing-start', data => {
+        expect(data).toBe(payload.name)
+        done()
+      })
+    })
   })
+
 })
 
 
-  // test('Show typing message', (done) => {
-  //   let payload = {
-  //     roomName: 'Meeting room 1',
-  //     users: [
-  //       'Andi',
-  //       'Budi'
-  //     ]
-  //   }
-  //   // let name = 'Budi'
-  //   socket.emit('typing-start', payload)
-
-  //   socket.on('typing-start', data => {
-  //     console.log(data);
-  //     expect(data).toBeDefined()
-  //     done()
-  //   })
-  // })

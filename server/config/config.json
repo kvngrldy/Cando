@@ -1,14 +1,15 @@
 {
   "development": {
     "username": "postgres",
-    "password": "pgsql618",
+    "password": "postgres",
+    "logging": false,
     "database": "cando_database",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "pgsql618",
+    "password": "postgres",
     "database": "cando_test",
     "host": "localhost",
     "dialect": "postgres"
