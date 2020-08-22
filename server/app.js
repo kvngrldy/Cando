@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express();
-// const server = require('http').createServer(app)
-// const io = require('socket.io')(server)
-// const PORT = process.env.PORT || 3001
+ const server = require('http').createServer(app)
+ const io = require('socket.io')(server)
+ const PORT = process.env.PORT || 3001
 const cors = require('cors')
 const createRoom = require('./helpers/rooms')
 const errHandler = require('./middleware/errorHandler')
@@ -15,20 +15,12 @@ const axios = require('axios')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
-<<<<<<< HEAD
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }))
-app.use(homeRoute)
-=======
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
->>>>>>> 4346226abb3df17c97224b72edd8b3200020133e
+
 
 app.use(homeRoute)
 
 app.use(errHandler)
 
-<<<<<<< HEAD
 let rooms = [{
   name: 'bot playground',
   admin: 'Alfred',
@@ -158,62 +150,13 @@ io.on('connection', socket => {
 
 
 if (process.env.NODE_ENV != 'test') {
-  server.listen(port, (req, res) => {
-    console.log(`listening to port: ${port}`)
+  server.listen(PORT, (req, res) => {
+    console.log(`listening to port: ${PORT}`)
   })
 }
 // else {
 //     app.listen(port, (req, res) => {
 //         console.log(`listening to port: ${port}`)
-=======
-module.exports = app
-
-
-
-
-
-
-// io.on('connection', socket => {
-
-//   socket.on('echo', function (msg, callback) {
-//     callback = callback || function () { };
-//     socket.emit('echo', 'masuk echo')
-//     callback(null, "Done.")
-//   })
-
-
-//   socket.on('get-rooms', () => {
-
-//     console.log('masuk socket on get rooms');
-//     io.emit('updated-rooms', rooms)
-//   })
-//   socket.on('create-room', (data) => {
-//     socket.join(data)
-//     console.log('masuk socket on Create-Room');
-//     const newRoom = {
-//       name: data.roomName,
-//       admin: data.admin,
-//       users: [],
-//       messages: []
-//     }
-//     rooms.push(newRoom)
-//     // console.log(rooms);
-//     io.emit('updated-rooms', rooms)
-//   })
-//   socket.on('join-room', (data) => {
-//     console.log('masuk socket on Join-Room');
-//     // console.log(socket.id, data);
-//     socket.join(data.roomName, () => {
-//       const roomIndex = rooms.findIndex(room => room.name === data.roomName)
-//       // console.log(rooms[roomIndex].users);
-//       rooms[roomIndex].users.push({
-//         name: data.username,
-//         index: !rooms[roomIndex].users.length ? 0 : rooms[roomIndex].users[rooms[roomIndex].users.length - 1].index + 1
-//       })
-//       // console.log(rooms, 'ini join room');
-//       io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
-//       io.emit('updated-rooms', rooms)
->>>>>>> 4346226abb3df17c97224b72edd8b3200020133e
 //     })
 
 //   })
