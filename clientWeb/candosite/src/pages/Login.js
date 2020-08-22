@@ -50,7 +50,6 @@ function Login() {
             <div className="form-container">
                 <div className="form-login">
                     <p className="account-login">ACCOUNT LOGIN</p>
-                    <p>{JSON.stringify(status)}</p>
                     <form onSubmit={onSubmitHandler}>
                         <input onChange={emailHandler} type="email" placeholder="Email" className="input-email" />
                         <input onChange={passwordHandler} type="password" placeholder="Password" className="input-password" /><br />
