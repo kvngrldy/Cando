@@ -23,7 +23,7 @@ function Login() {
         if (!email || !password) {
             console.log("All fields are required")
         } else {
-            fetch('https://dummycando.herokuapp.com/data/login', {
+            fetch('http://localhost:3001/data/login', {
                 method: "post",
                 headers: {
                     'Content-Type': 'application/json',
