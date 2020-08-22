@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +17,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/room">
+          <Route path="/room/:roomname">
             <Room />
           </Route>
           <Route path="/">

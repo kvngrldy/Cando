@@ -10,7 +10,6 @@ let fakeTodoId = 10000
 let createdTodoId = ''
 let createdTodoData;
 
-
 describe('Test To Do Create', () => {
     test('To Do Create berhasil with Admin Account', (done) => {
         let dummyTodo = {
