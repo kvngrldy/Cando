@@ -42,19 +42,25 @@ class UserController {
     static async createUser(req, res, next) {
         let { name, password, email, position, imageUrl, departmentId } = req.body
         try {
-            let allDepartment = await department.findAll()
-            let departmentStatus = allDepartment.filter(a => a.id == departmentId)
-            if (departmentStatus.length === 0) {
-                throw { msg: `Department ID Tidak Terdaftar`, status: 400 }
+            let findUserEmail = await user.findOne({ where: { email } })
+            if (findUserEmail) {
+                let allDepartment = await department.findAll()
+                let departmentStatus = allDepartment.filter(a => a.id == departmentId)
+                if (departmentStatus.length === 0) {
+                    throw { msg: `Department ID Tidak Terdaftar`, status: 400 }
+                }
+                else {
+                    let newUser = await user.create({ name, password, email, position, imageUrl })
+
+                    await department_user.create({ userId: newUser.id, departmentId })
+                    res.status(201).json(newUser)
+
+                }
+
             }
             else {
-                let newUser = await user.create({ name, password, email, position, imageUrl })
-
-                await department_user.create({ userId: newUser.id, departmentId })
-                res.status(201).json(newUser)
-
+                throw { msg: 'Email Sudah Terdaftar', status: 400 }
             }
-
 
         }
         catch (err) {
@@ -135,17 +141,23 @@ class UserController {
         let { id, name, email, position, imageUrl } = req.userData
         let userData = { id, name, email, position, imageUrl }
         let departmentId = await department_user.findAll({ where: { userId: id } })
+        let departmentList = await department.findAll()
+        let userTodo = await todo.findAll({ where: { userId: id }, include: { model: category, include: { model: department } } })
+
         let kodeDepartment = departmentId.map(a => {
             return a.departmentId
         })
-        let departmentList = await department.findAll()
-        let userDept = departmentList.filter(a => {
-            return kodeDepartment.filter(b => a.id = b)
-        })
+        let userDept = []
+        for (let i = 0; i < kodeDepartment.length; i++) {
+            for (let j = 0; j < departmentList.length; j++) {
+                if (kodeDepartment[i] === departmentList[j].id) {
+                    userDept.push(departmentList[j])
+                }
+            }
+        }
         userDept = userDept.map(a => {
-            return a.name
+            return { id: a.id, name: a.name }
         })
-        let userTodo = await todo.findAll({ where: { userId: id }, include: { model: category, include: { model: department } } })
 
 
 

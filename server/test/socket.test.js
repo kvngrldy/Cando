@@ -1,7 +1,7 @@
 const io = require('socket.io-client')
-// const app = require('../app')
-// const socket = io('http://localhost:3001')
-const { server } = require('../app')
+
+
+// const server = require('../server')
 
 
 describe('Suite of unit tests', function () {
@@ -38,35 +38,29 @@ describe('Suite of unit tests', function () {
 
   describe('Room tests', function () {
 
-    test("echos message", function (done) {
-
-      socket.once("connect", function () {
-        socket.once("echo", function (message) {
-          message.should.equal("Hello World");
-
-          socket.disconnect();
-          done();
-        });
-
-        socket.emit("echo", "Hello World");
-      });
-    });
+    test('echo', (done) => {
+      socket.emit('echo')
+      socket.on('echo', (data) => {
+        expect(data).toBe('masuk echo')
+        done()
+      })
+    })
 
 
 
-    // test('get all rooms', (done) => {
-    //   socket.emit('get-rooms')
 
-    //   socket.on('updated-rooms', (data) => {
-    //     expect(data).toBeInstanceOf(Array)
-    //     done()
-    //   })
-    // })
+    test('get all rooms', (done) => {
+      socket.emit('get-rooms')
+      socket.on('updated-rooms', (data) => {
+        expect(data).toBeInstanceOf(Array)
+        done()
+      })
+    })
 
     // test('create room', (done) => {
     //   const data = {
-    //     roomName: 'Meeting room 1',
-    //     admin: 'Budi',
+    //     roomName: 'Teknologi Informasi',
+    //     admin: 'admin',
     //   }
 
     //   socket.emit('create-room', data)
@@ -84,101 +78,102 @@ describe('Suite of unit tests', function () {
     //   })
     // })
 
-    // test('join in a room', (done) => {
-    //   const data = {
-    //     roomName: 'Meeting room 1',
-    //     username: 'Budi'
-    //   }
+    test('join in a room', (done) => {
+      const data = {
+        roomName: 'Teknologi Informasi',
+        username: 'Budi'
+      }
 
-    //   socket.emit('join-room', data)
+      socket.emit('join-room', data)
 
-    //   socket.on('room-detail', dataRes => {
-    //     console.log(dataRes);
-    //     expect(dataRes).toBeInstanceOf(Object)
-    //     expect(dataRes).toHaveProperty('name')
-    //     expect(dataRes).toHaveProperty('admin')
-    //     expect(dataRes).toHaveProperty('users')
-    //     expect(dataRes).toHaveProperty('messages')
-    //     expect(dataRes.name).toBe(data.roomName)
-    //     expect(dataRes.users[0]).toEqual(
-    //       expect.objectContaining({
-    //         name: data.username
-    //       })
-    //     )
-    //     done()
-    //   })
-    // })
+      socket.on('room-detail', dataRes => {
+        console.log(dataRes);
+        expect(dataRes).toBeInstanceOf(Object)
+        expect(dataRes).toHaveProperty('name')
+        expect(dataRes).toHaveProperty('admin')
+        expect(dataRes).toHaveProperty('users')
+        expect(dataRes).toHaveProperty('messages')
+        expect(dataRes.name).toBe(data.roomName)
+        expect(dataRes.users[0]).toEqual(
+          expect.objectContaining({
+            name: data.username
+          })
+        )
+        done()
+      })
+    })
 
-    // test('exit from a room', (done) => {
-    //   const data = {
-    //     roomName: 'Meeting room 1',
-    //     exitUser: [
-    //       {
-    //         name: 'Budi',
-    //         index: 0
-    //       }
-    //     ]
-    //   }
-    //   socket.emit('exit-room', data)
+    test('exit from a room', (done) => {
+      const data = {
+        roomName: 'Teknologi Informasi',
+        exitUser: [
+          {
+            name: 'Budi',
+            index: 0
+          }
+        ]
+      }
+      socket.emit('exit-room', data)
 
-    //   socket.on('room-detail', dataRes => {
-    //     console.log(dataRes);
-    //     expect(dataRes).toBeInstanceOf(Object)
-    //     expect(dataRes).toHaveProperty('name')
-    //     expect(dataRes).toHaveProperty('admin')
-    //     expect(dataRes).toHaveProperty('users')
-    //     expect(dataRes).toHaveProperty('messages')
-    //     done()
-    //   })
-    // })
+      socket.on('room-detail', dataRes => {
+        expect(dataRes).toBeInstanceOf(Object)
+        expect(dataRes).toHaveProperty('name')
+        expect(dataRes).toHaveProperty('admin')
+        expect(dataRes).toHaveProperty('users')
+        expect(dataRes).toHaveProperty('messages')
+      })
+      socket.on('updated-rooms', dataRes => {
+        expect(dataRes).toBeInstanceOf(Array)
+        expect(dataRes[0].users).not.toBe(data.exitUser[0].name)
+        done()
+      })
+
+    })
   })
 
-  //   describe('Chat tests', function() {
-  //     test('Sending message to the chat', (done) => {
-  //       const data = {
-  //         roomName: 'Meeting room 1',
-  //         sender: 'Budi',
-  //         message: 'test message'
-  //       }
+  describe('Chat tests', function () {
+    test('Sending message to the chat', (done) => {
+      const data = {
+        roomName: 'Teknologi Informasi',
+        sender: 'Budi',
+        message: 'test message'
+      }
 
-  //       socket.emit('send-message', data)
+      socket.emit('send-message', data)
 
-  //       socket.on('room-detail', dataRes => {
-  //         expect(dataRes).toBeInstanceOf(Object)
-  //         expect(dataRes).toHaveProperty('name')
-  //         expect(dataRes).toHaveProperty('admin')
-  //         expect(dataRes).toHaveProperty('users')
-  //         expect(dataRes).toHaveProperty('messages')
-  //         expect(dataRes.messages).not.toHaveLength(0);
-  //         expect(dataRes.messages).toBeInstanceOf(Array)
-  //         expect(dataRes.messages[0]).toBeInstanceOf(Object)
-  //         expect(dataRes.messages[0]).toEqual(
-  //           expect.objectContaining({
-  //             sender: data.sender,
-  //             message: data.message
-  //           })
-  //         )
-  //         done()
-  //       })
-  //     })
-  //   })
-  // })
+      socket.on('room-detail', dataRes => {
+        expect(dataRes).toBeInstanceOf(Object)
+        expect(dataRes).toHaveProperty('name')
+        expect(dataRes).toHaveProperty('admin')
+        expect(dataRes).toHaveProperty('users')
+        expect(dataRes).toHaveProperty('messages')
+        expect(dataRes.messages).not.toHaveLength(0);
+        expect(dataRes.messages).toBeInstanceOf(Array)
+        expect(dataRes.messages[0]).toBeInstanceOf(Object)
+        expect(dataRes.messages[0]).toEqual(
+          expect.objectContaining({
+            sender: data.sender,
+            message: data.message
+          })
+        )
+        done()
+      })
+    })
 
+    test('Show typing message', (done) => {
+      let payload = {
+        room: 'Teknologi Informasi',
+        name: 'Budi'
+      }
+      socket.emit('typing-start', payload)
 
-  // test('Show typing message', (done) => {
-  //   let payload = {
-  //     roomName: 'Meeting room 1',
-  //     users: [
-  //       'Andi',
-  //       'Budi'
-  //     ]
-  //   }
-  //   // let name = 'Budi'
-  //   socket.emit('typing-start', payload)
+      socket.on('typing-start', data => {
+        expect(data).toBe(payload.name)
+        done()
+      })
+    })
+  })
 
-  //   socket.on('typing-start', data => {
-  //     console.log(data);
-  //     expect(data).toBeDefined()
-  //     done()
-  //   })
 })
+
+
