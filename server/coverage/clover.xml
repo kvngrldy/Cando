@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1598063424287" clover="3.2.0">
-  <project timestamp="1598063424287" name="All files">
-    <metrics statements="334" coveredstatements="309" conditionals="70" coveredconditionals="60" methods="47" coveredmethods="41" elements="451" coveredelements="410" complexity="0" loc="334" ncloc="334" packages="6" files="24" classes="24"/>
+<coverage generated="1598070117665" clover="3.2.0">
+  <project timestamp="1598070117665" name="All files">
+    <metrics statements="339" coveredstatements="312" conditionals="72" coveredconditionals="61" methods="47" coveredmethods="41" elements="458" coveredelements="414" complexity="0" loc="339" ncloc="339" packages="6" files="24" classes="24"/>
     <package name="server">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="app.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\app.js">
+      <file name="app.js" path="D:\Hacktiv8\Final_Project\Cando\server\app.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -21,8 +21,8 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="147" coveredstatements="129" conditionals="38" coveredconditionals="32" methods="20" coveredmethods="17"/>
-      <file name="categoryController.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\controllers\categoryController.js">
+      <metrics statements="152" coveredstatements="132" conditionals="40" coveredconditionals="33" methods="20" coveredmethods="17"/>
+      <file name="categoryController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\categoryController.js">
         <metrics statements="32" coveredstatements="32" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -57,23 +57,28 @@
         <line num="69" count="4" type="stmt"/>
         <line num="74" count="4" type="stmt"/>
       </file>
-      <file name="dataController.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\controllers\dataController.js">
-        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <file name="dataController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\dataController.js">
+        <metrics statements="18" coveredstatements="16" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="6" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="29" count="4" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
       </file>
-      <file name="todoController.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\controllers\todoController.js">
+      <file name="todoController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\todoController.js">
         <metrics statements="26" coveredstatements="26" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="1" count="4" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
@@ -102,7 +107,7 @@
         <line num="56" count="1" type="stmt"/>
         <line num="62" count="4" type="stmt"/>
       </file>
-      <file name="userController.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\controllers\userController.js">
+      <file name="userController.js" path="D:\Hacktiv8\Final_Project\Cando\server\controllers\userController.js">
         <metrics statements="76" coveredstatements="58" conditionals="28" coveredconditionals="22" methods="9" coveredmethods="6"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -184,7 +189,7 @@
     </package>
     <package name="server.helpers">
       <metrics statements="19" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="4"/>
-      <file name="bcryptjs.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\helpers\bcryptjs.js">
+      <file name="bcryptjs.js" path="D:\Hacktiv8\Final_Project\Cando\server\helpers\bcryptjs.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -193,7 +198,7 @@
         <line num="11" count="2" type="stmt"/>
         <line num="14" count="4" type="stmt"/>
       </file>
-      <file name="jwt.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\helpers\jwt.js">
+      <file name="jwt.js" path="D:\Hacktiv8\Final_Project\Cando\server\helpers\jwt.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -201,7 +206,7 @@
         <line num="9" count="36" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
       </file>
-      <file name="rooms.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\helpers\rooms.js">
+      <file name="rooms.js" path="D:\Hacktiv8\Final_Project\Cando\server\helpers\rooms.js">
         <metrics statements="8" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -215,7 +220,7 @@
     </package>
     <package name="server.middleware">
       <metrics statements="57" coveredstatements="56" conditionals="23" coveredconditionals="22" methods="6" coveredmethods="6"/>
-      <file name="authentication.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\middleware\authentication.js">
+      <file name="authentication.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authentication.js">
         <metrics statements="14" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -232,7 +237,7 @@
         <line num="27" count="2" type="stmt"/>
         <line num="36" count="4" type="stmt"/>
       </file>
-      <file name="authorizationAdmin.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\middleware\authorizationAdmin.js">
+      <file name="authorizationAdmin.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authorizationAdmin.js">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="6" count="24" type="stmt"/>
@@ -243,7 +248,7 @@
         <line num="19" count="3" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
       </file>
-      <file name="authorizationDepartment.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\middleware\authorizationDepartment.js">
+      <file name="authorizationDepartment.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authorizationDepartment.js">
         <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
@@ -256,7 +261,7 @@
         <line num="18" count="1" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
       </file>
-      <file name="authorizationEditTodo.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\middleware\authorizationEditTodo.js">
+      <file name="authorizationEditTodo.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\authorizationEditTodo.js">
         <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
@@ -271,7 +276,7 @@
         <line num="24" count="2" type="stmt"/>
         <line num="31" count="4" type="stmt"/>
       </file>
-      <file name="errorHandler.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\middleware\errorHandler.js">
+      <file name="errorHandler.js" path="D:\Hacktiv8\Final_Project\Cando\server\middleware\errorHandler.js">
         <metrics statements="13" coveredstatements="13" conditionals="7" coveredconditionals="7" methods="2" coveredmethods="2"/>
         <line num="6" count="34" type="cond" truecount="3" falsecount="0"/>
         <line num="9" count="1" type="stmt"/>
@@ -290,7 +295,7 @@
     </package>
     <package name="server.models">
       <metrics statements="52" coveredstatements="51" conditionals="9" coveredconditionals="6" methods="14" coveredmethods="14"/>
-      <file name="category.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\models\category.js">
+      <file name="category.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\category.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -299,7 +304,7 @@
         <line num="19" count="4" type="stmt"/>
         <line num="52" count="4" type="stmt"/>
       </file>
-      <file name="department.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\models\department.js">
+      <file name="department.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\department.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -308,7 +313,7 @@
         <line num="19" count="4" type="stmt"/>
         <line num="25" count="4" type="stmt"/>
       </file>
-      <file name="department_user.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\models\department_user.js">
+      <file name="department_user.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\department_user.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -317,7 +322,7 @@
         <line num="18" count="4" type="stmt"/>
         <line num="25" count="4" type="stmt"/>
       </file>
-      <file name="index.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\models\index.js">
+      <file name="index.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\index.js">
         <metrics statements="20" coveredstatements="19" conditionals="9" coveredconditionals="6" methods="3" coveredmethods="3"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
@@ -340,7 +345,7 @@
         <line num="35" count="4" type="stmt"/>
         <line num="37" count="4" type="stmt"/>
       </file>
-      <file name="todo.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\models\todo.js">
+      <file name="todo.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\todo.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -349,7 +354,7 @@
         <line num="18" count="4" type="stmt"/>
         <line num="107" count="4" type="stmt"/>
       </file>
-      <file name="user.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\models\user.js">
+      <file name="user.js" path="D:\Hacktiv8\Final_Project\Cando\server\models\user.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="2" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -363,7 +368,7 @@
     </package>
     <package name="server.routes">
       <metrics statements="47" coveredstatements="47" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="categoryRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\categoryRoute.js">
+      <file name="categoryRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\categoryRoute.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -374,7 +379,7 @@
         <line num="9" count="4" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
       </file>
-      <file name="dataRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\dataRoute.js">
+      <file name="dataRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\dataRoute.js">
         <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -397,14 +402,14 @@
         <line num="21" count="4" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
       </file>
-      <file name="homeRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\homeRoute.js">
+      <file name="homeRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\homeRoute.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
       </file>
-      <file name="todoRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\todoRoute.js">
+      <file name="todoRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\todoRoute.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -415,7 +420,7 @@
         <line num="13" count="4" type="stmt"/>
         <line num="15" count="4" type="stmt"/>
       </file>
-      <file name="userRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\userRoute.js">
+      <file name="userRoute.js" path="D:\Hacktiv8\Final_Project\Cando\server\routes\userRoute.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>

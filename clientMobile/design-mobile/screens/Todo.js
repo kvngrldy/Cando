@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, StyleSheet, View, Button } from 'react-native'
+import { ScrollView, Text, StyleSheet, View, Button, AsyncStorage } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Todo = ({ navigation }) => {
@@ -18,6 +18,15 @@ const Todo = ({ navigation }) => {
     function goToDetail() {
         navigation.navigate("DETAIL")
     }
+
+    useEffect(() => {
+        AsyncStorage.getItem('token')
+        .then(data => {
+            if(data === null || data === undefined || data === ''){
+                navigation.navigate('login')
+            }
+        })
+    }, [])
 
     useEffect(() => {
         if (title.length >= 20) {

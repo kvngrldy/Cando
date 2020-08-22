@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   StyleSheet,
   Text,
@@ -16,6 +16,18 @@ const Login = ({ navigation }) => {
   function emailHandler(email) {
     setEmail(email)
   }
+
+  useEffect(() => {
+    AsyncStorage.getItem('token')
+    .then(data => {
+      if(data){
+        navigation.navigate('TodoPage', {
+          screen: 'TASKS'
+        })
+      }
+    })
+    .catch(err => console.log)
+  }, [])
 
   function passwordHandler(password) {
     setPassword(password)
