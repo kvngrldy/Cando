@@ -1,0 +1,42 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Teknologi Informasi",
+            "createdAt": "2020-08-19T15:03:08.674Z",
+            "updatedAt": "2020-08-19T15:03:08.674Z",
+            "categories": [
+                {
+                    "id": 1,
+                    "name": "Preparation",
+                    "departmentId": 1,
+                    "createdAt": "2020-08-19T15:03:08.685Z",
+                    "updatedAt": "2020-08-19T15:03:08.685Z",
+                    "todos": [
+                        {
+                            "id": 1,
+                            "title": "todo 1",
+                            "deadline": "2020-03-01T00:00:00.000Z",
+                            "priority": "low",
+                            "description": "this is how i live now",
+                            "categoryId": 1,
+                            "userId": 1,
+                            "createdAt": "2020-08-19T15:03:08.696Z",
+                            "updatedAt": "2020-08-19T15:03:08.696Z",
+                            "user": {
+                                "id": 1,
+                                "name": "user 1",
+                                "password": "$2a$10$dF8hUv4rQL54ZecK0BEYVOZaSICJ0f4LFU6TgdYHYtIDY6zfrA6vS",
+                                "email": "user1@gmail.com",
+                                "position": "admin",
+                                "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg",
+                                "createdAt": "2020-08-19T15:03:08.818Z",
+                                "updatedAt": "2020-08-19T15:03:08.818Z"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
