@@ -15,7 +15,7 @@ export default function Room() {
     setRoomData(roomDetail)
     setChats(roomDetail.messages)
     console.log(roomDetail, `detail`)
-    // console.log(roomDetail);
+    
   })
 
   useEffect (() => {

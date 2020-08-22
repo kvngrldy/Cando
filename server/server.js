@@ -2,8 +2,10 @@ const http = require('./bin/http')
 const createRoom = require('./helpers/rooms')
 // const server = require('http').createServer(app)
 const io = require('socket.io')(http)
+const axios = require('axios')
 // const PORT = process.env.PORT || 3001
 let rooms = createRoom()
+
 
 io.on('connection', socket => {
 
@@ -32,9 +34,11 @@ io.on('connection', socket => {
     })
     socket.on('join-room', (data) => {
         // console.log(socket.id, data);
+        //console.log(data, `<<<<`)
         socket.join(data.roomName, () => {
             const roomIndex = rooms.findIndex(room => room.name === data.roomName)
-            // console.log(rooms[roomIndex].users);
+            //console.log(rooms[roomIndex].users, `<<`);
+
             rooms[roomIndex].users.push({
                 name: data.username,
                 index: !rooms[roomIndex].users.length ? 0 : rooms[roomIndex].users[rooms[roomIndex].users.length - 1].index + 1
@@ -46,18 +50,48 @@ io.on('connection', socket => {
 
     })
 
+
+
     socket.on('send-message', (data) => {
         socket.join(data.roomName, () => {
             const roomIndex = rooms.findIndex(room => room.name === data.roomName)
+            console.log(data, `<<<<<<<<`)
+            let { sender, message } = data
 
-            const { sender, message } = data
-
-            rooms[roomIndex].messages.push({
+            rooms[roomIndex].messages.unshift({
                 sender,
                 message
             })
-            // console.log(data);
+            let forAlfred = message.split(' ')
             io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
+
+            if (forAlfred[0] == '@alfred') {
+                forAlfred.splice(0, 1)
+                message = forAlfred.join(' ')
+                console.log(message, `< ini balasan user`)
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:3003/',
+                    data: {
+                        msg: message
+                    }
+                })
+                    .then(({ data }) => {
+                        console.log(data.response, `<<<<`)
+
+                        rooms[roomIndex].messages.unshift({
+                            sender: 'Alfred',
+                            //image for alfred
+                            message: data.response
+                        })
+                    })
+                    .then(() => {
+                        io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
+                    })
+                    .catch(console.log)
+            }
+
+
         })
     })
 

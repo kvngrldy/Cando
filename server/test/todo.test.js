@@ -8,7 +8,7 @@ let tokenMember = createToken(dummyMember)
 let realTodoId = 1
 let fakeTodoId = 10000
 let createdTodoId = ''
-
+let createdTodoData;
 
 describe('Test To Do Create', () => {
     test('To Do Create berhasil with Admin Account', (done) => {
@@ -27,7 +27,8 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(201)
             .expect(data => {
-                // createdTodoId = data.body.id
+                 createdTodoId = data.body.id
+                 createdTodoData = data.body
                 expect(data.body.priority).toBe(dummyTodo.priority)
                 expect(data.body.categoryId).toBe(dummyTodo.categoryId)
                 expect(data.body.title).toBe(dummyTodo.title)
@@ -331,7 +332,7 @@ describe('Test To Do Find One', () => {
 
 describe('Test To Do Edit To Do', () => {
     test('Test To Do Berhasil Edit', (done) => {
-        let dummyData = { title: 'babababa' }
+        let dummyData = { title: 'babababa',deadline:createdTodoData.deadline,priority:createdTodoData.priority,description:createdTodoData.description,categoryId:createdTodoData.categoryId, userId: 1 }
         request(app)
             .put(`/data/todo/${createdTodoId}`)
             .set('token', tokenAdmin)

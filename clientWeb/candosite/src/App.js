@@ -17,7 +17,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/room">
+          <Route path="/room/:roomname">
             <Room />
           </Route>
           <Route path="/">

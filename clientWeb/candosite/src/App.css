@@ -279,6 +279,7 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column-reverse;
+  overflow-y: auto;
 }
 
 .chat-bar-box{
