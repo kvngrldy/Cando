@@ -89,6 +89,7 @@ class UserController {
     static async addUserToDepartment(req, res, next) {
         let { userId, departmentId } = req.body
         try {
+            if (!userId || !departmentId) throw { msg: 'User ID dan Department ID harus di isi', status: 400 }
             let userStatus = await user.findOne({ where: { id: userId } })
             let departmentStatus = await department.findOne({ where: { id: departmentId } })
             if (!userStatus || !departmentStatus) {
@@ -118,8 +119,9 @@ class UserController {
     static async removeUserFromDepartment(req, res, next) {
         let { userId, departmentId } = req.body
         try {
+            if (!userId) throw { msg: 'User ID harus di isi', status: 400 }
+            if (!departmentId) throw { msg: 'Department ID harus di isi', status: 400 }
             let findUserDepartment = await department_user.findOne({ where: { userId, departmentId } })
-
             let findUser = await user.findOne({ where: { id: userId } })
             let findDepartment = await department.findOne({ where: { id: departmentId } })
             if (!findUser) throw { msg: 'User Tidak Terdaftar', status: 400 }

@@ -1,4 +1,4 @@
-const { category, todo } = require('../models')
+const { category, todo, department } = require('../models')
 const e = require('express')
 
 class CategoryController {
@@ -6,6 +6,9 @@ class CategoryController {
         let { name, departmentId } = req.body
 
         try {
+            if (!departmentId) throw { msg: 'Department ID Harus Di Isi', status: 400 }
+            let findDepartment = await department.findOne({ where: { id: departmentId } })
+            if (!findDepartment) throw { msg: 'Department Tidak Terdaftar', status: 400 }
             let newCategory = await category.create({ name, departmentId })
             res.status(201).json(newCategory)
 
@@ -37,7 +40,7 @@ class CategoryController {
         try {
             let deletedCategory = await category.destroy({ where: { id } })
             if (!deletedCategory) {
-                throw { msg: `Tidak Berhasil Delete`, status: 400 }
+                throw { msg: `Category tidak di temukan`, status: 400 }
             }
             else {
                 res.status(200).json('Berhasil Delete')

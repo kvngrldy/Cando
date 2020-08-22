@@ -109,7 +109,7 @@ describe('Test Category Create', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                expect(data.body).toBe('Nama Category Harus Di Isi,Department ID Harus Di Isi')
+                expect(data.body).toBe('Department ID Harus Di Isi')
             })
             .end(err => {
                 if (err) {
@@ -254,7 +254,7 @@ describe('Test Category Delete', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                expect(data.body).toBe('Tidak Berhasil Delete')
+                expect(data.body).toBe('Category tidak di temukan')
             })
             .end(err => {
                 if (err) {
