@@ -6,6 +6,7 @@ function Login() {
 
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState("")
+    let [status, setStatus] = useState('')
 
     let history = useHistory()
 
@@ -17,11 +18,30 @@ function Login() {
         setPassword(event.target.value)
     }
 
-    function onSubmitHandler() {
+    function onSubmitHandler(event) {
+        event.preventDefault()
         if (!email || !password) {
             console.log("All fields are required")
         } else {
-            history.push("/")
+            fetch('https://dummycando.herokuapp.com/data/login', {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setStatus(data)
+                    return localStorage.setItem('token', data.token)
+                })
+                .then(_ => {
+                    history.push('/')
+                })
+                .catch(err => console.log(err))
         }
     }
 
@@ -30,6 +50,7 @@ function Login() {
             <div className="form-container">
                 <div className="form-login">
                     <p className="account-login">ACCOUNT LOGIN</p>
+                    <p>{JSON.stringify(status)}</p>
                     <form onSubmit={onSubmitHandler}>
                         <input onChange={emailHandler} type="email" placeholder="Email" className="input-email" />
                         <input onChange={passwordHandler} type="password" placeholder="Password" className="input-password" /><br />

@@ -1,12 +1,29 @@
-import React from 'react'
-import {useHistory} from 'react-router-dom'
+import React, { useState,  useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 function Home() {
 
+    useEffect(() => {
+        checkAuthentication()
+    }, [])
+
     let history = useHistory()
 
-    function goToPage(page){
+    function goToPage(page) {
         history.push(page)
+    }
+
+    async function checkAuthentication() {
+        let data = await localStorage.getItem('token')
+        if(!data || data === null){
+            history.push('/login')
+        }
+    }
+
+    function logout(event){
+        event.preventDefault()
+        localStorage.removeItem('token')
+        history.push("/login")
     }
 
     return (
@@ -28,7 +45,7 @@ function Home() {
                                 <h2 onClick={() => goToPage('/room')} className="room-text">MEETING ROOM 2</h2>
                             </div>
                             <div className="room-section">
-                                <button className="logout-btn">LOGOUT</button>
+                                <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>
                             </div>
                         </div>
                     </div>
