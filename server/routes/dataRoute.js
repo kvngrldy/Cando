@@ -14,10 +14,10 @@ dataRoute.get('/', DataController.findAllDepartment)
 dataRoute.post('/login', UserController.login)
 dataRoute.post('/todo', TodoController.createTodo)
 dataRoute.get('/userData', authentication, UserController.findOneUserData)
+dataRoute.use('/user', authentication, userRoute)
 dataRoute.get('/:id', authentication, authorizationDepartment, DataController.findAllData)
 dataRoute.use('/todo', authentication, todoRoute)
 dataRoute.use('/category', authentication, categoryRoute)
-dataRoute.use('/user', authentication, userRoute)
 dataRoute.delete('/remove', authentication, authorizationAdmin, UserController.removeUserFromDepartment)
 
 
