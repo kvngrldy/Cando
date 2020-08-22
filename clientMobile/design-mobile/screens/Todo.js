@@ -1,85 +1,95 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, StyleSheet, View, Button, AsyncStorage } from 'react-native'
+import { ScrollView, Text, StyleSheet, View, Button, AsyncStorage, Picker } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Todo = ({ navigation }) => {
 
-    // let [todos, setTodos] = useState([])
-    let [title, setTitle] = useState("Make kanban server board with Vue.js ASDSDSADASDSAD")
-    let [category, setCategory] = useState("")
-    let [deadline, setDeadline] = useState("")
-    let [priorities, setPriorities] = useState("")
-    let [titleTemp, setTitleTemp] = useState("")
+    let [debug, setDebug] = useState("")
+    let [email, setEmail] = useState('')
+    let [todo, setTodo] = useState([])
+    let [debug2, setDebug2] = useState('')
 
-    // useEffect(() => {
+    useEffect(() => {
+        AsyncStorage.getItem('email')
+            .then(data => {
+                setEmail(data)
+            })
+    }, [])
 
-    // }, [])
-
-    function goToDetail() {
-        navigation.navigate("DETAIL")
+    function fetchData() {
+        AsyncStorage.getItem('token')
+            .then(data => {
+                if (data === null || data === '' || data === undefined) {
+                    navigation.navigate('login')
+                } else {
+                    return fetch(`https://dummycando.herokuapp.com/data/userData`, {
+                        method: 'get',
+                        headers: {
+                            "token": data
+                        }
+                    })
+                }
+            })
+            .then(res => res.json())
+            .then(response => {
+                setTodo(response.userTodo)
+            })
+            .catch(err => console.log)
     }
 
     useEffect(() => {
-        AsyncStorage.getItem('token')
-        .then(data => {
-            if(data === null || data === undefined || data === ''){
-                navigation.navigate('login')
-            }
+        fetchData()
+    }, [todo])
+
+    function goToDetail(title, category, deadline, priority, description, categoryId, deptId, userId, id) {
+        navigation.navigate("DETAIL", {
+            title,
+            category,
+            deadline,
+            priority,
+            description,
+            categoryId,
+            deptId,
+            userId,
+            id
         })
-    }, [])
+    }
 
     useEffect(() => {
-        if (title.length >= 20) {
-            setTitleTemp(title.substr(0, 18) + '...')
-        }
-    }, [title])
+        fetchData()
+    }, [])
 
     return (
-            <SafeAreaView style={styles.container}>
-                <ScrollView>
-                    <View style={styles.task}>
-                        <View style={styles.description}>
-                            {
-                                titleTemp
-                                    ? <View>
-                                        <Text style={styles.title} >{titleTemp}</Text>
-                                    </View>
-                                    : <View>
-                                        <Text style={styles.title}>{title}</Text>
-                                    </View>
-
-                            }
-                            <View>
-                                <Text onPress={() => goToDetail()} style={styles.category}>Category: Development</Text>
-                            </View>
-                            <View>
-                                <Text onPress={() => goToDetail()} style={styles.deadline}>Deadline: 20 Agustus 2020</Text>
-                            </View>
-                            <View>
-                                <Text onPress={() => goToDetail()} style={styles.priorities}>Priorities: ****</Text>
-                            </View>
-                        </View>
-                        <View style={styles.btn}>
-                            <View style={styles.done}>
-                                <Button title="CHANGE STATUS" />
+        <SafeAreaView style={styles.container}>
+            {
+                todo && todo.map((todo, index) => {
+                    return <ScrollView key={index}>
+                        <View style={styles.task}>
+                            <View style={styles.description}>
+                                <View >
+                                    <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.title}>{todo.title}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.category}>Category: {todo.category.name}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.deadline}>Deadline: {todo.deadline.slice(0, 10)}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.priorities}>Priorities: {todo.priority}</Text>
+                                </View>
+                                <View>
+                                    <Text style={styles.priorities}>Department: {todo.category.department.name}</Text>
+                                </View>
+                                <View>
+                                    <Text  style={styles.priorities}>Category ID: {todo.categoryId}</Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                    <View style={styles.task}>
-                        <View style={styles.description}>
-                            <Text onPress={() => goToDetail()} style={styles.title}>TITLE</Text>
-                            <Text onPress={() => goToDetail()} style={styles.category}>Category: Development</Text>
-                            <Text onPress={() => goToDetail()} style={styles.deadline}>Deadline: 20 Agustus 2020</Text>
-                            <Text onPress={() => goToDetail()} style={styles.priorities}>Priorities: ****</Text>
-                        </View>
-                        <View style={styles.btn}>
-                            <View style={styles.done}>
-                                <Button title="CHANGE STATUS" />
-                            </View>
-                        </View>
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
+                    </ScrollView>
+                })
+            }
+        </SafeAreaView>
     );
 }
 
@@ -88,14 +98,12 @@ export default Todo
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 50
     },
     task: {
         backgroundColor: "white",
         marginTop: 10,
-        marginBottom: 20,
         width: 320,
         height: 200,
     },

@@ -6,33 +6,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 const Profile = ({ navigation, route }) => {
 
     let { name, email, position, imageUrl } = route.params
-    let [debug, setDebug] = useState('')
+    let [department, setDepartment] = useState('')
     let [userId, setUserId] = useState('')
-
-    useEffect(() => {
-        fetch('https://dummycando.herokuapp.com/data', {
-            method: 'get'
-        })
-            .then(res => res.json())
-            .then(check => {
-                for (let i = 0; i < check.allUser.length; i++) {
-                    if (check.allUser[i].email === email) {
-                        setUserId(check.allUser[i].id)
-                    }
-                }
-            })
-            .catch(err => console.log)
-    }, [])
-
-    useEffect(() => {
-        AsyncStorage.getItem('token')
-            .then(data => {
-                if (data === null || data === '' || data === undefined) {
-                    navigation.navigate('login')
-                }
-            })
-            .catch(err => console.log)
-    }, [])
 
     useEffect(() => {
         AsyncStorage.getItem('token')
@@ -40,7 +15,7 @@ const Profile = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/${userId}`, {
+                    return fetch(`https://dummycando.herokuapp.com/data/userData`, {
                         method: 'get',
                         headers: {
                             "token": data
@@ -50,16 +25,17 @@ const Profile = ({ navigation, route }) => {
             })
             .then(res => res.json())
             .then(response => {
-                setDebug(response)
+                setDepartment(response.userDept)
             })
             .catch(err => console.log)
-    }, [userId])
+    }, [])
 
     function logout() {
         AsyncStorage.removeItem('token')
             .then(_ => {
                 navigation.navigate('login')
             })
+            .catch(err => console.log)
     }
 
     return (
@@ -79,7 +55,11 @@ const Profile = ({ navigation, route }) => {
                         <Text style={styles.position}>Position: {position}</Text>
                     </View>
                     <View>
-                        <Text style={styles.department}>Department: Technology Information</Text>
+                        <Text style={styles.department}>Department: {
+                            department && department.map((text, index) => {
+                                return text.name
+                            })
+                        }</Text>
                     </View>
                     <View style={styles.btn}>
                         <Button onPress={() => logout()} title="LOGOUT" />

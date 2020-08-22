@@ -17,17 +17,17 @@ const Login = ({ navigation }) => {
     setEmail(email)
   }
 
-  useEffect(() => {
-    AsyncStorage.getItem('token')
-    .then(data => {
-      if(data){
-        navigation.navigate('TodoPage', {
-          screen: 'TASKS'
-        })
-      }
-    })
-    .catch(err => console.log)
-  }, [])
+  // useEffect(() => {
+  //   AsyncStorage.getItem('token')
+  //   .then(data => {
+  //     if(data){
+  //       navigation.navigate('TodoPage', {
+  //         screen: 'TASKS'
+  //       })
+  //     }
+  //   })
+  //   .catch(err => console.log)
+  // }, [])
 
   function passwordHandler(password) {
     setPassword(password)
