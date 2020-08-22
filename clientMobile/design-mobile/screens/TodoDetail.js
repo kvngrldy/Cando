@@ -1,7 +1,16 @@
-import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import React, {useEffect} from 'react'
+import { View, Text, StyleSheet, Button, AsyncStorage } from 'react-native'
 
 const TodoDetail = ({ navigation, route }) => {
+
+    useEffect(() => {
+        AsyncStorage.getItem('token')
+        .then(data => {
+            if(data === null || data === undefined || data === ''){
+                navigation.navigate('login')
+            }
+        })
+    }, [])
 
     function backToHomepage(event) {
         event.preventDefault()
