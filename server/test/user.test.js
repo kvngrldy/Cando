@@ -134,7 +134,7 @@ describe('Test Create User', () => {
             departmentId: "1",
             name: "user test3",
             password: "123",
-            email: "usertest3@gmail.com",
+            email: "usertest10@gmail.com",
             position: "member",
             imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg"
         }

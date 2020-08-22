@@ -43,7 +43,7 @@ class UserController {
         let { name, password, email, position, imageUrl, departmentId } = req.body
         try {
             let findUserEmail = await user.findOne({ where: { email } })
-            if (findUserEmail) {
+            if (!findUserEmail) {
                 let allDepartment = await department.findAll()
                 let departmentStatus = allDepartment.filter(a => a.id == departmentId)
                 if (departmentStatus.length === 0) {
