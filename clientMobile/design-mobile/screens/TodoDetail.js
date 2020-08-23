@@ -1,10 +1,75 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, Button, AsyncStorage, Picker } from 'react-native'
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+    }),
+});
+
+async function sendPushNotification(expoPushToken) {
+    const message = {
+        to: expoPushToken,
+        title: 'Update Successful',
+        body: 'You have successfully update task!',
+        data: { data: 'goes here' },
+    };
+
+    await fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Accept-encoding': 'gzip, deflate',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message),
+    });
+}
+
+async function registerForPushNotificationsAsync() {
+    let token;
+    if (Constants.isDevice) {
+        const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+        }
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+        console.log(token);
+    } else {
+        alert('Must use physical device for Push Notifications');
+    }
+
+    if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('CanDo Task Manager', {
+            name: 'CanDo Task Manager',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+        });
+    }
+
+    return token;
+}
 
 const TodoDetail = ({ navigation, route }) => {
 
     let { title, category, deadline, priority, description, categoryId, deptId, userId, id } = route.params
     let [categories, setcategories] = useState([])
+    let [expoPushToken, setExpoPushToken] = useState('');
+    let [notification, setNotification] = useState(false);
+    let notificationListener = useRef();
+    let responseListener = useRef();
 
     useEffect(() => {
         AsyncStorage.getItem('token')
@@ -14,6 +79,22 @@ const TodoDetail = ({ navigation, route }) => {
                 }
             })
     }, [])
+
+    useEffect(() => {
+        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+          setNotification(notification);
+        });
+    
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+          console.log(response);
+        });
+    
+        return () => {
+          Notifications.removeNotificationSubscription(notificationListener);
+          Notifications.removeNotificationSubscription(responseListener);
+        };
+      }, []);
 
     useEffect(() => {
         AsyncStorage.getItem('token')
@@ -60,6 +141,7 @@ const TodoDetail = ({ navigation, route }) => {
                 }
             })
             .then(_ => {
+                sendPushNotification(expoPushToken)
                 navigation.navigate('TASKS')
             })
             .catch(err => console.log)
@@ -87,8 +169,8 @@ const TodoDetail = ({ navigation, route }) => {
                     style={{ height: 50, width: 150 }}
                     onValueChange={(itemValue, itemIndex) => changeCategory(itemValue, title, deadline, priority, description, userId, id)} >
                     {
-                        categories && categories.map(categoryOne => {
-                            return <Picker.item label={categoryOne.name} value={categoryOne.id} />
+                        categories && categories.map((categoryOne, index) => {
+                            return <Picker.item key={index} label={categoryOne.name} value={categoryOne.id} />
                         })
                     }
                 </Picker>

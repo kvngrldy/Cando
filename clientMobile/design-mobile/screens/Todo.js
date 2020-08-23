@@ -78,12 +78,6 @@ const Todo = ({ navigation }) => {
                                 <View>
                                     <Text style={styles.priorities}>Priorities: {todo.priority}</Text>
                                 </View>
-                                <View>
-                                    <Text style={styles.priorities}>Department: {todo.category.department.name}</Text>
-                                </View>
-                                <View>
-                                    <Text  style={styles.priorities}>Category ID: {todo.categoryId}</Text>
-                                </View>
                             </View>
                         </View>
                     </ScrollView>
