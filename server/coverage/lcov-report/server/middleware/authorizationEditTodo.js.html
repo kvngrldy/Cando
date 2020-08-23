@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">16.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>2/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">16.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>2/12</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -90,27 +90,27 @@
 <a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -119,28 +119,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span></td><td class="text"><pre class="prettyprint lang-js">const { todo } = require('../models')
 &nbsp;
-async function authorizationEditTodo(req, res, next) {
-    let todoId = req.params.id
-    let { id, name, position, email } = req.userData
+async function <span class="fstat-no" title="function not covered" >authorizationEditTodo(</span>req, res, next) {
+    let todoId = <span class="cstat-no" title="statement not covered" >req.params.id</span>
+    let { id, name, position, email } = <span class="cstat-no" title="statement not covered" >req.userData</span>
 &nbsp;
-    try {
+<span class="cstat-no" title="statement not covered" >    try {</span>
 &nbsp;
-        let findTodo = await todo.findOne({ where: { id: todoId } })
+        let findTodo = <span class="cstat-no" title="statement not covered" >await todo.findOne({ where: { id: todoId } })</span>
 &nbsp;
-        if (!findTodo) {
-            throw { msg: `To Do tidak di temukan`, status: 400 }
+<span class="cstat-no" title="statement not covered" >        if (!findTodo) {</span>
+<span class="cstat-no" title="statement not covered" >            throw { msg: `To Do tidak di temukan`, status: 400 }</span>
         }
         else {
-            if (findTodo.userId === id || position === "admin") {
-                next()
+<span class="cstat-no" title="statement not covered" >            if (findTodo.userId === id || position === "admin") {</span>
+<span class="cstat-no" title="statement not covered" >                next()</span>
             }
             else {
-                throw { msg: `Kamu tidak terotorisasi, hubungi Admin`, status: 404 }
+<span class="cstat-no" title="statement not covered" >                throw { msg: `Kamu tidak terotorisasi, hubungi Admin`, status: 404 }</span>
             }
         }
     }
     catch (err) {
-        next(err)
+<span class="cstat-no" title="statement not covered" >        next(err)</span>
     }
 &nbsp;
 &nbsp;
@@ -154,7 +154,7 @@ module.exports = authorizationEditTodo</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Aug 23 2020 18:58:01 GMT+0700 (Indochina Time)
+                at Sun Aug 23 2020 19:51:27 GMT+0700 (Western Indonesia Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
