@@ -36,6 +36,7 @@ function Login() {
                 .then(res => res.json())
                 .then(data => {
                     setStatus(data)
+                    console.log(data)
                     localStorage.setItem('name', data.name)
                     localStorage.setItem('email', data.email)
                     localStorage.setItem('token', data.token)

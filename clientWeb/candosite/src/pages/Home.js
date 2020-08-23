@@ -5,6 +5,26 @@ import { Form, Button } from 'react-bootstrap'
 import Card from '../components/Card'
 function Home() {
 
+    let history = useHistory()
+    let [todo, setTodo] = useState([])
+    let [department, setDepartment] = useState([])
+
+    // useEffect(async () => {
+    //     try{
+    //         let data = await localStorage.getItem('token')
+    //         let res = await fetch('https://dummycando.herokuapp.com/data/userData', {
+    //             method: 'get',
+    //             headers: {
+    //                 'token': data
+    //             }
+    //         })
+    //         res = res.json()
+    //     let data = await fetch('https://l')
+    //     } catch(err) {
+    //         console.log(err)
+    //     }
+    // }, [])
+
     const [isEditCategory, setIsEditCategory] = useState(false)
 
     function categoryEdit() {
@@ -25,33 +45,29 @@ function Home() {
                                     <h1>Department Name</h1>
                                 </div>
                                 <div className="kanban-group">
-                                    <div className="kanban-board">
-                                        {isEditCategory == false ? <div className="kanban-title">
-                                            <p>BACKLOG</p>
-                                            <span style={{ color: 'grey', marginTop: '2px' }}>
-                                                <i onClick={() => categoryEdit()} class="fas fa-ellipsis-h cursor"></i>
-                                            </span>
+                                            return <div className="kanban-board">
+                                                {
+                                                isEditCategory == false ? <div className="kanban-title">
+                                                    <p>BACKLOG</p>
+                                                    <span style={{ color: 'grey', marginTop: '2px' }}>
+                                                        <i onClick={() => categoryEdit()} class="fas fa-ellipsis-h cursor"></i>
+                                                    </span>
 
-                                        </div> : <div className="kanban-title-edit">
-
-                                                <Form.Group controlId="exampleForm.ControlInput1" style={{ padding: '0px'}}>
-                                                    
-                                                    <Form.Control size="sm" type="text" placeholder="Category Name..." />
-                                                </Form.Group>
-                                                <span>
-                                                   <Button onClick={() => categoryEdit()} variant="primary" size="sm" className="mb-3">Edit</Button> 
-                                                </span>
-                                                
-
-                                            </div>}
-
-                                        <div className="kanban-body">
-                                            <Card></Card>
-                                            <Card></Card>
-                                            <Card></Card>
-                                            <Card></Card>
-                                        </div>
-                                    </div>
+                                                </div> : <div className="kanban-title-edit">
+                                                        <Form.Group controlId="exampleForm.ControlInput1" style={{ padding: '0px' }}>
+                                                            <Form.Control size="sm" type="text" placeholder="Category Name..." />
+                                                        </Form.Group>
+                                                        <span>
+                                                            <Button onClick={() => categoryEdit()} variant="primary" size="sm" className="mb-3">Edit</Button>
+                                                        </span>
+                                                    </div>}
+                                                <div className="kanban-body">
+                                                    <Card></Card>
+                                                    <Card></Card>
+                                                    <Card></Card>
+                                                    <Card></Card>
+                                                </div>
+                                            </div>
                                     <div className="kanban-board">
                                         <div className="kanban-title">
                                             <p>DEVELOPMENT</p>
