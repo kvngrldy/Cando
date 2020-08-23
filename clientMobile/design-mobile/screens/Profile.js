@@ -7,7 +7,6 @@ const Profile = ({ navigation, route }) => {
 
     let { name, email, position, imageUrl } = route.params
     let [department, setDepartment] = useState('')
-    let [debug, setDebug] = useState('')
 
     useEffect(() => {
         AsyncStorage.getItem('token')
@@ -26,7 +25,6 @@ const Profile = ({ navigation, route }) => {
             .then(res => res.json())
             .then(response => {
                 setDepartment(response.userDept)
-                setDebug(response)
             })
             .catch(err => console.log)
     }, [])
@@ -41,7 +39,6 @@ const Profile = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text>{JSON.stringify(debug)}</Text>
             <View style={styles.task}>
                 <View style={styles.description}>
                     <View>

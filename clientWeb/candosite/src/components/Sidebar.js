@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
 import logo from '../assets/logo.png'
+import axios from 'axios'
 
 import socket from '../config/socket'
 
@@ -93,6 +94,10 @@ function Sidebar({ roomData }) {
             exitUser: roomData.users.filter(user => user.name === localStorage.name)
         }
         socket.emit('exit-room', payload)
+    }
+
+    function departmentDetail(id) {
+
     }
 
     return (

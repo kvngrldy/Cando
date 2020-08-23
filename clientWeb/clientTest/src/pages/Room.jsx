@@ -3,7 +3,7 @@ import socket from '../config/socket'
 import { useHistory } from 'react-router-dom'
 
 export default function Room() {
-  
+
   const [roomData, setRoomData] = useState([])
   const [chats, setChats] = useState([])
   const [message, setMessage] = useState('')
@@ -15,14 +15,14 @@ export default function Room() {
     setRoomData(roomDetail)
     setChats(roomDetail.messages)
     console.log(roomDetail, `detail`)
-    
+
   })
 
-  useEffect (() => {
+  useEffect(() => {
     console.log('tessssss')
   }, [roomData])
 
-  
+
 
   const exitRoom = () => {
     // console.log(roomData);
@@ -45,7 +45,7 @@ export default function Room() {
         room: roomData.name
       }
       socket.emit('typing-start', payload)
-    } 
+    }
     // console.log(message==='');
     if (e.target.value === '') {
       socket.emit('typing-stop')
@@ -53,7 +53,7 @@ export default function Room() {
   }
 
   socket.on('typing-start', (data) => {
-    if(data !== localStorage.name) {
+    if (data !== localStorage.name) {
       setIsTyping(true)
       setTypingNames(data)
     }
@@ -72,7 +72,7 @@ export default function Room() {
     }
     socket.emit('send-message', payload)
     socket.emit('typing-stop')
-    
+
     setMessage('')
   }
 
@@ -119,6 +119,7 @@ export default function Room() {
               // chats && JSON.stringify(chats)
               chats && chats.map((m, index) => (
                 <div key={index}>
+                  <img src={m.imageUrl} style={{ height: 100, width: 100 }}></img>
                   <label htmlFor="">{m.sender}</label>
                   <p>{m.message}</p>
                 </div>

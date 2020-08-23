@@ -43,7 +43,8 @@ class TodoController {
             let editedTodo = await todo.update({ title, deadline, priority, description, categoryId, userId }, { where: { id } })
             let newEditedData = await todo.findOne({ where: { id } })
             res.status(200).json(newEditedData)
-            
+
+
         }
         catch (err) {
             next(err)

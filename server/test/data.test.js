@@ -93,4 +93,24 @@ describe('Test Find All Department', () => {
             })
     })
 
+    test('Find One Department Gagal because Unregistered Department', (done) => {
+        request(app)
+            .get('/data/11111')
+            .set('token', tokenAdmin)
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .expect(data => {
+                expect(data.body).toBe('Department ini tidak terdaftar')
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+
+            })
+    })
+
 })
