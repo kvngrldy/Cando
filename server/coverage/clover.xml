@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1598161905653" clover="3.2.0">
-  <project timestamp="1598161905653" name="All files">
-    <metrics statements="363" coveredstatements="360" conditionals="92" coveredconditionals="89" methods="49" coveredmethods="47" elements="504" coveredelements="496" complexity="0" loc="363" ncloc="363" packages="6" files="24" classes="24"/>
+<coverage generated="1598183881384" clover="3.2.0">
+  <project timestamp="1598183881384" name="All files">
+    <metrics statements="396" coveredstatements="365" conditionals="108" coveredconditionals="89" methods="51" coveredmethods="47" elements="555" coveredelements="501" complexity="0" loc="396" ncloc="396" packages="6" files="25" classes="25"/>
     <package name="server">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\app.js">
@@ -21,7 +21,41 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="176" coveredstatements="176" conditionals="60" coveredconditionals="60" methods="22" coveredmethods="22"/>
+      <metrics statements="207" coveredstatements="179" conditionals="76" coveredconditionals="60" methods="24" coveredmethods="22"/>
+      <file name="alfredController.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\controllers\alfredController.js">
+        <metrics statements="31" coveredstatements="3" conditionals="16" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="68" count="6" type="stmt"/>
+      </file>
       <file name="categoryController.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\controllers\categoryController.js">
         <metrics statements="35" coveredstatements="35" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
         <line num="1" count="6" type="stmt"/>
@@ -391,7 +425,7 @@
       </file>
     </package>
     <package name="server.routes">
-      <metrics statements="47" coveredstatements="47" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="49" coveredstatements="49" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="categoryRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\categoryRoute.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="6" type="stmt"/>
@@ -404,7 +438,7 @@
         <line num="13" count="6" type="stmt"/>
       </file>
       <file name="dataRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\dataRoute.js">
-        <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="6" type="stmt"/>
         <line num="2" count="6" type="stmt"/>
         <line num="3" count="6" type="stmt"/>
@@ -414,8 +448,8 @@
         <line num="7" count="6" type="stmt"/>
         <line num="8" count="6" type="stmt"/>
         <line num="9" count="6" type="stmt"/>
-        <line num="11" count="6" type="stmt"/>
-        <line num="13" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
         <line num="14" count="6" type="stmt"/>
         <line num="15" count="6" type="stmt"/>
         <line num="16" count="6" type="stmt"/>
@@ -424,7 +458,9 @@
         <line num="19" count="6" type="stmt"/>
         <line num="20" count="6" type="stmt"/>
         <line num="21" count="6" type="stmt"/>
-        <line num="24" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="23" count="6" type="stmt"/>
+        <line num="26" count="6" type="stmt"/>
       </file>
       <file name="homeRoute.js" path="C:\Users\theodorusArie\Desktop\Hacktiv8\Phase-2\CANDO\Cando\server\routes\homeRoute.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
