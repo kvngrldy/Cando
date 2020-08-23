@@ -9,10 +9,10 @@ let rooms = createRoom()
 
 io.on('connection', socket => {
 
-    socket.on('echo', function (msg, callback) {
-        callback = callback || function () { };
-        socket.emit('echo', 'masuk echo')
-        callback(null, "Done.")
+    socket.on('message', function (msg) {
+
+        io.emit('message', msg)
+
     })
 
 
