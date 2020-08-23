@@ -7,6 +7,7 @@ const authorizationDepartment = require('../middleware/authorizationDepartment')
 const userRoute = require('./userRoute')
 const TodoController = require('../controllers/todoController')
 const authorizationAdmin = require('../middleware/authorizationAdmin')
+const AlfredController = require('../controllers/alfredController')
 
 const dataRoute = require('express').Router()
 
@@ -19,6 +20,7 @@ dataRoute.get('/:id', authentication, authorizationDepartment, DataController.fi
 dataRoute.use('/todo', authentication, todoRoute)
 dataRoute.use('/category', authentication, categoryRoute)
 dataRoute.delete('/remove', authentication, authorizationAdmin, UserController.removeUserFromDepartment)
+dataRoute.post('/alfred',AlfredController.createTodo)
 
 
 module.exports = dataRoute

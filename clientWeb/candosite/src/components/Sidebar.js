@@ -3,19 +3,40 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
 import logo from '../assets/logo.png'
-
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import socket from '../config/socket'
+import { getKanbanData } from '../store/actions/kanbanActions'
 
 
-function Sidebar({roomData}) {
+function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
+    const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
+    let [token, setToken] = useState('')
+    let [department, setDepartment] = useState()
     let history = useHistory()
-    
+    let [departmentName, setDepartmentName] = useState('')
+    let [allUser, setAllUser] = useState('')
+    let [allCategory, setAllCategory] = useState('')
+
     useEffect(() => {
         socket.emit('get-rooms')
     }, [])
-    
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: 'http://localhost:3001/data/userData',
+            headers: {
+                token
+            }
+        })
+            .then(data => {
+                setDepartment(data.data.userDept)
+            })
+            .catch(err => console.log)
+    }, [token])
+
     socket.on('updated-rooms', (rooms) => {
         setRooms(rooms)
     })
@@ -23,22 +44,22 @@ function Sidebar({roomData}) {
     const exitRoom = () => {
         // console.log(roomData);
         const payload = {
-          roomName: roomData.name,
-          exitUser: roomData.users.filter(user => user.name === localStorage.name)
-          // exitUser bisa pertimbangkan pake ID langsung jadi lebih unique
+            roomName: roomData.name,
+            exitUser: roomData.users.filter(user => user.name === localStorage.name)
+            // exitUser bisa pertimbangkan pake ID langsung jadi lebih unique
         }
-    
+
         socket.emit('exit-room', payload)
         socket.emit('typing-stop')
         history.push('/')
-      }
-    
+    }
+
     function joinRoom(roomName) {
         // console.log(`mau join di ${roomName}`);
 
         const payload = {
-          roomName,
-          username: localStorage.name
+            roomName,
+            username: localStorage.name
         }
         socket.emit('join-room', payload)
         history.push(`/room/${roomName}`)
@@ -48,8 +69,8 @@ function Sidebar({roomData}) {
         const payload = {
             roomName: roomData.name,
             exitUser: roomData.users.filter(user => user.name === localStorage.name)
-            
-          }
+
+        }
         socket.emit('exit-room', payload)
         history.push(page)
     }
@@ -63,6 +84,9 @@ function Sidebar({roomData}) {
         if (!data || data === null) {
             history.push('/login')
         }
+        else {
+            setToken(data)
+        }
     }
 
     function logout(event) {
@@ -72,9 +96,16 @@ function Sidebar({roomData}) {
         const payload = {
             roomName: roomData.name,
             exitUser: roomData.users.filter(user => user.name === localStorage.name)
-            
-          }
+
+        }
         socket.emit('exit-room', payload)
+    }
+
+    function departmentDetail(id) {
+
+        dispatch(getKanbanData(id, token))
+        history.push('/')
+
     }
 
     return (
@@ -94,7 +125,7 @@ function Sidebar({roomData}) {
                             </div>
                         ))
                     }
-                     
+
                 </div>
                 <div className="kanban-menu">
                     <div className="menu-title">
@@ -104,6 +135,23 @@ function Sidebar({roomData}) {
                         <h2 onClick={() => goToPage('/')} className="room-text">KANBAN</h2>
                     </div>
                 </div>
+
+                <div className="kanban-menu">
+                    <div className="menu-title">
+                        <p className="text-muted">TASKBOARD</p>
+                    </div>
+
+                    <div>
+                        {
+
+                            department && department.map(dept => (
+                                <h2 onClick={() => departmentDetail(dept.id)} className="room-text">{dept.name}</h2>
+                            ))
+                        }
+
+                    </div>
+                </div>
+
                 <div className="logout-menu">
 
                     <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>

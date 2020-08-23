@@ -36,9 +36,12 @@ function Login() {
                 .then(res => res.json())
                 .then(data => {
                     setStatus(data)
+                    // console.log(data)
                     localStorage.setItem('name', data.name)
                     localStorage.setItem('email', data.email)
                     localStorage.setItem('token', data.token)
+                    localStorage.setItem('imageUrl', data.imageUrl)
+                    localStorage.setItem('position', data.position)
                 })
                 .then(_ => {
                     history.push('/')

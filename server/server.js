@@ -9,10 +9,10 @@ let rooms = createRoom()
 
 io.on('connection', socket => {
 
-    socket.on('echo', function (msg, callback) {
-        callback = callback || function () { };
-        socket.emit('echo', 'masuk echo')
-        callback(null, "Done.")
+    socket.on('message', function (msg) {
+
+        io.emit('message', msg)
+
     })
 
 
@@ -33,19 +33,23 @@ io.on('connection', socket => {
         io.emit('updated-rooms', rooms)
     })
     socket.on('join-room', (data) => {
-        // console.log(socket.id, data);
-        //console.log(data, `<<<<`)
         socket.join(data.roomName, () => {
             const roomIndex = rooms.findIndex(room => room.name === data.roomName)
-            //console.log(rooms[roomIndex].users, `<<`);
 
             rooms[roomIndex].users.push({
                 name: data.username,
                 index: !rooms[roomIndex].users.length ? 0 : rooms[roomIndex].users[rooms[roomIndex].users.length - 1].index + 1
             })
-            // console.log(rooms, 'ini join room');
+
+            rooms[roomIndex].messages.unshift({
+                sender: 'Bot',
+                message: `${data.username} has joined the room`,
+                imageUrl: 'https://vignette.wikia.nocookie.net/hitchhikers/images/7/70/Rubberduck.jpg/revision/latest?cb=20190126010351'
+            })
+
             io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
             io.emit('updated-rooms', rooms)
+
         })
 
     })
@@ -55,18 +59,20 @@ io.on('connection', socket => {
     socket.on('send-message', (data) => {
         socket.join(data.roomName, () => {
             const roomIndex = rooms.findIndex(room => room.name === data.roomName)
-            console.log(data, `<<<<<<<<`)
-            let { sender, message } = data
+            // console.log(data, `<<<<<<<<`)
+            let { sender, message, imageUrl } = data
 
             rooms[roomIndex].messages.unshift({
                 sender,
-                message
+                message,
+                imageUrl
             })
             let forAlfred = message.split(' ')
             io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
 
             if (forAlfred[0] == '@alfred') {
                 forAlfred.splice(0, 1)
+                forAlfred.push(data.roomName)
                 message = forAlfred.join(' ')
                 console.log(message, `< ini balasan user`)
                 axios({
@@ -101,7 +107,16 @@ io.on('connection', socket => {
             const roomIndex = rooms.findIndex(room => room.name === data.roomName)
             const remainUsers = rooms[roomIndex].users.filter(user => user.index !== data.exitUser[0].index)
             rooms[roomIndex].users = remainUsers
-            // console.log(rooms, 'ini exit room');
+            // console.log(data, '<<<<<<<<<<<<<<<<<<,ini exit room');
+
+            rooms[roomIndex].messages.unshift({
+                sender: 'Bot',
+                message: `${data.exitUser[0].name} has left room`,
+                imageUrl: 'https://s3.envato.com/files/263450170/LP_06.jpg'
+            })
+
+
+
             if (remainUsers.length === 0) {
                 rooms[roomIndex].messages = []
             }
