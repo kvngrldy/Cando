@@ -1,15 +1,15 @@
 import React from 'react'
 
-function ChatBubble({chat}) {
+function ChatBubble({ chat }) {
     return (
         <div className="comment ml-3 my-3 user-chat">
-            
+
             <div className="avatar-comment" href="#">
                 <img
-                    src="https://miro.medium.com/max/350/1*MccriYX-ciBniUzRKAUsAw.png"
+                    src={chat.imageUrl}
                     width="35"
                     alt="Profile Avatar"
-                    
+
                     style={{ borderRadius: '50%' }}
                 />
             </div>
@@ -20,7 +20,6 @@ function ChatBubble({chat}) {
                 <div className="comment-content">
                     <p>{chat.message}</p>
                 </div>
-                
             </div>
         </div>
     )
