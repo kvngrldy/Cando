@@ -24,6 +24,21 @@ describe('Suite of unit tests', function () {
       console.log('disconnected...');
     })
 
+
+    // receiver = io.connect('http://localhost:3001', {
+    //   'reconnection delay': 0
+    //   , 'reopen delay': 0
+    //   , 'force new connection': true
+    // });
+
+    // socket.on('connect', function () {
+    //   console.log('worked...');
+    //   done();
+    // });
+    // receiver.on('disconnect', function () {
+    //   console.log('disconnected...');
+    // })
+
     // receiver = io.connect('http://localhost:3001', {
     //   'reconnection delay': 0
     //   , 'reopen delay': 0
@@ -70,6 +85,14 @@ describe('Suite of unit tests', function () {
     //   console.log('no connection to break...');
     // }
 
+    // if (receiver.connected) {
+    //   console.log('disconnecting...');
+    //   receiver.disconnect();
+    // } else {
+    //   // There will not be a connection unless you have done() in beforeEach, socket.on('connect'...)
+    //   console.log('no connection to break...');
+    // }
+
     // sender.disconnect()
     // receiver.disconnect()
     done();
@@ -83,7 +106,6 @@ describe('Suite of unit tests', function () {
     //     expect(data).toBe('masuk echo')
     //     done()
     //   })
-    // })
 
     test('Client Receive Hello World', function (done) {
       socket.emit('message', 'Hello World')

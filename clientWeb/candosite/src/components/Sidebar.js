@@ -4,18 +4,38 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
 import logo from '../assets/logo.png'
 import axios from 'axios'
-
+import { useDispatch } from 'react-redux'
 import socket from '../config/socket'
+import { getKanbanData } from '../store/actions/kanbanActions'
 
 
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
+    const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
+    let [token, setToken] = useState('')
+    let [department, setDepartment] = useState()
     let history = useHistory()
+    let [departmentName, setDepartmentName] = useState('')
+    let [allUser, setAllUser] = useState('')
+    let [allCategory, setAllCategory] = useState('')
 
     useEffect(() => {
         socket.emit('get-rooms')
     }, [])
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: 'http://localhost:3001/data/userData',
+            headers: {
+                token
+            }
+        })
+            .then(data => {
+                setDepartment(data.data.userDept)
+            })
+            .catch(err => console.log)
+    }, [token])
 
     socket.on('updated-rooms', (rooms) => {
         setRooms(rooms)
@@ -64,6 +84,9 @@ function Sidebar({ roomData }) {
         if (!data || data === null) {
             history.push('/login')
         }
+        else {
+            setToken(data)
+        }
     }
 
     function logout(event) {
@@ -79,6 +102,9 @@ function Sidebar({ roomData }) {
     }
 
     function departmentDetail(id) {
+
+        dispatch(getKanbanData(id, token))
+        history.push('/')
 
     }
 
@@ -114,8 +140,15 @@ function Sidebar({ roomData }) {
                     <div className="menu-title">
                         <p className="text-muted">TASKBOARD</p>
                     </div>
+
                     <div>
-                        <h2 onClick={() => departmentDetail(1)} className="room-text">Teknologi Informasi</h2>
+                        {
+
+                            department && department.map(dept => (
+                                <h2 onClick={() => departmentDetail(dept.id)} className="room-text">{dept.name}</h2>
+                            ))
+                        }
+
                     </div>
                 </div>
 

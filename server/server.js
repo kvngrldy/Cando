@@ -72,6 +72,7 @@ io.on('connection', socket => {
 
             if (forAlfred[0] == '@alfred') {
                 forAlfred.splice(0, 1)
+                forAlfred.push(data.roomName)
                 message = forAlfred.join(' ')
                 console.log(message, `< ini balasan user`)
                 axios({

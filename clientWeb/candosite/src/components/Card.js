@@ -1,58 +1,123 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Badge, Form, Button } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
+import { editTodo, deleteTodoData } from '../store/actions/kanbanActions'
 
-function Card() {
+
+function Card({ data }) {
     const [isEdit, setIsEdit] = useState(false)
+    const dispatch = useDispatch()
+    let deadlineDate = data.deadline.slice(8, 10)
+    let deadlineMonth = data.deadline.slice(5, 7)
+    let categoryList = useSelector(state => state.kanban.category)
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const allUserInDepartment = useSelector(state => state.kanban.allUser)
+    const departmentId = useSelector(state => state.kanban.departmentId)
+    const token = localStorage.getItem('token')
+    const [todoData, setTodoData] = useState({
+        title: data.title,
+        deadline: data.deadline.slice(0, 10),
+        priority: data.priority,
+        description: data.description,
+        categoryId: data.categoryId,
+        userId: data.userId,
+    })
+
+    // const userDetails = allUserInDepartment.filter(a => a.id == data.userId)
+    useEffect(() => {
+        setTodoData({
+            title: data.title,
+            deadline: data.deadline.slice(0, 10),
+            priority: data.priority,
+            description: data.description,
+            categoryId: data.categoryId,
+            userId: data.userId,
+        })
+
+    }, [categoryList])
+
+    if (deadlineMonth[0] === '0') {
+        deadlineMonth = deadlineMonth[1]
+        deadlineMonth = months[deadlineMonth - 1]
+    } else {
+        deadlineMonth = months[deadlineMonth - 1]
+    }
 
     function cardEdit() {
-        console.log('tes')
+        // console.log('tes')
         setIsEdit(!isEdit)
     }
+
+    function submitEdit(id) {
+        let payload = {
+            id,
+            departmentId,
+            token,
+            todoData
+        }
+        dispatch(editTodo(payload))
+        // console.log(payload)
+        setIsEdit(!isEdit)
+    }
+
+    function deleteTodo(id) {
+        // console.log(id)
+        let payload ={
+            id,departmentId,token
+        }
+        dispatch(deleteTodoData(payload))
+    }
+
 
     return (
         <div>
             {isEdit == false ? <div className='task-card mb-3'>
                 <div className="task-priority">
                     <Badge pill variant="danger">
-                        Urgent
-            </Badge>
+                        {data.priority}
+                    </Badge>
                     <div className="task-card-menu">
                         <span style={{ color: 'grey', marginRight: '7px' }}>
                             <i onClick={() => cardEdit()} class="far fa-edit cursor"></i>
                         </span>
-                        <span style={{ color: 'grey' }}>
+                        {
+                            
+                        }
+                        <span style={{ color: 'grey' }} onClick={() => deleteTodo(data.id)} >
                             <i class="fas fa-minus-square cursor"></i>
                         </span>
                     </div>
                 </div>
                 <div className="task-title">
-                    <p className="" style={{ fontWeight: 'bold' }}> This is task titleThis is task titleThis is task titleThis is task title</p>
+                    <p className="" style={{ fontWeight: 'bold' }}> {data.title}</p>
                 </div>
                 <div className="task-info">
                     <div className="info-asignee">
-                        <img className="profile-picture-card" alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvyDUUx4x7Iu6xetTkfi_LwDDzfNnJDn-S0Q&usqp=CAU" />
+                        <img className="profile-picture-card" alt="" src={data.user.imageUrl} />
                     </div>
                     <div className="info-deadline">
-                        <Badge variant="secondary">11 Aug</Badge>
+                        <Badge variant="secondary">{deadlineDate}  {deadlineMonth} </Badge>
                     </div>
                 </div>
             </div> :
                 <div className='task-card mb-3'>
                     <div className="task-priority">
                         <Form.Group>
-                            <Form.Control as="select" defaultValue="Priority...">
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
-                                <option>Urgent</option>
+                            <Form.Control as="select" defaultValue={todoData.priority} onChange={(event) => setTodoData({ ...todoData, priority: event.target.value })} >
+                                <option value="low" >Low</option>
+                                <option value="medium" >Medium</option>
+                                <option value="high" >High</option>
+                                <option value="urgent" >Urgent</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control as="select" defaultValue="Priority...">
-                                <option>BackLog</option>
-                                <option>Development</option>
-                                <option>Production</option>
-                                <option>Done</option>
+                            <Form.Control as="select" defaultValue={todoData.categoryId} onChange={(event) => setTodoData({ ...todoData, categoryId: event.target.value })} >
+                                {
+                                    categoryList && categoryList.map(category => (
+                                        <option value={category.id} >{category.name}</option>
+                                    ))
+                                }
+
                             </Form.Control>
                         </Form.Group>
                         <div className="task-card-menu">
@@ -62,16 +127,44 @@ function Card() {
                     <div className="task-title">
                         <Form.Group controlId="formBasicEmail">
 
-                            <Form.Control type="email" value="Task Title..." />
+                            <Form.Control type="text" defaultValue={todoData.title} onChange={(event) => setTodoData({ ...todoData, title: event.target.value })} />
 
                         </Form.Group>
                     </div>
+                    <Form.Group>
+                        <Form.Control as="select" defaultValue={todoData.userId} onChange={(event) => setTodoData({ ...todoData, userId: event.target.value })}  >
+                            {
+                                allUserInDepartment && allUserInDepartment.map(user => (
+                                    <option value={user.id} >{user.name}</option>
+                                ))
+                            }
+
+                        </Form.Control>
+                    </Form.Group>
+
+                    <div className="task-title">
+                        <Form.Group controlId="formBasicEmail">
+
+                            <Form.Control type="date" defaultValue={todoData.deadline} onChange={(event) => setTodoData({ ...todoData, deadline: event.target.value })} />
+
+                        </Form.Group>
+                    </div>
+
+                    <div className="task-title">
+                        <Form.Group controlId="formBasicEmail">
+
+                            <Form.Control type="type" defaultValue={todoData.description} onChange={(event) => setTodoData({ ...todoData, description: event.target.value })} />
+
+                        </Form.Group>
+                    </div>
+
                     <div className="task-info">
                         <div className="info-asignee">
-                            <img className="profile-picture-card" alt="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvyDUUx4x7Iu6xetTkfi_LwDDzfNnJDn-S0Q&usqp=CAU" />
+                            <img className="profile-picture-card" alt="" src={data.user.imageUrl} />
+
                         </div>
                         <div className="info-deadline">
-                            <Button onClick={() => cardEdit()} variant="primary">Edit Task</Button>
+                            <Button onClick={() => submitEdit(data.id)} variant="primary">Edit Task</Button>
                         </div>
                     </div>
                 </div>}
