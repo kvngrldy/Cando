@@ -39,6 +39,7 @@ function Login() {
                     localStorage.setItem('name', data.name)
                     localStorage.setItem('email', data.email)
                     localStorage.setItem('token', data.token)
+                    localStorage.setItem('imageUrl', data.imageUrl)
                 })
                 .then(_ => {
                     history.push('/')
