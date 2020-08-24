@@ -4,6 +4,7 @@ const { verifyToken } = require('../helpers/jwt')
 
 async function authentication(req, res, next) {
     let { token } = req.headers
+    console.log(token, '>>> ini token')
     try {
         if (!token) {
             throw { msg: `Token tidak di temukan`, status: 400 }

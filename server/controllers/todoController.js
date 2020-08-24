@@ -1,6 +1,8 @@
 const { todo, category_todo, department_category, category, user } = require('../models')
 const nodemailer = require('nodemailer')
 const mailFormat = require('../helpers/newTaskMail')
+const updateFormat = require('../helpers/updateTaskMail')
+const deleteFormat = require('../helpers/deleteTaskMail')
 
 class TodoController {
 
@@ -22,9 +24,11 @@ class TodoController {
 
     static async createTodo(req, res, next) {
         let { title, deadline, priority, description, categoryId, userId } = req.body
-
+            
         try {
             let addData = await todo.create({ title, deadline, priority, description, categoryId, userId })
+
+            console.log(req.userData)
 
             const assignedUser = await user.findOne(
                 {
@@ -47,9 +51,9 @@ class TodoController {
 
             let info = {
                 from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `${assignedUser.email}`, // list of receivers
+                to: `handanawilli0902@gmail.com`, // list of receivers
                 subject: "New Task", // Subject line
-                text: "", // plain text body
+                text: "You have successfully create a to-do list!",
                 html: mailFormat, // html body
             };
             transporter.sendMail(info, (error, info) => {
@@ -75,6 +79,31 @@ class TodoController {
             if (!findCategory) throw { msg: `Category tidak terdaftar`, status: 400 }
             let editedTodo = await todo.update({ title, deadline, priority, description, categoryId, userId }, { where: { id } })
             let newEditedData = await todo.findOne({ where: { id } })
+
+            const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail', // gmail only 
+                port: 587,
+                auth: {
+                    user: transportUser,
+                    pass: 'candodummy' // dummy email password here
+                }
+            });
+
+            let info = {
+                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+                to: `handanawilli0902@gmail.com`, // list of receivers
+                subject: "Update successfull", // Subject line
+                text: "You have successfully update a to-do list!",
+                html: updateFormat, // html body
+            };
+            transporter.sendMail(info, (error, info) => {
+                if (error) {
+                    throw error
+                }
+            })
+
             res.status(200).json(newEditedData)
 
 
@@ -93,6 +122,30 @@ class TodoController {
                 throw { msg: `Todo tidak di temukan`, status: 400 }
             }
             else {
+                const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail', // gmail only 
+                port: 587,
+                auth: {
+                    user: transportUser,
+                    pass: 'candodummy' // dummy email password here
+                }
+            });
+
+            let info = {
+                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+                to: `handanawilli0902@gmail.com`, // list of receivers
+                subject: "Delete successfull", // Subject line
+                text: "You have successfully delete a to-do list!",
+                html: deleteFormat, // html body
+            };
+            transporter.sendMail(info, (error, info) => {
+                if (error) {
+                    throw error
+                }
+            })
+
                 res.status(200).json('Berhasil Delete')
 
             }
