@@ -1,5 +1,8 @@
 const dataRoute = require("../routes/dataRoute");
 const { department, user, todo, category } = require('../models')
+const dialogflow = require('dialogflow');
+const uuid = require('uuid');
+
 
 
 class AlfredController {
@@ -53,15 +56,46 @@ class AlfredController {
             else {
                 throw { msg: `Tidak Bisa Create Todo`, status: 400 }
             }
-
-
-
-
         }
         catch (err) {
             next()
         }
 
+    }
+
+    static getMsg(req, res, next) {
+        const sessionId = uuid.v4();
+        const msg = req.body.msg
+        
+        const sessionClient = new dialogflow.SessionsClient({
+            credentials: {
+                private_key:process.env.private_key,
+                client_email:process.env.client_email
+              }
+        });
+       
+        const sessionPath = sessionClient.sessionPath('hehe-uqux', sessionId);
+        const request = {
+            session: sessionPath,
+            queryInput: {
+                text: {
+                    text: msg,
+                    languageCode: 'en-US',
+                },
+            },
+        };
+
+        sessionClient.detectIntent(request)
+            .then(response => {
+                const result = response[0].queryResult;
+                res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
+            })
+            .catch(err => {
+                console.log('masuk err', err)
+            })
+            .finally(() => {
+                console.log('masuk finally')
+            })
     }
 }
 

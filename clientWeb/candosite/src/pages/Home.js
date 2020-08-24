@@ -13,7 +13,7 @@ import KanbanBoard from '../components/KanbanBoard'
 function Home() {
     const departmentName = useSelector(state => state.kanban.departmentName)
     const departmentCategory = useSelector(state => state.kanban.category)
-    socket.on('add-alfred-notif', (departmentName) => {
+    socket.on('add-alfred-notif', _ => {
         toast.info('New Task Added', {
             position: "bottom-right",
             autoClose: false,
@@ -22,7 +22,7 @@ function Home() {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            });
+        });
     })
 
     let history = useHistory()
@@ -47,33 +47,12 @@ function Home() {
                             <div className="kanban-section">
                                 <div className="kanban-header">
                                     <h1>{departmentName}</h1>
-
                                 </div>
                                 <KanbanBoard></KanbanBoard>
-                                {/* <div className="kanban-group">
-
-
-                                    {
-                                        departmentCategory && departmentCategory.map(category => (
-
-                                            <CategoryList data={category}></CategoryList>
-                                        ))
-
-
-                                    }
-
-
-
-
-                                </div> */}
-                                <ToastContainer />
                             </div>
-                            
-                            
                         </div>
+                        <ToastContainer />   
                     </div>
-
-
                 </div>
             </div>
         </div >
