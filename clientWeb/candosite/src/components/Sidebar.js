@@ -97,8 +97,6 @@ function Sidebar({ roomData }) {
         history.push("/login")
         }
         
-        
-        
     }
 
     function departmentDetail(id) {
@@ -150,12 +148,11 @@ function Sidebar({ roomData }) {
 
                 <div className="kanban-menu">
                     <div className="menu-title">
-                        <p className="text-muted">TASKBOARD</p>
+                        <p className="text-muted">DEPARTEMEN</p>
                     </div>
 
                     <div>
                         {
-                            
                             department && department.map(dept => (
                                 <h2 onClick={() => departmentDetail(dept.id)} className="room-text">{dept.name}</h2>
                             ))
@@ -163,9 +160,7 @@ function Sidebar({ roomData }) {
 
                     </div>
                 </div>
-
                 <div className="logout-menu">
-
                     <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>
                 </div>
             </div>

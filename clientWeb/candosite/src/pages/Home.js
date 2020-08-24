@@ -12,6 +12,26 @@ function Home() {
     const departmentCategory = useSelector(state => state.kanban.category)
 
 
+    let history = useHistory()
+    let [todo, setTodo] = useState([])
+    let [department, setDepartment] = useState([])
+
+    // useEffect(async () => {
+    //     try{
+    //         let data = await localStorage.getItem('token')
+    //         let res = await fetch('https://dummycando.herokuapp.com/data/userData', {
+    //             method: 'get',
+    //             headers: {
+    //                 'token': data
+    //             }
+    //         })
+    //         res = res.json()
+    //     let data = await fetch('https://l')
+    //     } catch(err) {
+    //         console.log(err)
+    //     }
+    // }, [])
+
     const [isEditCategory, setIsEditCategory] = useState(false)
 
     function categoryEdit() {
