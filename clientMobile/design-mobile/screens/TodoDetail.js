@@ -104,7 +104,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/${deptId}`, {
+                    return fetch(`http://localhost:3001/data/${deptId}`, {
                         method: 'get',
                         headers: {
                             "token": data
@@ -125,7 +125,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (!data) {
                     navigation.navigate('/login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/todo/${id}`, {
+                    return fetch(`http://localhost:3001/data/todo/${id}`, {
                         method: "PUT",
                         headers: {
                             'token': data,

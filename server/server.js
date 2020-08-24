@@ -74,6 +74,7 @@ io.on('connection', socket => {
                 forAlfred.splice(0, 1)
                 forAlfred.push(data.roomName)
                 message = forAlfred.join(' ')
+                
                 console.log(message, `< ini balasan user`)
                 axios({
                     method: 'post',
@@ -93,6 +94,7 @@ io.on('connection', socket => {
                     })
                     .then(() => {
                         io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
+                        io.emit('add-alfred-notif')
                         io.broadcast.emit('update-data')
                     })
                     .catch(console.log)
@@ -142,6 +144,10 @@ io.on('connection', socket => {
 
     socket.on('update-data', _ => {
         socket.broadcast.emit('update-data')
+    })
+
+    socket.on('add-alfred-notif', _ => {
+       socket.broadcast.emit('add-alfred-notif')
     })
 })
 

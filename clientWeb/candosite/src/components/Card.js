@@ -81,9 +81,19 @@ function Card({ data }) {
         <div>
             {isEdit == false ? <div className='task-card mb-3'>
                 <div className="task-priority">
-                    <Badge pill variant="danger">
+                    {data.priority == 'urgent' && <Badge pill variant="danger">
                         {data.priority}
-                    </Badge>
+                    </Badge>}
+                    {data.priority == 'high' && <Badge pill variant="warning">
+                        {data.priority}
+                    </Badge>}
+                    {data.priority == 'medium' && <Badge pill variant="primary">
+                        {data.priority}
+                    </Badge>}
+                    {data.priority == 'low' && <Badge pill variant="success">
+                        {data.priority}
+                    </Badge>}
+                    
                     {localStorage.position == 'admin' ? <div className="task-card-menu">
                         
                         <span style={{ color: 'grey', marginRight: '7px' }}>
