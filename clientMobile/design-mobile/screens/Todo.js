@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
+import socket from '../config/socket'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -13,11 +14,11 @@ Notifications.setNotificationHandler({
     }),
 });
 
-async function sendPushNotification(expoPushToken, title) {
+async function sendPushNotification(expoPushToken, title, body) {
     const message = {
         to: expoPushToken,
-        title: 'Please check your task!!',
-        body: `${title} must be finished before tomorrow!`,
+        title,
+        body,
         data: { data: 'goes here' },
     };
 
@@ -76,6 +77,11 @@ const Todo = ({ navigation }) => {
             Notifications.removeNotificationSubscription(responseListener);
         };
     }, []);
+
+    socket.on('update-data', (payload) => {
+        fetchData()
+        sendPushNotification(expoPushToken, 'One of your task has been updated!', `New updated task ${payload.title}`)
+    })
 
     function fetchData() {
         AsyncStorage.getItem('token')

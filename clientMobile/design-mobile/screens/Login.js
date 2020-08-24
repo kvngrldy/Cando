@@ -5,7 +5,8 @@ import {
   View,
   TextInput,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 
 const Login = ({ navigation }) => {
@@ -16,18 +17,6 @@ const Login = ({ navigation }) => {
   function emailHandler(email) {
     setEmail(email)
   }
-
-  // useEffect(() => {
-  //   AsyncStorage.getItem('token')
-  //   .then(data => {
-  //     if(data){
-  //       navigation.navigate('TodoPage', {
-  //         screen: 'TASKS'
-  //       })
-  //     }
-  //   })
-  //   .catch(err => console.log)
-  // }, [])
 
   function passwordHandler(password) {
     setPassword(password)
@@ -47,7 +36,7 @@ const Login = ({ navigation }) => {
     })
       .then(res => res.json())
       .then(data => {
-        if(data === 'Password dan Email Harus Di Isi' || data === 'Password atau Email Salah'){
+        if (data === 'Password dan Email Harus Di Isi' || data === 'Password atau Email Salah') {
           setStatus(data)
         } else {
           navigation.navigate("TodoPage", {
@@ -70,7 +59,9 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CANDO</Text>
+      <View style={{width: '100%'}}>
+        <Image resizeMode="center" style={{ width: 300, height: 300, borderWidth: 1, borderColor: "black", marginBottom: 30, marginTop: 50, marginLeft: "25%" }} source={{ uri: 'https://thumbs2.imgbox.com/18/c8/qMerjwI8_t.png' }} />
+      </View>      
       <Text style={styles.textStatus}>{status}</Text>
       <View style={styles.inputContainer}>
         <TextInput style={styles.inputs}

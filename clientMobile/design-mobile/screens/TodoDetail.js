@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, AsyncStorage, Picker } from 'react-nati
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
+import socket from '../config/socket'
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -144,6 +145,9 @@ const TodoDetail = ({ navigation, route }) => {
             .then(_ => {
                 sendPushNotification(expoPushToken)
                 navigation.navigate('TASKS')
+            })
+            .then(_ => {
+                socket.emit('update-data')
             })
             .catch(err => console.log)
     }
