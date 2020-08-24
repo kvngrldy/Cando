@@ -48,7 +48,13 @@ function Sidebar({ roomData }) {
 
     function joinRoom(roomName) {
         // console.log(`mau join di ${roomName}`);
-
+        if(roomData) {
+            const payloadExit = {
+                roomName: roomData.name,
+                exitUser: roomData.users.filter(user => user.name === localStorage.name)
+            }
+            socket.emit('exit-room', payloadExit)
+        }
         const payload = {
             roomName,
             username: localStorage.name
