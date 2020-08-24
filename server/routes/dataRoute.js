@@ -20,7 +20,9 @@ dataRoute.get('/:id', authentication, authorizationDepartment, DataController.fi
 dataRoute.use('/todo', authentication, todoRoute)
 dataRoute.use('/category', authentication, categoryRoute)
 dataRoute.delete('/remove', authentication, authorizationAdmin, UserController.removeUserFromDepartment)
+
 dataRoute.post('/alfred',AlfredController.createTodo)
+dataRoute.post('/alfredatyourservice', AlfredController.getMsg)
 
 
 module.exports = dataRoute

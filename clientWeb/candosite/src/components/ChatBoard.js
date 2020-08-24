@@ -8,6 +8,7 @@ function Chatboard({ roomData, chats }) {
     const [text, setText] = useState("");
     //const [message]
     function handleOnEnter(text) {
+        console.log("enter", text);
         const payload = {
             roomName: roomData.name,
             sender: localStorage.name,

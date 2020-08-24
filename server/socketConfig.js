@@ -85,7 +85,7 @@ io.on('connection', socket => {
                 console.log(message, `< ini balasan user`)
                 axios({
                     method: 'post',
-                    url: 'http://localhost:3003/',
+                    url: 'http://localhost:3001/data/alfredatyourservice',
                     data: {
                         msg: message
                     }
@@ -95,7 +95,7 @@ io.on('connection', socket => {
 
                         rooms[roomIndex].messages.unshift({
                             sender: 'Alfred',
-                            //image for alfred
+                            imageUrl: 'https://i.pinimg.com/564x/8a/72/b6/8a72b661a6aa5084a691a27320d7577d.jpg',
                             message: data.response
                         })
                     })
