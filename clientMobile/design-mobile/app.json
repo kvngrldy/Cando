@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "design-mobile",
-    "slug": "design-mobile",
+    "name": "CanDo Task Manager",
+    "slug": "CanDo Task Manager",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

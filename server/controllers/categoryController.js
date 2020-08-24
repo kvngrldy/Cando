@@ -15,7 +15,6 @@ class CategoryController {
         }
         catch (err) {
             next(err)
-            // res.status(500).json(err)
         }
     }
 

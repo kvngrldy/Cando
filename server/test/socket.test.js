@@ -1,10 +1,9 @@
 const io = require('socket.io-client')
 // const serverIo = require('../server')(3001)
 // const server = require('../bin/http')
-const server = require('../socketConfig')
+const server = require('../socketConfig');
+const { after } = require('mocha');
 server.attach(3010)
-
-
 
 describe('Suite of unit tests', function () {
 
@@ -34,7 +33,8 @@ describe('Suite of unit tests', function () {
     //   , 'reopen delay': 0
     //   , 'force new connection': true
     // });
-    // receiver.on('connect', function () {
+
+    // socket.on('connect', function () {
     //   console.log('worked...');
     //   done();
     // });
@@ -42,8 +42,18 @@ describe('Suite of unit tests', function () {
     //   console.log('disconnected...');
     // })
 
-
-
+    // receiver = io.connect('http://localhost:3001', {
+    //   'reconnection delay': 0
+    //   , 'reopen delay': 0
+    //   , 'force new connection': true
+    // });
+    // receiver.on('connect', function () {
+    //   console.log('worked...');
+    //   done();
+    // });
+    // receiver.on('disconnect', function () {
+    //   console.log('disconnected...');
+    // })
 
     // socket = io.connect('http://localhost:3001', {
     //   'reconnection delay': 0
@@ -81,7 +91,11 @@ describe('Suite of unit tests', function () {
     // sender.disconnect()
     // receiver.disconnect()
     done();
+
   });
+  afterAll(function (done) {
+    server.detach()
+  })
 
   describe('Room tests', function () {
 
@@ -91,7 +105,6 @@ describe('Suite of unit tests', function () {
     //     expect(data).toBe('masuk echo')
     //     done()
     //   })
-    // })
 
     // test('Client Receive Hello World', function (done) {
     //   socket.emit('message', 'Hello World')
@@ -102,7 +115,34 @@ describe('Suite of unit tests', function () {
     // })
 
 
+    test('get all rooms', (done) => {
+      socket.emit('get-rooms')
+      socket.on('updated-rooms', (data) => {
+        expect(data).toBeInstanceOf(Array)
+        done()
+      })
+    })
 
+    test('create room', (done) => {
+      const data = {
+        roomName: 'Teknologi Informasi',
+        admin: 'admin',
+      }
+
+      socket.emit('create-room', data)
+
+      socket.on('updated-rooms', dataRes => {
+        expect(dataRes).toBeInstanceOf(Array)
+        expect(dataRes[0]).toBeInstanceOf(Object)
+        expect(dataRes[0]).toHaveProperty('name')
+        expect(dataRes[0]).toHaveProperty('admin')
+        expect(dataRes[0]).toHaveProperty('users')
+        expect(dataRes[0]).toHaveProperty('messages')
+        expect(dataRes[0].name).toBe(data.roomName)
+        expect(dataRes[0].admin).toBe(data.admin)
+        done()
+      })
+    })
 
     test('get all rooms', (done) => {
       socket.emit('get-rooms')

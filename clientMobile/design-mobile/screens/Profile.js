@@ -7,7 +7,6 @@ const Profile = ({ navigation, route }) => {
 
     let { name, email, position, imageUrl } = route.params
     let [department, setDepartment] = useState('')
-    let [userId, setUserId] = useState('')
 
     useEffect(() => {
         AsyncStorage.getItem('token')
