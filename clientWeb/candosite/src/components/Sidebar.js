@@ -11,6 +11,8 @@ import { getKanbanData } from '../store/actions/kanbanActions'
 
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
+    
+
     const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
     let [token, setToken] = useState('')
@@ -19,7 +21,7 @@ function Sidebar({ roomData }) {
     let [departmentName, setDepartmentName] = useState('')
     let [allUser, setAllUser] = useState('')
     let [allCategory, setAllCategory] = useState('')
-
+    
     useEffect(() => {
         socket.emit('get-rooms')
     }, [])

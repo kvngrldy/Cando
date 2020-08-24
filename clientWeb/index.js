@@ -33,12 +33,12 @@ app.post('/', (req, res) => {
             },
         },
     };
-
+    
     sessionClient.detectIntent(request)
         .then(response => {
-            console.log(response, 'masuk detecintent')
+            console.log(response, 'masuk detecintent <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
             const result = response[0].queryResult;
-            console.log(response[0].queryResult.fulfillmentText, `<<<<`)
+            //console.log(response.queryResult.fulfillmentText, `<<<<`)
 
             res.status(200).json({response: `${response[0].queryResult.fulfillmentText}`})
         })

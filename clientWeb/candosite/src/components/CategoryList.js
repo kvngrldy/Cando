@@ -34,10 +34,9 @@ export default function CategoryList({ data }) {
                     isEditCategory == false ?
                         <div className="kanban-title">
                             <p>{data.name}</p>
-                            <span style={{ color: 'grey', marginTop: '2px' }}>
+                            {localStorage.position == 'admin' ? <span style={{ color: 'grey', marginTop: '2px' }}>
                                 <i onClick={() => categoryEdit()} class="fas fa-ellipsis-h cursor"></i>
-                            </span>
-
+                            </span> : <div></div>}
                         </div> : <div className="kanban-title-edit">
 
                             <Form.Group controlId="exampleForm.ControlInput1" style={{ padding: '0px' }}>
@@ -60,10 +59,7 @@ export default function CategoryList({ data }) {
 
                     }
 
-                    {/* <Card></Card>
-                    <Card></Card>
-                    <Card></Card>
-                    <Card></Card> */}
+                    
                 </div>
             </div>
 

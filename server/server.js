@@ -83,7 +83,7 @@ io.on('connection', socket => {
                     }
                 })
                     .then(({ data }) => {
-                        console.log(data.response, `<<<<`)
+                        console.log(data, `<<<<`)
 
                         rooms[roomIndex].messages.unshift({
                             sender: 'Alfred',
