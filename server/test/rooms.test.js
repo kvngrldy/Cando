@@ -9,7 +9,7 @@ describe('test function rooms', () => {
         expect.assertions(1)
         const rooms = await createRoom()
 
-        expect(rooms.length).toBe(0)
+        expect(rooms.length).toBe(1)
     })
 })
 

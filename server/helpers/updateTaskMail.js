@@ -1,4 +1,4 @@
-const mailFormat = `
+const updateFormat = `
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -213,9 +213,9 @@ const mailFormat = `
                     <tr>
                     <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
                         <div style='color:#999999;font-family:Open Sans, Arial, sans-serif;font-size:15px;line-height:22px;text-align:center;'>
-                        A new task has been successfully assigned to you!
+                        Update successfull!
                         <br />
-                        Please check your CanDo mobile phone app to check task specifications
+                        You have successfully updated your task!
                         </div>
                     </td>
                     </tr>
@@ -276,4 +276,4 @@ const mailFormat = `
 </html>
 `
 
-module.exports = mailFormat
+module.exports = updateFormat

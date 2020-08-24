@@ -48,19 +48,19 @@ function Sidebar({ roomData }) {
 
     function joinRoom(roomName) {
         // console.log(`mau join di ${roomName}`);
-        let allowStatus = false
-        department.forEach(dept => {
-            if (dept.name === roomName || roomName === 'roomForAll') allowStatus = true
-        })
-        // console.log(allowStatus);
-        if (allowStatus) {
-            const payload = {
-                roomName,
-                username: localStorage.name
+        if (roomData) {
+            const payloadExit = {
+                roomName: roomData.name,
+                exitUser: roomData.users.filter(user => user.name === localStorage.name)
             }
-            socket.emit('join-room', payload)
-            history.push(`/room/${roomName}`)
+            socket.emit('exit-room', payloadExit)
         }
+        const payload = {
+            roomName,
+            username: localStorage.name
+        }
+        socket.emit('join-room', payload)
+        history.push(`/room/${roomName}`)
     }
 
     function goToPage(page) {
