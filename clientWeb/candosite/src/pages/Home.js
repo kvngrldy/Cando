@@ -31,7 +31,7 @@ function Home() {
                             <div className="kanban-section">
                                 <div className="kanban-header">
                                     <h1>{departmentName}</h1>
-
+                                    
                                 </div>
                                 <div className="kanban-group">
 

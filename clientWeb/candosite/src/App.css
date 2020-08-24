@@ -150,7 +150,12 @@ body {
   max-height: 50px;
 }
 
-
+.not-active {
+  pointer-events: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: greenyellow;
+}
 
 .react-input-emoji--input {
   overflow-y: auto;
@@ -184,7 +189,8 @@ body {
   margin-right: 3rem;
   display: flex;
   height: 95%;
- 
+  width: 100%;
+  overflow-x: auto;
 }
 
 .kanban-header{
@@ -199,7 +205,7 @@ body {
   background-color: transparent;
   height: 90%;
   margin-right: 5rem;
-  width: 21%;
+  width: 100%;
   
 }
 
@@ -246,6 +252,7 @@ body {
 
 .kanban-body{
   height: 90%;
+  width: 15rem;
   background-color: transparent;
   overflow-y: auto;
 }
