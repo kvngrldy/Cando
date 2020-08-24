@@ -5,6 +5,7 @@ import { editTodo, deleteTodoData } from '../store/actions/kanbanActions'
 
 
 function Card({ data }) {
+    
     const [isEdit, setIsEdit] = useState(false)
     const dispatch = useDispatch()
     let deadlineDate = data.deadline.slice(8, 10)
@@ -76,7 +77,8 @@ function Card({ data }) {
                     <Badge pill variant="danger">
                         {data.priority}
                     </Badge>
-                    <div className="task-card-menu">
+                    {localStorage.position == 'admin' ? <div className="task-card-menu">
+                        
                         <span style={{ color: 'grey', marginRight: '7px' }}>
                             <i onClick={() => cardEdit()} class="far fa-edit cursor"></i>
                         </span>
@@ -86,7 +88,7 @@ function Card({ data }) {
                         <span style={{ color: 'grey' }} onClick={() => deleteTodo(data.id)} >
                             <i class="fas fa-minus-square cursor"></i>
                         </span>
-                    </div>
+                    </div>: <div className="task-card-menu"></div>}
                 </div>
                 <div className="task-title">
                     <p className="" style={{ fontWeight: 'bold' }}> {data.title}</p>

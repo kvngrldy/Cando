@@ -11,6 +11,9 @@ import { getKanbanData } from '../store/actions/kanbanActions'
 
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
+    const location = useLocation()
+    console.log(location, `<<<<`)
+
     const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
     let [token, setToken] = useState('')
@@ -19,6 +22,7 @@ function Sidebar({ roomData }) {
     let [departmentName, setDepartmentName] = useState('')
     let [allUser, setAllUser] = useState('')
     let [allCategory, setAllCategory] = useState('')
+    console.log(department, `<<<`)
 
     useEffect(() => {
         socket.emit('get-rooms')
@@ -41,18 +45,6 @@ function Sidebar({ roomData }) {
         setRooms(rooms)
     })
 
-    const exitRoom = () => {
-        // console.log(roomData);
-        const payload = {
-            roomName: roomData.name,
-            exitUser: roomData.users.filter(user => user.name === localStorage.name)
-            // exitUser bisa pertimbangkan pake ID langsung jadi lebih unique
-        }
-
-        socket.emit('exit-room', payload)
-        socket.emit('typing-stop')
-        history.push('/')
-    }
 
     function joinRoom(roomName) {
         // console.log(`mau join di ${roomName}`);
@@ -91,20 +83,39 @@ function Sidebar({ roomData }) {
 
     function logout(event) {
         event.preventDefault()
-        localStorage.removeItem('token')
+        
+        if (roomData) {
+            const payload = {
+                roomName: roomData.name,
+                exitUser: roomData.users.filter(user => user.name === localStorage.name)
+            }
+            socket.emit('exit-room', payload)
+            localStorage.removeItem('token')
         history.push("/login")
-        const payload = {
-            roomName: roomData.name,
-            exitUser: roomData.users.filter(user => user.name === localStorage.name)
-
+        } else {
+            localStorage.removeItem('token')
+        history.push("/login")
         }
-        socket.emit('exit-room', payload)
+        
+        
+        
     }
 
     function departmentDetail(id) {
-
-        dispatch(getKanbanData(id, token))
+        if (roomData) {
+            const payload = {
+                roomName: roomData.name,
+                exitUser: roomData.users.filter(user => user.name === localStorage.name)
+            }
+            socket.emit('exit-room', payload)
+            dispatch(getKanbanData(id, token))
         history.push('/')
+        } else {
+            dispatch(getKanbanData(id, token))
+        history.push('/')
+        }
+
+        
 
     }
 
@@ -119,22 +130,23 @@ function Sidebar({ roomData }) {
                         <p className="text-muted">YOUR CHATROOM</p>
                     </div>
                     {
-                        rooms && rooms.map((room, index) => (
+                        department && department.map((room, index) => (
                             <div key={index}>
-                                <h2 onClick={() => joinRoom(room.name)} className="room-text">{room.name}</h2>
+                                
+                                <h2 onClick={() => joinRoom(room.name)} className={location.pathname == `/room/${room.name}` ? 'room-text not-active' : 'room-text'}>{room.name}</h2>
                             </div>
                         ))
                     }
 
                 </div>
-                <div className="kanban-menu">
+               {/*  <div className="kanban-menu">
                     <div className="menu-title">
                         <p className="text-muted">TASKBOARD</p>
                     </div>
                     <div>
                         <h2 onClick={() => goToPage('/')} className="room-text">KANBAN</h2>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="kanban-menu">
                     <div className="menu-title">
@@ -143,7 +155,7 @@ function Sidebar({ roomData }) {
 
                     <div>
                         {
-
+                            
                             department && department.map(dept => (
                                 <h2 onClick={() => departmentDetail(dept.id)} className="room-text">{dept.name}</h2>
                             ))
