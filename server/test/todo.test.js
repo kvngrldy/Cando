@@ -123,7 +123,6 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                // createdTodoId = data.body.id
                 expect(data.body).toBe('Deadline To Do Harus di Isi')
             })
             .end(err => {
@@ -153,7 +152,6 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                // createdTodoId = data.body.id
                 expect(data.body).toBe('Priority To Do Harus di Isi')
             })
             .end(err => {
@@ -183,7 +181,6 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                // createdTodoId = data.body.id
                 expect(data.body).toBe('Deskripsi To Do Harus di Isi')
             })
             .end(err => {
@@ -213,7 +210,6 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                // createdTodoId = data.body.id
                 expect(data.body).toBe('Category ID To Do Harus di Isi')
             })
             .end(err => {
@@ -243,7 +239,6 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                // createdTodoId = data.body.id
                 expect(data.body).toBe('User ID To Do Harus di Isi')
             })
             .end(err => {
@@ -273,7 +268,6 @@ describe('Test To Do Create', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                // createdTodoId = data.body.id
                 expect(data.body).toBe("Title To Do Harus di Isi,Deadline To Do Harus di Isi,Priority To Do Harus di Isi,Deskripsi To Do Harus di Isi,Category ID To Do Harus di Isi,User ID To Do Harus di Isi")
             })
             .end(err => {

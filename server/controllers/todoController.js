@@ -1,4 +1,4 @@
-const { todo, category_todo, department_category, category, user } = require('../models')
+const { todo, category, user } = require('../models')
 
 class TodoController {
 

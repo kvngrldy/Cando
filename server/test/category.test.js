@@ -104,7 +104,6 @@ describe('Test Category Create', () => {
     test('Category Create with Admin Account DepartmentId dan Name tidak di isi', (done) => {
         request(app)
             .post('/data/category')
-            // .send(dummyCategory)
             .set('token', tokenAdmin)
             .expect('Content-Type', /json/)
             .expect(400)

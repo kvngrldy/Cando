@@ -16,12 +16,6 @@ app.use(homeRoute)
 
 app.use(errHandler)
 
-let rooms = [{
-  name: 'bot playground',
-  admin: 'Alfred',
-  users: [],
-  messages: []
-}]
 
 module.exports = app
 
