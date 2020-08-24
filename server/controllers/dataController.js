@@ -15,14 +15,14 @@ class DataController {
         let { id } = req.params
         try {
 
-            let allData = await department.findOne({ where: { id }, include: { model: category, separate: true, order: [['id', 'asc']], include: { model: todo, separate: true, order: [["deadline", "asc"]], include: { model: user } } } })
+            let allData = await department.findOne({ where: { id }, include: { model: category, separate: true, order: [['id', 'asc']], include: { model: todo, separate: true, order: [["deadline", "asc"]], include: { model: user, attributes: ['name', 'email', 'position', 'imageUrl', 'id'] } } } })
 
             if (!allData) {
                 throw { msg: `Department ini tidak terdaftar`, status: 400 }
             }
             else {
 
-                let allUserInDepartment = await department_user.findAll({ where: { departmentId: id }, include: { model: user } })
+                let allUserInDepartment = await department_user.findAll({ where: { departmentId: id }, include: [{ model: user, attributes: ['name', 'email', 'position', 'imageUrl', 'id'] }] })
                 let allUser = allUserInDepartment.map(data => {
                     return data.user
                 })

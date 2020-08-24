@@ -8,9 +8,7 @@ let rooms = createRoom()
 io.on('connection', socket => {
 
     socket.on('message', function (msg) {
-
         io.emit('message', msg)
-
     })
 
 

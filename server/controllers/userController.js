@@ -13,7 +13,7 @@ class UserController {
             }
             else {
 
-                let userData = await user.findOne({ where: { email } })
+                let userData = await user.findOne({ where: { email }})
 
                 if (!userData) {
                     throw { msg: `Password atau Email Salah`, status: 400 }

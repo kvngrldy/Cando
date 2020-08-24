@@ -3,10 +3,10 @@ const io = require('socket.io-client')
 // const server = require('../bin/http')
 const server = require('../socketConfig');
 const { after } = require('mocha');
-server.attach(3010)
+
 
 describe('Suite of unit tests', function () {
-
+  server.attach(3010)
   // let sender;
   // let receiver;
   let socket;
@@ -28,46 +28,7 @@ describe('Suite of unit tests', function () {
     })
 
 
-    // receiver = io.connect('http://localhost:3001', {
-    //   'reconnection delay': 0
-    //   , 'reopen delay': 0
-    //   , 'force new connection': true
-    // });
 
-    // socket.on('connect', function () {
-    //   console.log('worked...');
-    //   done();
-    // });
-    // receiver.on('disconnect', function () {
-    //   console.log('disconnected...');
-    // })
-
-    // receiver = io.connect('http://localhost:3001', {
-    //   'reconnection delay': 0
-    //   , 'reopen delay': 0
-    //   , 'force new connection': true
-    // });
-    // receiver.on('connect', function () {
-    //   console.log('worked...');
-    //   done();
-    // });
-    // receiver.on('disconnect', function () {
-    //   console.log('disconnected...');
-    // })
-
-    // socket = io.connect('http://localhost:3001', {
-    //   'reconnection delay': 0
-    //   , 'reopen delay': 0
-    //   , 'force new connection': true
-    // });
-
-    // socket.on('connect', function () {
-    //   console.log('worked...');
-    //   done();
-    // });
-    // socket.on('disconnect', function () {
-    //   console.log('disconnected...');
-    // })
   });
 
   afterEach(function (done) {
@@ -79,17 +40,6 @@ describe('Suite of unit tests', function () {
       // There will not be a connection unless you have done() in beforeEach, socket.on('connect'...)
       console.log('no connection to break...');
     }
-
-    // if (receiver.connected) {
-    //   console.log('disconnecting...');
-    //   receiver.disconnect();
-    // } else {
-    //   // There will not be a connection unless you have done() in beforeEach, socket.on('connect'...)
-    //   console.log('no connection to break...');
-    // }
-
-    // sender.disconnect()
-    // receiver.disconnect()
     done();
 
   });
@@ -99,20 +49,13 @@ describe('Suite of unit tests', function () {
 
   describe('Room tests', function () {
 
-    // test('echo', (done) => {
-    //   socket.emit('echo')
-    //   socket.on('echo', (data) => {
-    //     expect(data).toBe('masuk echo')
-    //     done()
-    //   })
-
-    // test('Client Receive Hello World', function (done) {
-    //   socket.emit('message', 'Hello World')
-    //   socket.on('message', function (msg) {
-    //     expect(msg).toBe('Hello World')
-    //     done()
-    //   })
-    // })
+    test('Client Receive Hello World', function (done) {
+      socket.emit('message', 'Hello World')
+      socket.on('message', function (msg) {
+        expect(msg).toBe('Hello World')
+        done()
+      })
+    })
 
 
     test('get all rooms', (done) => {

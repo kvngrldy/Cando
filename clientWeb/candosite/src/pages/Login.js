@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import '../App.css'
+import { useDispatch } from 'react-redux'
+import { setUserData } from '../store/actions/userdataActions'
 
 function Login() {
 
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState("")
     let [status, setStatus] = useState('')
+    const dispatch = useDispatch()
 
     let history = useHistory()
 
@@ -37,6 +40,8 @@ function Login() {
                 .then(data => {
                     setStatus(data)
                     // console.log(data)
+                    dispatch(setUserData(data))
+
                     localStorage.setItem('name', data.name)
                     localStorage.setItem('email', data.email)
                     localStorage.setItem('token', data.token)

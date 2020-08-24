@@ -12,7 +12,7 @@ import { getKanbanData } from '../store/actions/kanbanActions'
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
     const location = useLocation()
-    console.log(location, `<<<<`)
+    // console.log(location, `<<<<`)
 
     const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
@@ -22,7 +22,7 @@ function Sidebar({ roomData }) {
     let [departmentName, setDepartmentName] = useState('')
     let [allUser, setAllUser] = useState('')
     let [allCategory, setAllCategory] = useState('')
-    console.log(department, `<<<`)
+    // console.log(department, `<<<`)
 
     useEffect(() => {
         socket.emit('get-rooms')
@@ -83,7 +83,7 @@ function Sidebar({ roomData }) {
 
     function logout(event) {
         event.preventDefault()
-        
+
         if (roomData) {
             const payload = {
                 roomName: roomData.name,
@@ -91,12 +91,12 @@ function Sidebar({ roomData }) {
             }
             socket.emit('exit-room', payload)
             localStorage.removeItem('token')
-        history.push("/login")
+            history.push("/login")
         } else {
             localStorage.removeItem('token')
-        history.push("/login")
+            history.push("/login")
         }
-        
+
     }
 
     function departmentDetail(id) {
@@ -107,14 +107,14 @@ function Sidebar({ roomData }) {
             }
             socket.emit('exit-room', payload)
             dispatch(getKanbanData(id, token))
-        history.push('/')
+            history.push('/')
         } else {
             dispatch(getKanbanData(id, token))
-        history.push('/')
+            history.push('/')
         }
-
-        
-
+    }
+    function userProfile() {
+        history.push('/userProfile')
     }
 
     return (
@@ -130,14 +130,14 @@ function Sidebar({ roomData }) {
                     {
                         department && department.map((room, index) => (
                             <div key={index}>
-                                
+
                                 <h2 onClick={() => joinRoom(room.name)} className={location.pathname == `/room/${room.name}` ? 'room-text not-active' : 'room-text'}>{room.name}</h2>
                             </div>
                         ))
                     }
 
                 </div>
-               {/*  <div className="kanban-menu">
+                {/*  <div className="kanban-menu">
                     <div className="menu-title">
                         <p className="text-muted">TASKBOARD</p>
                     </div>
@@ -162,6 +162,10 @@ function Sidebar({ roomData }) {
                 </div>
                 <div className="logout-menu">
                     <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>
+                </div>
+
+                <div className="logout-menu">
+                    <button onClick={() => userProfile()} className="logout-btn">User Profile</button>
                 </div>
             </div>
         </div>

@@ -132,9 +132,9 @@ describe('Test Create User', () => {
     test('Test Create User Berhasil Admin Account', (done) => {
         let dummyData = {
             departmentId: "1",
-            name: "user test3",
+            name: "user test3123123",
             password: "123",
-            email: "usertest11232221@gmail.com",
+            email: "usertest11200@gmail.com",
             position: "member",
             imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg"
         }
@@ -145,7 +145,7 @@ describe('Test Create User', () => {
             .expect('Content-Type', /json/)
             .expect(201)
             .expect(data => {
-                createdUserId = Number(data.body.id)
+                createdUserId = data.body.id
                 expect(data.body.name).toBe(dummyData.name)
                 expect(data.body.imageUrl).toBe(dummyData.imageUrl)
                 expect(data.body.email).toBe(dummyData.email)
@@ -193,7 +193,7 @@ describe('Test Create User', () => {
             departmentId: "100",
             name: "user test3",
             password: "123",
-            email: "usertest4@gmail.com",
+            email: "usertes123t4@gmail.com",
             position: "member",
             imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg"
         }
@@ -204,7 +204,7 @@ describe('Test Create User', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .expect(data => {
-                expect(data.body).toBe('Department ID Tidak Terdaftar')
+                expect(data.body).toBe('Nama User Sudah Terdaftar')
             })
             .end(err => {
                 if (err) {
@@ -227,7 +227,7 @@ describe('Test Add User To Department', () => {
             .expect('Content-Type', /json/)
             .expect(201)
             .expect(data => {
-                expect(data.body).toBe(`Berhasil add user test3 ke Department Bisnis`)
+                expect(data.body).toBe(`Berhasil add user test3123123 ke Department Bisnis`)
             })
             .end(err => {
                 if (err) {
@@ -314,7 +314,7 @@ describe('Test Remove User From Department', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .expect(data => {
-                expect(data.body).toBe('User user test3 berhasil di keluarkan dari department Teknologi Informasi')
+                expect(data.body).toBe('User user test3123123 berhasil di keluarkan dari department Teknologi Informasi')
             })
             .end(err => {
                 if (err) {

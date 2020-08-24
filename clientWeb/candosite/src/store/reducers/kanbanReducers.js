@@ -6,6 +6,7 @@ const initialState = {
     departmentId: 0,
     category: [],
     allUser: [],
+    todoStatus: [],
 
 }
 
@@ -16,8 +17,9 @@ export default (state = initialState, action) => {
             let departmentDetails = action.payload.data.data.departmentName
             let categoryDetails = action.payload.data.data.categories
             let allUserDetails = action.payload.data.data.allUser
+            let allTodosStatus = action.payload.data.data.allTodos
             let id = action.payload.id
-            return { ...state, departmentName: departmentDetails, category: categoryDetails, allUser: allUserDetails, departmentId: id }
+            return { ...state, departmentName: departmentDetails, category: categoryDetails, allUser: allUserDetails, departmentId: id, todoStatus: allTodosStatus }
 
         default:
             return state
