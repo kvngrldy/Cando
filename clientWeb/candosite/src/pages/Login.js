@@ -5,13 +5,14 @@ import { useDispatch } from 'react-redux'
 import { setUserData } from '../store/actions/userdataActions'
 import axios from 'axios'
 
-function Login() {
 
+function Login() {
+    const baseUrl = 'http://localhost:3001'
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState("")
     let [status, setStatus] = useState('')
     const dispatch = useDispatch()
-    let baseUrl = `http://localhost:3001/data`
+
 
     let history = useHistory()
 
@@ -30,7 +31,7 @@ function Login() {
         } else {
             axios({
                 method: 'post',
-                url: `${baseUrl}/login`,
+                url: `${baseUrl}/data/login`,
                 data: {
                     email, password
                 }
@@ -46,36 +47,9 @@ function Login() {
                     history.push('/')
                 })
                 .catch(err => {
-                    alert('GAGAL LOGINS')
+                    alert('GAGAL LOGIN')
                 })
         }
-        //     fetch('http://localhost:3001/data/login', {
-        //         method: "post",
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             email,
-        //             password
-        //         })
-        //     })
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             setStatus(data)
-        //             // console.log(data)
-        //             dispatch(setUserData(data))
-        //             localStorage.setItem('name', data.name)
-        //             localStorage.setItem('email', data.email)
-        //             localStorage.setItem('token', data.token)
-        //             localStorage.setItem('imageUrl', data.imageUrl)
-        //             localStorage.setItem('position', data.position)
-        //             history.push('/')
-        //         })
-        //         .catch(err => {
-        //             alert('GAGAL LOGIN')
-        //         })
-
-
     }
 
     return (

@@ -14,7 +14,7 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case SET_KANBAN_DETAILS:
-            console.log(action.payload)
+            console.log('123123, reduscer')
             let departmentDetails = action.payload.data.data.departmentName
             let categoryDetails = action.payload.data.data.categories
             let allUserDetails = action.payload.data.data.allUser

@@ -4,11 +4,22 @@ const io = require('socket.io')()
 const axios = require('axios')
 let rooms = createRoom()
 
+// const createRoom = require('./helpers/rooms')
+// const server = require('http').createServer()
+// const io = require('socket.io')(http)
+// const axios = require('axios')
+// const PORT = process.env.PORT || 3001
+// let rooms = createRoom()
+
+
+
 
 io.on('connection', socket => {
 
     socket.on('message', function (msg) {
+
         io.emit('message', msg)
+
     })
 
 
@@ -25,6 +36,7 @@ io.on('connection', socket => {
             messages: []
         }
         rooms.push(newRoom)
+        // console.log(rooms);
         io.emit('updated-rooms', rooms)
     })
     socket.on('join-room', (data) => {
@@ -54,6 +66,7 @@ io.on('connection', socket => {
     socket.on('send-message', (data) => {
         socket.join(data.roomName, () => {
             const roomIndex = rooms.findIndex(room => room.name === data.roomName)
+            // console.log(data, `<<<<<<<<`)
             let { sender, message, imageUrl } = data
 
             rooms[roomIndex].messages.unshift({
@@ -68,6 +81,7 @@ io.on('connection', socket => {
                 forAlfred.splice(0, 1)
                 forAlfred.push(data.roomName)
                 message = forAlfred.join(' ')
+                
                 console.log(message, `< ini balasan user`)
                 axios({
                     method: 'post',
@@ -77,16 +91,18 @@ io.on('connection', socket => {
                     }
                 })
                     .then(({ data }) => {
-                        console.log(data.response, `<<<<`)
+                        console.log(data, `<<<<`)
 
                         rooms[roomIndex].messages.unshift({
                             sender: 'Alfred',
-                            imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/31BU0Ja-p8L._SY355_.jpg',
+                            //image for alfred
                             message: data.response
                         })
                     })
                     .then(() => {
                         io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
+                        io.emit('add-alfred-notif')
+                        io.broadcast.emit('update-data')
                     })
                     .catch(console.log)
             }
@@ -97,21 +113,24 @@ io.on('connection', socket => {
 
     socket.on('exit-room', (data) => {
         socket.join(data.roomName, () => {
+            // console.log(data);
             const roomIndex = rooms.findIndex(room => room.name === data.roomName)
             const remainUsers = rooms[roomIndex].users.filter(user => user.index !== data.exitUser[0].index)
             rooms[roomIndex].users = remainUsers
+            // console.log(data, '<<<<<<<<<<<<<<<<<<,ini exit room');
+
             rooms[roomIndex].messages.unshift({
                 sender: 'Bot',
                 message: `${data.exitUser[0].name} has left room`,
                 imageUrl: 'https://s3.envato.com/files/263450170/LP_06.jpg'
             })
-
-
-
-            if (remainUsers.length === 0) {
-                rooms[roomIndex].messages = []
+            
+            if (rooms[roomIndex].name !== 'roomForAll') {
+                if (remainUsers.length === 0) {
+                    rooms[roomIndex].messages = []
+                }
             }
-
+            // console.log(rooms[roomIndex]);
             io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
         })
         socket.leave(data.roomName, () => {
@@ -121,6 +140,7 @@ io.on('connection', socket => {
 
     socket.on('typing-start', ({ name, room }) => {
         socket.join(room, () => {
+            // console.log(name);
             io.sockets.in(room).emit('typing-start', name)
         })
     })
@@ -128,6 +148,16 @@ io.on('connection', socket => {
     socket.on('typing-stop', _ => {
         socket.broadcast.emit('typing-stop')
     })
+
+    socket.on('update-data', _ => {
+        socket.broadcast.emit('update-data')
+    })
+
+    socket.on('add-alfred-notif', _ => {
+       socket.broadcast.emit('add-alfred-notif')
+    })
 })
+
+
 
 module.exports = io

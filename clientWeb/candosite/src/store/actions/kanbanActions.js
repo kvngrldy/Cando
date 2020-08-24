@@ -1,6 +1,7 @@
 import { SET_KANBAN_DETAILS } from './type'
 import axios from 'axios'
 
+
 let baseUrl = `http://localhost:3001/data`
 
 
@@ -52,6 +53,7 @@ export const editCategoryName = (payload) => {
             .then(data => {
                 dispatch(getKanbanData(departmentId, token))
                 // console.log(data)
+
             })
             .catch(err => {
                 alert('TIDAK BISA EDIT CATEGORY')
@@ -61,7 +63,6 @@ export const editCategoryName = (payload) => {
 
 export const editTodo = (payload) => {
     return (dispatch) => {
-        // console.log(payload)
         let { id,
             departmentId,
             todoData, token } = payload
@@ -71,7 +72,6 @@ export const editTodo = (payload) => {
             description,
             categoryId,
             userId } = todoData
-        console.log(todoData, id, departmentId)
         axios({
             method: 'put',
             url: `${baseUrl}/todo/${id}`,
@@ -88,8 +88,10 @@ export const editTodo = (payload) => {
             }
         })
             .then(data => {
+                console.log('dari action <<<<<<<<')
                 dispatch(getKanbanData(departmentId, token))
-                // console.log(data)
+                
+
             })
             .catch(err => {
                 alert('TIDAK BISA EDIT')
@@ -154,7 +156,6 @@ export const createCategory = (payload) => {
 
 export const deleteCategory = (payload) => {
     return (dispatch) => {
-        // console.log(payload)
         let { departmentId,
             deletedCategoryId,
             token } = payload

@@ -1,7 +1,6 @@
 import React from 'react'
 
 function ChatBubble({ chat }) {
-    console.log('chat', chat)
 
     return (
         <>

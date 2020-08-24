@@ -25,8 +25,7 @@ function Room() {
 
   useEffect(() => {
     setChats(roomData.messages)
-    console.log(chats, `chattt`)
-    console.log(roomData, `<<<<<<`)
+
   }, [roomData])
 
 

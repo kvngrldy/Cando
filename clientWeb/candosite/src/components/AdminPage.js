@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { createCategory, deleteCategory, removeUserFromDepartment, addedUserToDepartment } from '../store/actions/kanbanActions'
 import { useHistory } from 'react-router-dom'
+import socket from '../config/socket'
+
 
 
 export default function AdminPage() {
@@ -21,7 +23,9 @@ export default function AdminPage() {
             token
         }
         dispatch(createCategory(payload))
+        
         history.push('/')
+        socket.emit('update-data')
 
     }
     function handleDeleteCategory(e) {
@@ -33,6 +37,7 @@ export default function AdminPage() {
         }
         // console.log(payload)
         dispatch(deleteCategory(payload))
+        // socket.emit('update-data')
         history.push('/')
     }
 
@@ -48,6 +53,7 @@ export default function AdminPage() {
             token
         }
         dispatch(removeUserFromDepartment(payload))
+        // socket.emit('update-data')
         history.push('/')
     }
 
@@ -59,6 +65,7 @@ export default function AdminPage() {
             token
         }
         dispatch(addedUserToDepartment(payload))
+        // socket.emit('update-data')
         history.push('/')
     }
     return (

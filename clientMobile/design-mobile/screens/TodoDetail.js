@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, AsyncStorage, Picker } from 'react-nati
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
+import socket from '../config/socket';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -103,7 +104,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/${deptId}`, {
+                    return fetch(`http://localhost:3001/data/${deptId}`, {
                         method: 'get',
                         headers: {
                             "token": data
@@ -124,7 +125,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (!data) {
                     navigation.navigate('/login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/todo/${id}`, {
+                    return fetch(`http://localhost:3001/data/todo/${id}`, {
                         method: "PUT",
                         headers: {
                             'token': data,
@@ -140,6 +141,10 @@ const TodoDetail = ({ navigation, route }) => {
                         })
                     })
                 }
+            })
+            .then(_ => {
+                console.log('<<<<<<<<<<< ini uda mau masuk emit');
+                socket.emit('update-data')
             })
             .then(_ => {
                 sendPushNotification(expoPushToken)

@@ -14,7 +14,7 @@ const Profile = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/userData`, {
+                    return fetch(`http://localhost:3001/data/userData`, {
                         method: 'get',
                         headers: {
                             "token": data

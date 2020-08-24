@@ -11,6 +11,7 @@ import { getKanbanData } from '../store/actions/kanbanActions'
 
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
+    const baseUrl = 'http://localhost:3001'
     const location = useLocation()
     // console.log(location, `<<<<`)
 
@@ -30,7 +31,7 @@ function Sidebar({ roomData }) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: 'http://localhost:3001/data/userData',
+            url: `${baseUrl}/data/userData`,
             headers: {
                 token
             }
@@ -105,7 +106,7 @@ function Sidebar({ roomData }) {
 
     }
 
-    function departmentDetail(id) {
+    function departmentDetail(id, roomName) {
         if (roomData) {
             const payload = {
                 roomName: roomData.name,
@@ -113,9 +114,12 @@ function Sidebar({ roomData }) {
             }
             socket.emit('exit-room', payload)
             dispatch(getKanbanData(id, token))
+            
             history.push('/')
+
         } else {
             dispatch(getKanbanData(id, token))
+            
             history.push('/')
         }
     }

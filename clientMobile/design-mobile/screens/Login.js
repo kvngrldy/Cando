@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
 
   function loginHandler(event) {
     event.preventDefault()
-    fetch('https://dummycando.herokuapp.com/data/login', {
+    fetch('http://localhost:3001/data/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
