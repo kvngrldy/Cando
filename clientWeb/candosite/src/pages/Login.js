@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import '../App.css'
 
-function Login() {
 
+function Login() {
+    const baseUrl = 'https://dummycando.herokuapp.com'
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState("")
     let [status, setStatus] = useState('')
@@ -23,7 +24,7 @@ function Login() {
         if (!email || !password) {
             console.log("All fields are required")
         } else {
-            fetch('http://localhost:3001/data/login', {
+            fetch(`${baseUrl}/data/login`, {
                 method: "post",
                 headers: {
                     'Content-Type': 'application/json',

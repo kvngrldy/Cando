@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
+import socket from '../../../clientWeb/clientTest/src/config/socket';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -76,6 +77,10 @@ const Todo = ({ navigation }) => {
             Notifications.removeNotificationSubscription(responseListener);
         };
     }, []);
+
+    socket.on('update-date', _ => {
+        fetchData()
+    })
 
     function fetchData() {
         AsyncStorage.getItem('token')
