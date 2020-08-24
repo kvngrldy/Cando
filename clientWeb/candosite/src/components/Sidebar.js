@@ -118,21 +118,18 @@ function Sidebar({ roomData }) {
             dispatch(getKanbanData(id, token))
             history.push('/')
         }
-<<<<<<< HEAD
     }
     function userProfile() {
-        history.push('/userProfile')
-=======
-
-
-
->>>>>>> production
+        history.push('/adminPage')
     }
 
     return (
         <div className="board-sidebar">
             <div className="icon-sidebar">
                 <Image src={logo} fluid />
+            </div>
+            <div>
+                <button onClick={() => userProfile()}>User Profile</button>
             </div>
             <div className="menu-sidebar mx-4" style={{ height: '90%' }}>
                 <div className="chatroom-menu mb-5">
@@ -179,9 +176,7 @@ function Sidebar({ roomData }) {
                     <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>
                 </div>
 
-                <div className="logout-menu">
-                    <button onClick={() => userProfile()} className="logout-btn">User Profile</button>
-                </div>
+
             </div>
         </div>
     )

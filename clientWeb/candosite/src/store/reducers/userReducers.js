@@ -1,4 +1,4 @@
-import { USER_DATA, DELETE_USER_DATA } from '../actions/type'
+import { USER_DATA, DELETE_USER_DATA, EDIT_USER_DATA } from '../actions/type'
 
 
 const initialState = {
@@ -19,6 +19,10 @@ export default (state = initialState, action) => {
 
         case DELETE_USER_DATA:
             return { ...state, token: '', email: '', imageUrl: '', name: '', position: '', userDept: '' }
+
+        case EDIT_USER_DATA:
+            let data2 = action.payload
+            return { ...state, email: data2.email, name: data2.name, imageUrl: data2.imageUrl }
         default:
             return state
     }

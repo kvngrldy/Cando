@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Room from './pages/Room'
 import UserProfile from './components/UserProfile';
+import AdminPage from './components/AdminPage';
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        <Route exact path="/userProfile">
-          <UserProfile />
+        <Route exact path="/adminPage">
+          <AdminPage />
         </Route>
         <Route path="/room/:roomname">
           <Room />
