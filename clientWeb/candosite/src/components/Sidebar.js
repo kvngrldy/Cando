@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
 import logo from '../assets/logo.png'
 import axios from 'axios'
@@ -48,13 +48,19 @@ function Sidebar({ roomData }) {
 
     function joinRoom(roomName) {
         // console.log(`mau join di ${roomName}`);
-
-        const payload = {
-            roomName,
-            username: localStorage.name
+        let allowStatus = false
+        department.forEach(dept => {
+            if (dept.name === roomName || roomName === 'roomForAll') allowStatus = true
+        })
+        // console.log(allowStatus);
+        if (allowStatus) {
+            const payload = {
+                roomName,
+                username: localStorage.name
+            }
+            socket.emit('join-room', payload)
+            history.push(`/room/${roomName}`)
         }
-        socket.emit('join-room', payload)
-        history.push(`/room/${roomName}`)
     }
 
     function goToPage(page) {
@@ -83,7 +89,7 @@ function Sidebar({ roomData }) {
 
     function logout(event) {
         event.preventDefault()
-        
+
         if (roomData) {
             const payload = {
                 roomName: roomData.name,
@@ -91,12 +97,12 @@ function Sidebar({ roomData }) {
             }
             socket.emit('exit-room', payload)
             localStorage.removeItem('token')
-        history.push("/login")
+            history.push("/login")
         } else {
             localStorage.removeItem('token')
-        history.push("/login")
+            history.push("/login")
         }
-        
+
     }
 
     function departmentDetail(id) {
@@ -107,13 +113,13 @@ function Sidebar({ roomData }) {
             }
             socket.emit('exit-room', payload)
             dispatch(getKanbanData(id, token))
-        history.push('/')
+            history.push('/')
         } else {
             dispatch(getKanbanData(id, token))
-        history.push('/')
+            history.push('/')
         }
 
-        
+
 
     }
 
@@ -127,17 +133,20 @@ function Sidebar({ roomData }) {
                     <div className="menu-title">
                         <p className="text-muted">YOUR CHATROOM</p>
                     </div>
+                    <div>
+                        <h2 onClick={() => joinRoom('roomForAll')} className="room-text">Room for All</h2>
+                    </div>
                     {
                         department && department.map((room, index) => (
                             <div key={index}>
-                                
+
                                 <h2 onClick={() => joinRoom(room.name)} className={location.pathname == `/room/${room.name}` ? 'room-text not-active' : 'room-text'}>{room.name}</h2>
                             </div>
                         ))
                     }
 
                 </div>
-               {/*  <div className="kanban-menu">
+                {/*  <div className="kanban-menu">
                     <div className="menu-title">
                         <p className="text-muted">TASKBOARD</p>
                     </div>

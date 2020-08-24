@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Badge, Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { editTodo, deleteTodoData } from '../store/actions/kanbanActions'
+import { editTodo, deleteTodoData, getKanbanData } from '../store/actions/kanbanActions'
+import socket from '../config/socket'
 
 
 function Card({ data }) {
@@ -59,7 +60,12 @@ function Card({ data }) {
         dispatch(editTodo(payload))
         // console.log(payload)
         setIsEdit(!isEdit)
+        socket.emit('update-data')
     }
+
+    socket.on('update-data', _ => {
+        dispatch(getKanbanData(departmentId, token))
+    })
 
     function deleteTodo(id) {
         // console.log(id)
@@ -67,6 +73,7 @@ function Card({ data }) {
             id,departmentId,token
         }
         dispatch(deleteTodoData(payload))
+        socket.emit('update-data')
     }
 
 
