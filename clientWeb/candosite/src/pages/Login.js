@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import '../App.css'
+import { useDispatch } from 'react-redux'
+import { setUserData } from '../store/actions/userdataActions'
+import axios from 'axios'
 
 
 function Login() {
@@ -8,6 +11,8 @@ function Login() {
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState("")
     let [status, setStatus] = useState('')
+    const dispatch = useDispatch()
+
 
     let history = useHistory()
 
@@ -24,30 +29,26 @@ function Login() {
         if (!email || !password) {
             console.log("All fields are required")
         } else {
-            fetch(`${baseUrl}/data/login`, {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email,
-                    password
-                })
+            axios({
+                method: 'post',
+                url: `${baseUrl}/data/login`,
+                data: {
+                    email, password
+                }
             })
-                .then(res => res.json())
-                .then(data => {
-                    setStatus(data)
-                    // console.log(data)
+                .then(({ data }) => {
+
+                    dispatch(setUserData(data))
                     localStorage.setItem('name', data.name)
                     localStorage.setItem('email', data.email)
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('imageUrl', data.imageUrl)
                     localStorage.setItem('position', data.position)
-                })
-                .then(_ => {
                     history.push('/')
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    alert('GAGAL LOGIN')
+                })
         }
     }
 

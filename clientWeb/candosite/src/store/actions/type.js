@@ -1,3 +1,6 @@
 export const SET_KANBAN_DETAILS = "SET_KANBAN_DETAILS"
 export const EDIT_CATEGORY_NAME = "EDIT_CATEGORY_NAME"
 export const EDIT_TODO = "EDIT_TODO"
+export const USER_DATA = "USER_DATA"
+export const DELETE_USER_DATA = "DELETE_USER_DATA"
+export const EDIT_USER_DATA = "EDIT_USER_DATA"

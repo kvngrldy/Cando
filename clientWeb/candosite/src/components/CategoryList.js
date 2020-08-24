@@ -30,10 +30,9 @@ export default function CategoryList({ data }) {
         socket.emit('update-data')
     }
 
-    socket.on('update-data', _ => {
-        console.log('<<< uda sampai sini beroooooooooooo');
-        dispatch(getKanbanData(departmentId, token))
-    })
+    // socket.on('update-data', _ => {
+    //     dispatch(getKanbanData(departmentId, token))
+    // })
     return (
         <>
             <div className="kanban-board">

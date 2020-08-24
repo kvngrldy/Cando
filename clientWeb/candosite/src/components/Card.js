@@ -6,7 +6,7 @@ import socket from '../config/socket'
 
 
 function Card({ data }) {
-    
+
     const [isEdit, setIsEdit] = useState(false)
     const dispatch = useDispatch()
     let deadlineDate = data.deadline.slice(8, 10)
@@ -63,14 +63,14 @@ function Card({ data }) {
         socket.emit('update-data')
     }
 
-    socket.on('update-data', _ => {
-        dispatch(getKanbanData(departmentId, token))
-    })
+    // socket.on('update-data', _ => {
+    //     dispatch(getKanbanData(departmentId, token))
+    // })
 
     function deleteTodo(id) {
         // console.log(id)
-        let payload ={
-            id,departmentId,token
+        let payload = {
+            id, departmentId, token
         }
         dispatch(deleteTodoData(payload))
         socket.emit('update-data')
@@ -93,19 +93,19 @@ function Card({ data }) {
                     {data.priority == 'low' && <Badge pill variant="success">
                         {data.priority}
                     </Badge>}
-                    
+
                     {localStorage.position == 'admin' ? <div className="task-card-menu">
-                        
+
                         <span style={{ color: 'grey', marginRight: '7px' }}>
                             <i onClick={() => cardEdit()} class="far fa-edit cursor"></i>
                         </span>
                         {
-                            
+
                         }
                         <span style={{ color: 'grey' }} onClick={() => deleteTodo(data.id)} >
                             <i class="fas fa-minus-square cursor"></i>
                         </span>
-                    </div>: <div className="task-card-menu"></div>}
+                    </div> : <div className="task-card-menu"></div>}
                 </div>
                 <div className="task-title">
                     <p className="" style={{ fontWeight: 'bold' }}> {data.title}</p>

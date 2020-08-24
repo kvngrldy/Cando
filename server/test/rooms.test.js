@@ -5,12 +5,19 @@ const app = require('../app')
 const createRoom = require('../helpers/rooms')
 
 describe('test function rooms', () => {
-    it('function async', async () => {
-        expect.assertions(1)
-        const rooms = await createRoom()
 
-        expect(rooms.length).toBe(1)
+    describe('test function', () => {
+        test('function', (done) => {
+            async function createRoom() {
+                return await rooms
+            }
+            createRoom().then(_ => {
+                expect(rooms.length).toBe(2)
+            })
+            done()
+        })
     })
+
 })
 
 

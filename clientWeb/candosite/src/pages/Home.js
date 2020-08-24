@@ -8,6 +8,7 @@ import CategoryList from '../components/CategoryList'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import socket from '../config/socket'
+import KanbanBoard from '../components/KanbanBoard'
 
 function Home() {
     const departmentName = useSelector(state => state.kanban.departmentName)
@@ -27,23 +28,6 @@ function Home() {
     let history = useHistory()
     let [todo, setTodo] = useState([])
     let [department, setDepartment] = useState([])
-
-    // useEffect(async () => {
-    //     try{
-    //         let data = await localStorage.getItem('token')
-    //         let res = await fetch('https://dummycando.herokuapp.com/data/userData', {
-    //             method: 'get',
-    //             headers: {
-    //                 'token': data
-    //             }
-    //         })
-    //         res = res.json()
-    //     let data = await fetch('https://l')
-    //     } catch(err) {
-    //         console.log(err)
-    //     }
-    // }, [])
-
     const [isEditCategory, setIsEditCategory] = useState(false)
 
     function categoryEdit() {
@@ -65,7 +49,8 @@ function Home() {
                                     <h1>{departmentName}</h1>
 
                                 </div>
-                                <div className="kanban-group">
+                                <KanbanBoard></KanbanBoard>
+                                {/* <div className="kanban-group">
 
 
                                     {
@@ -80,7 +65,7 @@ function Home() {
 
 
 
-                                </div>
+                                </div> */}
                                 <ToastContainer />
                             </div>
                             

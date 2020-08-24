@@ -9,21 +9,30 @@ import {
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Room from './pages/Room'
+import UserProfile from './components/UserProfile';
+import AdminPage from './components/AdminPage';
 
 function App() {
   return (
     <Router>
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/room/:roomname">
-            <Room />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/adminPage">
+          <AdminPage />
+        </Route>
+        <Route exact path="/userProfile">
+          <UserProfile />
+        </Route>
+        <Route path="/room/:roomname">
+          <Room />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+
+      </Switch>
     </Router>
   );
 }

@@ -1,6 +1,7 @@
 import { SET_KANBAN_DETAILS } from './type'
 import axios from 'axios'
 
+
 let baseUrl = `http://localhost:3001/data`
 
 
@@ -52,8 +53,9 @@ export const editCategoryName = (payload) => {
             .then(data => {
                 dispatch(getKanbanData(departmentId, token))
                 // console.log(data)
+
             })
-            .catch(err=>{
+            .catch(err => {
                 alert('TIDAK BISA EDIT CATEGORY')
             })
     }
@@ -61,7 +63,6 @@ export const editCategoryName = (payload) => {
 
 export const editTodo = (payload) => {
     return (dispatch) => {
-        // console.log(payload)
         let { id,
             departmentId,
             todoData, token } = payload
@@ -71,7 +72,6 @@ export const editTodo = (payload) => {
             description,
             categoryId,
             userId } = todoData
-        console.log(todoData, id, departmentId)
         axios({
             method: 'put',
             url: `${baseUrl}/todo/${id}`,
@@ -88,10 +88,12 @@ export const editTodo = (payload) => {
             }
         })
             .then(data => {
+                console.log('dari action <<<<<<<<')
                 dispatch(getKanbanData(departmentId, token))
-                // console.log(data)
+                
+
             })
-            .catch(err=>{
+            .catch(err => {
                 alert('TIDAK BISA EDIT')
             })
     }
@@ -117,10 +119,123 @@ export const deleteTodoData = (payload) => {
                 dispatch(getKanbanData(departmentId, token))
                 alert(data.data)
             })
-            .catch(err=>{
+            .catch(err => {
                 // console.log(`TIDAK BISA DELETE`)
                 alert('TIDAK BISA DELETE')
             })
     }
 }
+
+export const createCategory = (payload) => {
+    return (dispatch) => {
+        // console.log(payload)
+        let { name,
+            departmentId, token } = payload
+        console.log(payload.departmentId)
+        axios({
+            method: 'post',
+            url: `${baseUrl}/category`,
+            headers: {
+                token
+            },
+            data: {
+                name,
+                departmentId,
+            }
+        })
+            .then(({ data }) => {
+                dispatch(getKanbanData(departmentId, token))
+                // console.log(data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+
+    }
+}
+
+export const deleteCategory = (payload) => {
+    return (dispatch) => {
+        let { departmentId,
+            deletedCategoryId,
+            token } = payload
+
+        axios({
+            method: 'delete',
+            url: `${baseUrl}/category/${deletedCategoryId}`,
+            headers: {
+                token
+            }
+        })
+            .then(({ data }) => {
+                dispatch(getKanbanData(departmentId, token))
+                // console.log(data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+
+    }
+}
+
+export const removeUserFromDepartment = (payload) => {
+    return (dispatch) => {
+
+        let { departmentId,
+            userId,
+            token } = payload
+        // console.log(payload)
+
+        axios({
+            method: 'delete',
+            url: `${baseUrl}/remove`,
+            headers: {
+                token
+            },
+            data: {
+                userId,
+                departmentId
+            }
+        })
+            .then(({ data }) => {
+                dispatch(getKanbanData(departmentId, token))
+                // console.log(data)
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+
+    }
+}
+
+
+export const addedUserToDepartment = (payload) => {
+    return (dispatch) => {
+
+        let { departmentId,
+            userId,
+            token } = payload
+        // console.log(payload)
+
+        axios({
+            method: 'post',
+            url: `${baseUrl}/user/add`,
+            headers: {
+                token
+            },
+            data: {
+                userId,
+                departmentId
+            }
+        })
+            .then(({ data }) => {
+                dispatch(getKanbanData(departmentId, token))
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
+
+    }
+}
+
 

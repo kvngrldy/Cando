@@ -13,7 +13,7 @@ function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
     const baseUrl = 'http://localhost:3001'
     const location = useLocation()
-    console.log(location, `<<<<`)
+    // console.log(location, `<<<<`)
 
     const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
@@ -23,7 +23,7 @@ function Sidebar({ roomData }) {
     let [departmentName, setDepartmentName] = useState('')
     let [allUser, setAllUser] = useState('')
     let [allCategory, setAllCategory] = useState('')
-    console.log(department, `<<<`)
+    // console.log(department, `<<<`)
 
     useEffect(() => {
         socket.emit('get-rooms')
@@ -122,15 +122,24 @@ function Sidebar({ roomData }) {
             
             history.push('/')
         }
-
-
-
+    }
+    function userProfile() {
+        history.push('/userProfile')
+    }
+    function adminPage() {
+        history.push('/adminPage')
     }
 
     return (
         <div className="board-sidebar">
             <div className="icon-sidebar">
                 <Image src={logo} fluid />
+            </div>
+            <div>
+                <button onClick={() => userProfile()}>User Profile</button>
+            </div>
+            <div>
+                <button onClick={() => adminPage()}>Admin Page</button>
             </div>
             <div className="menu-sidebar mx-4" style={{ height: '90%' }}>
                 <div className="chatroom-menu mb-5">
@@ -176,6 +185,8 @@ function Sidebar({ roomData }) {
                 <div className="logout-menu">
                     <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>
                 </div>
+
+
             </div>
         </div>
     )

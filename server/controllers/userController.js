@@ -1,5 +1,5 @@
 const { user, department, department_user, todo, category } = require('../models')
-const { checkPassword, hashPassword } = require('../helpers/bcryptjs')
+const { checkPassword } = require('../helpers/bcryptjs')
 const { createToken } = require('../helpers/jwt')
 
 
@@ -43,7 +43,6 @@ class UserController {
                         userDept = userDept.map(a => {
                             return { id: a.id, name: a.name }
                         })
-                        // res.status(200).json(userDept)
                         res.status(200).json({ token, name: userData.name, email: userData.email, position: userData.position, imageUrl: userData.imageUrl, userDept })
                     }
                 }
@@ -62,19 +61,27 @@ class UserController {
         try {
             let findUserEmail = await user.findOne({ where: { email } })
             if (!findUserEmail) {
-                let allDepartment = await department.findAll()
-                let departmentStatus = allDepartment.filter(a => a.id == departmentId)
-                if (departmentStatus.length === 0) {
-                    throw { msg: `Department ID Tidak Terdaftar`, status: 400 }
+
+                let findUserName = await user.findOne({ where: { name } })
+                if (!findUserName) {
+                    let allDepartment = await department.findAll()
+                    let departmentStatus = allDepartment.filter(a => a.id == departmentId)
+                    if (departmentStatus.length === 0) {
+                        throw { msg: `Department ID Tidak Terdaftar`, status: 400 }
+                    }
+                    else {
+                        let newUser = await user.create({ name, password, email, position, imageUrl })
+
+                        await department_user.create({ userId: newUser.id, departmentId })
+
+                        res.status(201).json(newUser)
+
+                    }
                 }
                 else {
-                    let newUser = await user.create({ name, password, email, position, imageUrl })
-
-                    await department_user.create({ userId: newUser.id, departmentId })
-
-                    res.status(201).json(newUser)
-
+                    throw { msg: 'Nama User Sudah Terdaftar', status: 400 }
                 }
+
 
             }
             else {
@@ -183,6 +190,19 @@ class UserController {
 
 
         res.status(200).json({ userData, userDept, userTodo })
+    }
+
+    static async editUserData(req, res, next) {
+        let { id } = req.userData
+        let { name, email, imageUrl } = req.body
+        try {
+            let updateData = await user.update({ name, email, imageUrl }, { where: { id } })
+            let updatedUserData = await user.findOne({ where: { id }, attributes: ['name', 'id', 'email', 'position', 'imageUrl'] })
+            res.status(200).json(updatedUserData)
+        }
+        catch (err) {
+            next(err)
+        }
     }
 
 }
