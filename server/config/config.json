@@ -9,7 +9,7 @@
   },
   "test": {
     "username": "postgres",
-    "password": "postgres",
+    "password": "pgsql618",
     "database": "cando_test",
     "host": "localhost",
     "dialect": "postgres"

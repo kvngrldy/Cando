@@ -72,6 +72,7 @@ io.on('connection', socket => {
 
             if (forAlfred[0] == '@alfred') {
                 forAlfred.splice(0, 1)
+                forAlfred.push(data.roomName)
                 message = forAlfred.join(' ')
                 console.log(message, `< ini balasan user`)
                 axios({
@@ -82,7 +83,7 @@ io.on('connection', socket => {
                     }
                 })
                     .then(({ data }) => {
-                        console.log(data.response, `<<<<`)
+                        console.log(data, `<<<<`)
 
                         rooms[roomIndex].messages.unshift({
                             sender: 'Alfred',

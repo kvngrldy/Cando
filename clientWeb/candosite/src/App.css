@@ -78,18 +78,20 @@ body {
 .board-background{
   height: 100vh;
   width: 100vw;
+  overflow-x: auto;
 }
 
 .board-container{
   display: flex;
   justify-content: center;
+  overflow-x: auto;
 }
 
 .board-display{
   background-color: whitesmoke;
   width: 100vw;
-  height: 100vh;
-  display: flex;
+  height: 100vh;  
+  display: flex;                 
 }
 
 .board-sidebar{
@@ -143,6 +145,24 @@ body {
   color: aquamarine;
 }
 
+.react-input-emoji--wrapper {
+  
+  max-height: 50px;
+}
+
+.not-active {
+  pointer-events: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: greenyellow;
+}
+
+.react-input-emoji--input {
+  overflow-y: auto;
+  max-width: 60rem;
+  
+}
+
 .main-content{
   width: 100%;
   height: 100%;
@@ -159,7 +179,7 @@ body {
   height: 100%;
   background-color: #F0F0F0;
   margin-left: 15%;
-
+  overflow-x: auto;
   flex-direction: column;
 }
 
@@ -169,7 +189,8 @@ body {
   margin-right: 3rem;
   display: flex;
   height: 95%;
- justify-content: space-between;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .kanban-header{
@@ -183,8 +204,8 @@ body {
 .kanban-board{
   background-color: transparent;
   height: 90%;
-  
-  width: 21%;
+  margin-right: 5rem;
+  width: 100%;
   
 }
 
@@ -199,6 +220,7 @@ body {
   margin-top: 1%;
   margin-left: 18%;
   width: 90%;
+  max-width: 90%;
   box-shadow: 0px 0px 5px grey;
   
 }
@@ -230,6 +252,7 @@ body {
 
 .kanban-body{
   height: 90%;
+  width: 15rem;
   background-color: transparent;
   overflow-y: auto;
 }
@@ -283,10 +306,10 @@ body {
 }
 
 .chat-bar-box{
-  background-color: white;
+  background-color: transparent;
   width: 100%;
   height: 10%;
-  box-shadow: 0px 0px 5px grey;
+  
 }
 
 .online-title{
@@ -299,6 +322,9 @@ body {
 .chat-online{
   width: 100%;
   height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-bottom: 2px solid grey;
   text-align: center;
 }
@@ -342,8 +368,7 @@ body {
 }
 
 .chat-bar{
-  width: 100%;
-  height: 100%;
+  
 }
 
 .textbox{
@@ -404,7 +429,29 @@ body {
 
 .comment{
   display: flex;
-  
+  padding-right: 12rem;
+}
+
+.comment-self{
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 12rem;
+}
+
+.avatar-comment-self{
+  padding-left: 1rem;
+}
+
+.username-self {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.comment-bot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatar-comment{
@@ -426,11 +473,38 @@ margin-top: 7px;
 
 .comment-content{
   display: inline-flex;
-  background-color:white;
-  box-shadow: 8px 8px 3px 	#E0E0E0;
+  max-width: 100%;
+
+  background-color: #eeeeee;
+  border-radius: 5px;
+  box-shadow: 4px 4px 1px 	#E0E0E0;
 }
 
+.comment-content-self{
+  display: inline-flex;
+  max-width: 100%;
+  
+  background-color:#1e56a0;
+  border-radius: 5px;
+  box-shadow: 4px 4px 1px 	#E0E0E0;
+}
+
+
+
 .comment-content p{
+  
+  display: flex;
+  border-radius: 3px;
+  margin: auto;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.comment-content-self p{
+  color: white;
+  display: flex;
   border-radius: 3px;
   margin: auto;
   padding-right: 10px;

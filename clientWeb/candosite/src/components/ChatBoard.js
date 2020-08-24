@@ -27,7 +27,7 @@ function Chatboard({ roomData, chats }) {
                 <div className="chat-online-box">
                     <div className="chat-online">
 
-                        <h2>MEETING</h2>
+                        <strong><h3>{roomData.name}</h3></strong>
                     </div>
                     <div className="people-box mx-3">
 
@@ -84,6 +84,8 @@ function Chatboard({ roomData, chats }) {
                                     value={text}
                                     onChange={setText}
                                     cleanOnEnter
+                                    maxLength='500'
+                                    
                                     onEnter={handleOnEnter}
                                     placeholder="Type a message"
                                     borderColor="dodgerBlue"
