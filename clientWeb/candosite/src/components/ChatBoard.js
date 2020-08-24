@@ -27,7 +27,7 @@ function Chatboard({ roomData, chats }) {
                 <div className="chat-online-box">
                     <div className="chat-online">
 
-                        <strong><h3>{roomData.name}</h3></strong>
+                        <strong><h3>{roomData.name === 'roomForAll' ? 'All' : roomData.name}</h3></strong>
                     </div>
                     <div className="people-box mx-3">
 

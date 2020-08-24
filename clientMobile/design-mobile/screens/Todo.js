@@ -114,7 +114,7 @@ const Todo = ({ navigation }) => {
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [todo])
 
     useEffect(() => {
         let edit = todo && todo.map(e => {
@@ -128,7 +128,7 @@ const Todo = ({ navigation }) => {
                 sendPushNotification(expoPushToken, todo[i].title)
             }
         }
-    })
+    }, [])
 
     return (
         <ScrollView>

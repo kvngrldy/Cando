@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
 import logo from '../assets/logo.png'
 import axios from 'axios'
@@ -48,7 +48,13 @@ function Sidebar({ roomData }) {
 
     function joinRoom(roomName) {
         // console.log(`mau join di ${roomName}`);
-
+        if (roomData) {
+            const payloadExit = {
+                roomName: roomData.name,
+                exitUser: roomData.users.filter(user => user.name === localStorage.name)
+            }
+            socket.emit('exit-room', payloadExit)
+        }
         const payload = {
             roomName,
             username: localStorage.name
@@ -112,9 +118,15 @@ function Sidebar({ roomData }) {
             dispatch(getKanbanData(id, token))
             history.push('/')
         }
+<<<<<<< HEAD
     }
     function userProfile() {
         history.push('/userProfile')
+=======
+
+
+
+>>>>>>> production
     }
 
     return (
@@ -126,6 +138,9 @@ function Sidebar({ roomData }) {
                 <div className="chatroom-menu mb-5">
                     <div className="menu-title">
                         <p className="text-muted">YOUR CHATROOM</p>
+                    </div>
+                    <div>
+                        <h2 onClick={() => joinRoom('roomForAll')} className="room-text">Room for All</h2>
                     </div>
                     {
                         department && department.map((room, index) => (
