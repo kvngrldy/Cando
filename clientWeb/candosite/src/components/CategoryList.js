@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { editCategoryName } from '../store/actions/kanbanActions'
+import { editCategoryName, getKanbanData } from '../store/actions/kanbanActions'
 import Card from '../components/Card'
+import socket from '../config/socket'
 
 
 export default function CategoryList({ data }) {
@@ -26,7 +27,12 @@ export default function CategoryList({ data }) {
         }
         dispatch(editCategoryName(payload))
         setIsEditCategory(!isEditCategory)
+        socket.emit('update-data')
     }
+
+    socket.on('update-data', _ => {
+        dispatch(getKanbanData(departmentId, token))
+    })
     return (
         <>
             <div className="kanban-board">

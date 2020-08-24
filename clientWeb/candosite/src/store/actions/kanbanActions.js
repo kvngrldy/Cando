@@ -30,7 +30,6 @@ export const getKanbanData = (id, token) => {
             })
             .catch(err => console.log)
     };
-
 }
 
 export const editCategoryName = (payload) => {

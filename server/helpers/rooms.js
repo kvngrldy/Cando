@@ -1,7 +1,12 @@
 const { department } = require('../models')
 
 const createRoom = () => {
-  let allRooms = []
+  let allRooms = [{
+    name: 'roomForAll',
+    admin: 'admin',
+    users: [],
+    messages: []
+  }]
 
   department.findAll()
     .then((data) => {

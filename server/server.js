@@ -93,6 +93,7 @@ io.on('connection', socket => {
                     })
                     .then(() => {
                         io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
+                        io.broadcast.emit('update-data')
                     })
                     .catch(console.log)
             }
@@ -114,11 +115,11 @@ io.on('connection', socket => {
                 message: `${data.exitUser[0].name} has left room`,
                 imageUrl: 'https://s3.envato.com/files/263450170/LP_06.jpg'
             })
-
-
-
-            if (remainUsers.length === 0) {
-                rooms[roomIndex].messages = []
+            
+            if (rooms[roomIndex].name !== 'roomForAll') {
+                if (remainUsers.length === 0) {
+                    rooms[roomIndex].messages = []
+                }
             }
             // console.log(rooms[roomIndex]);
             io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
@@ -137,6 +138,10 @@ io.on('connection', socket => {
 
     socket.on('typing-stop', _ => {
         socket.broadcast.emit('typing-stop')
+    })
+
+    socket.on('update-data', _ => {
+        socket.broadcast.emit('update-data')
     })
 })
 

@@ -24,11 +24,10 @@ class TodoController {
 
     static async createTodo(req, res, next) {
         let { title, deadline, priority, description, categoryId, userId } = req.body
-            
+
         try {
             let addData = await todo.create({ title, deadline, priority, description, categoryId, userId })
 
-            console.log(req.userData)
 
             const assignedUser = await user.findOne(
                 {
@@ -36,7 +35,6 @@ class TodoController {
                 }
             )
 
-            // console.log(assignedUser);
 
             const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
 
@@ -51,7 +49,7 @@ class TodoController {
 
             let info = {
                 from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `handanawilli0902@gmail.com`, // list of receivers
+                to: `${addData.email}`, // list of receivers
                 subject: "New Task", // Subject line
                 text: "You have successfully create a to-do list!",
                 html: mailFormat, // html body
@@ -93,7 +91,7 @@ class TodoController {
 
             let info = {
                 from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `handanawilli0902@gmail.com`, // list of receivers
+                to: `${findUser.email}`, // list of receivers
                 subject: "Update successfull", // Subject line
                 text: "You have successfully update a to-do list!",
                 html: updateFormat, // html body
@@ -116,6 +114,13 @@ class TodoController {
     static async deleteTodo(req, res, next) {
         let { id } = req.params
         try {
+            let searchedTodo = await todo.findOne({ 
+                where: { id },
+                include: {
+                    model: user
+                }
+            })
+
             let deletedId = await todo.destroy({ where: { id } })
 
             if (!deletedId) {
@@ -124,30 +129,29 @@ class TodoController {
             else {
                 const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
 
-            const transporter = nodemailer.createTransport({
-                service: 'gmail', // gmail only 
-                port: 587,
-                auth: {
-                    user: transportUser,
-                    pass: 'candodummy' // dummy email password here
-                }
-            });
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail', // gmail only 
+                    port: 587,
+                    auth: {
+                        user: transportUser,
+                        pass: 'candodummy' // dummy email password here
+                    }
+                });
 
-            let info = {
-                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `handanawilli0902@gmail.com`, // list of receivers
-                subject: "Delete successfull", // Subject line
-                text: "You have successfully delete a to-do list!",
-                html: deleteFormat, // html body
-            };
-            transporter.sendMail(info, (error, info) => {
-                if (error) {
-                    throw error
-                }
-            })
+                let info = {
+                    from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+                    to: `${searchedTodo.user.email}`, // list of receivers
+                    subject: "Delete successfull", // Subject line
+                    text: "You have successfully delete a to-do list!",
+                    html: deleteFormat, // html body
+                };
+                transporter.sendMail(info, (error, info) => {
+                    if (error) {
+                        throw error
+                    }
+                })
 
                 res.status(200).json('Berhasil Delete')
-
             }
         }
         catch (err) {
