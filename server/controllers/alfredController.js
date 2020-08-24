@@ -66,14 +66,14 @@ class AlfredController {
     static getMsg(req, res, next) {
         const sessionId = uuid.v4();
         const msg = req.body.msg
-        
+
         const sessionClient = new dialogflow.SessionsClient({
             credentials: {
-                private_key:process.env.private_key,
-                client_email:process.env.client_email
-              }
+                private_key: process.env.PRIVATE_KEY,
+                client_email: process.env.CLIENT_EMAIL
+            }
         });
-       
+
         const sessionPath = sessionClient.sessionPath('hehe-uqux', sessionId);
         const request = {
             session: sessionPath,
