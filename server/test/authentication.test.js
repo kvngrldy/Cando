@@ -9,11 +9,11 @@ describe('Test Authentication', () => {
     test('Test Authentication Token Unidentified', (done) => {
         request(app)
             .get('/data/userData')
-            .set('token', tokenMember)
+            // .set('token', tokenMember)
             .expect('Content-Type', /json/)
-            .expect(404)
+            .expect(400)
             .expect(data => {
-                expect(data.body).toBe('User tidak terdaftar dalam sistem')
+                expect(data.body).toBe('Token tidak di temukan')
             })
             .end(err => {
                 if (err) {

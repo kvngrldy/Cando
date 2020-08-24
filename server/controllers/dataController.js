@@ -26,6 +26,26 @@ class DataController {
                 let allUser = allUserInDepartment.map(data => {
                     return data.user
                 })
+                let allUserInCompany = await user.findAll({ attributes: ['id', 'name', 'email', 'imageUrl', 'position'], order: [['id', 'asc']] })
+                let userNonDepartment = allUserInCompany.map(user => {
+                    return allUser.map(u => {
+                        return u.id === user.id ? true : false
+                    })
+
+                })
+
+                userNonDepartment = userNonDepartment.map(a => {
+                    return a.includes(true)
+                })
+                let allUserNonDepartment = []
+                for (let i = 0; i < userNonDepartment.length; i++) {
+                    if (userNonDepartment[i] === false) {
+                        allUserNonDepartment.push(allUserInCompany[i])
+                    }
+                }
+
+
+
                 let departmentName = allData.name
                 let categories = allData.categories
                 let allCategoryTodos = categories.map(category => {
@@ -49,7 +69,8 @@ class DataController {
                     urgent: urgent.length
                 }
 
-                res.status(200).json({ departmentName, allUser, categories, allTodos })
+                // res.status(200).json(allUserNonDepartment)
+                res.status(200).json({ departmentName, allUser, categories, allTodos, allUserNonDepartment })
             }
 
 

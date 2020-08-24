@@ -13,7 +13,7 @@ class UserController {
             }
             else {
 
-                let userData = await user.findOne({ where: { email }})
+                let userData = await user.findOne({ where: { email } })
 
                 if (!userData) {
                     throw { msg: `Password atau Email Salah`, status: 400 }
@@ -190,6 +190,19 @@ class UserController {
 
 
         res.status(200).json({ userData, userDept, userTodo })
+    }
+
+    static async editUserData(req, res, next) {
+        let { id } = req.userData
+        let { name, email, imageUrl } = req.body
+        try {
+            let updateData = await user.update({ name, email, imageUrl }, { where: { id } })
+            let updatedUserData = await user.findOne({ where: { id }, attributes: ['name', 'id', 'email', 'position', 'imageUrl'] })
+            res.status(200).json(updatedUserData)
+        }
+        catch (err) {
+            next(err)
+        }
     }
 
 }

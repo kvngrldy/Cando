@@ -22,6 +22,9 @@ function App() {
         <Route exact path="/adminPage">
           <AdminPage />
         </Route>
+        <Route exact path="/userProfile">
+          <UserProfile />
+        </Route>
         <Route path="/room/:roomname">
           <Room />
         </Route>

@@ -4,7 +4,6 @@ const e = require('express')
 class CategoryController {
     static async create(req, res, next) {
         let { name, departmentId } = req.body
-
         try {
             if (!departmentId) throw { msg: 'Department ID Harus Di Isi', status: 400 }
             let findDepartment = await department.findOne({ where: { id: departmentId } })

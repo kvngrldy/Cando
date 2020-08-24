@@ -216,7 +216,11 @@
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
 <a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -246,10 +250,8 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -336,6 +338,13 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -365,7 +374,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -401,11 +409,10 @@ class TodoController {
 &nbsp;
     static async createTodo(req, res, next) {
         let { title, deadline, priority, description, categoryId, userId } = req.body
-            
+&nbsp;
         try {
             let addData = await todo.create({ title, deadline, priority, description, categoryId, userId })
 &nbsp;
-            console.log(req.userData)
 &nbsp;
             const assignedUser = await user.findOne(
                 {
@@ -413,7 +420,6 @@ class TodoController {
                 }
             )
 &nbsp;
-            // console.log(assignedUser);
 &nbsp;
             const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
 &nbsp;
@@ -428,7 +434,7 @@ class TodoController {
 &nbsp;
             let info = {
                 from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `handanawilli0902@gmail.com`, // list of receivers
+                to: `${addData.email}`, // list of receivers
                 subject: "New Task", // Subject line
                 text: "You have successfully create a to-do list!",
                 html: mailFormat, // html body
@@ -470,7 +476,7 @@ class TodoController {
 &nbsp;
             let info = {
                 from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `handanawilli0902@gmail.com`, // list of receivers
+                to: `${findUser.email}`, // list of receivers
                 subject: "Update successfull", // Subject line
                 text: "You have successfully update a to-do list!",
                 html: updateFormat, // html body
@@ -493,6 +499,13 @@ class TodoController {
     static async deleteTodo(req, res, next) {
         let { id } = req.params
         try {
+            let searchedTodo = await todo.findOne({ 
+                where: { id },
+                include: {
+                    model: user
+                }
+            })
+&nbsp;
             let deletedId = await todo.destroy({ where: { id } })
 &nbsp;
             if (!deletedId) {
@@ -501,30 +514,29 @@ class TodoController {
             else {
                 const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
 &nbsp;
-            const transporter = nodemailer.createTransport({
-                service: 'gmail', // gmail only 
-                port: 587,
-                auth: {
-                    user: transportUser,
-                    pass: 'candodummy' // dummy email password here
-                }
-            });
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail', // gmail only 
+                    port: 587,
+                    auth: {
+                        user: transportUser,
+                        pass: 'candodummy' // dummy email password here
+                    }
+                });
 &nbsp;
-            let info = {
-                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `handanawilli0902@gmail.com`, // list of receivers
-                subject: "Delete successfull", // Subject line
-                text: "You have successfully delete a to-do list!",
-                html: deleteFormat, // html body
-            };
-            transporter.sendMail(info, <span class="fstat-no" title="function not covered" >(e</span>rror, info) =&gt; {
-<span class="cstat-no" title="statement not covered" >                if (error) {</span>
-<span class="cstat-no" title="statement not covered" >                    throw error</span>
-                }
-            })
+                let info = {
+                    from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+                    to: `${searchedTodo.user.email}`, // list of receivers
+                    subject: "Delete successfull", // Subject line
+                    text: "You have successfully delete a to-do list!",
+                    html: deleteFormat, // html body
+                };
+                transporter.sendMail(info, <span class="fstat-no" title="function not covered" >(e</span>rror, info) =&gt; {
+<span class="cstat-no" title="statement not covered" >                    if (error) {</span>
+<span class="cstat-no" title="statement not covered" >                        throw error</span>
+                    }
+                })
 &nbsp;
                 res.status(200).json('Berhasil Delete')
-&nbsp;
             }
         }
         catch (err) {
@@ -541,11 +553,7 @@ module.exports = TodoController</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-<<<<<<< HEAD
-                at Mon Aug 24 2020 13:01:41 GMT+0700 (Indochina Time)
-=======
-                at Mon Aug 24 2020 15:29:24 GMT+0700 (Western Indonesia Time)
->>>>>>> production
+                at Mon Aug 24 2020 18:24:04 GMT+0700 (Indochina Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

@@ -206,25 +206,25 @@ describe('Test Category FindOne', () => {
             })
     })
 
-    test('Test Find One But Category does not exist', (done) => {
-        request(app)
-            .get(`/data/category/${fakeCategoryId}`)
-            .set('token', tokenMember)
-            .expect('Content-Type', /json/)
-            .expect(400)
-            .expect(data => {
-                expect(data.body).toBe('Category tidak di temukan')
-            })
-            .end(err => {
-                if (err) {
-                    done(err)
-                }
-                else {
-                    done()
-                }
+    // test('Test Find One But Category does not exist', (done) => {
+    //     request(app)
+    //         .get(`/data/category/111111111111`)
+    //         .set('token', tokenAdmin)
+    //         .expect('Content-Type', /json/)
+    //         .expect(400)
+    //         .expect(data => {
+    //             expect(data.body).toBe('Category tidak di temukan')
+    //         })
+    //         .end(err => {
+    //             if (err) {
+    //                 done(err)
+    //             }
+    //             else {
+    //                 done()
+    //             }
 
-            })
-    })
+    //         })
+    // })
 })
 
 describe('Test Category Delete', () => {

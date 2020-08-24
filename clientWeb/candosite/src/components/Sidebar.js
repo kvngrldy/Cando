@@ -120,6 +120,9 @@ function Sidebar({ roomData }) {
         }
     }
     function userProfile() {
+        history.push('/userProfile')
+    }
+    function adminPage() {
         history.push('/adminPage')
     }
 
@@ -130,6 +133,9 @@ function Sidebar({ roomData }) {
             </div>
             <div>
                 <button onClick={() => userProfile()}>User Profile</button>
+            </div>
+            <div>
+                <button onClick={() => adminPage()}>Admin Page</button>
             </div>
             <div className="menu-sidebar mx-4" style={{ height: '90%' }}>
                 <div className="chatroom-menu mb-5">

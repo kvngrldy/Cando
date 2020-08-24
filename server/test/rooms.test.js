@@ -6,7 +6,6 @@ const createRoom = require('../helpers/rooms')
 
 describe('test function rooms', () => {
 
-<<<<<<< HEAD
     describe('test function', () => {
         test('function', (done) => {
             async function createRoom() {
@@ -17,9 +16,6 @@ describe('test function rooms', () => {
             })
             done()
         })
-=======
-        expect(rooms.length).toBe(1)
->>>>>>> production
     })
 
 })
