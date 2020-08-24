@@ -31,6 +31,7 @@ export default function CategoryList({ data }) {
     }
 
     socket.on('update-data', _ => {
+        console.log('<<< uda sampai sini beroooooooooooo');
         dispatch(getKanbanData(departmentId, token))
     })
     return (
