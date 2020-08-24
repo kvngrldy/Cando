@@ -5,12 +5,24 @@ import { Form, Button } from 'react-bootstrap'
 import Card from '../components/Card'
 import { useSelector } from 'react-redux'
 import CategoryList from '../components/CategoryList'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import socket from '../config/socket'
 
 function Home() {
     const departmentName = useSelector(state => state.kanban.departmentName)
     const departmentCategory = useSelector(state => state.kanban.category)
-
+    socket.on('add-alfred-notif', (departmentName) => {
+        toast.info('New Task Added', {
+            position: "bottom-right",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    })
 
     let history = useHistory()
     let [todo, setTodo] = useState([])
@@ -51,7 +63,7 @@ function Home() {
                             <div className="kanban-section">
                                 <div className="kanban-header">
                                     <h1>{departmentName}</h1>
-                                    
+
                                 </div>
                                 <div className="kanban-group">
 
@@ -67,44 +79,12 @@ function Home() {
 
 
 
-                                    {/* <div className="kanban-board">
-                                        <div className="kanban-title">
-                                            <p>DEVELOPMENT</p>
-                                            <span style={{ color: 'grey', marginTop: '2px' }}>
-                                                <i class="fas fa-ellipsis-h cursor"></i>
-                                            </span>
-                                        </div>
-                                        <div className="kanban-body">
-                                            <Card></Card>
-                                            <Card></Card>
-                                        </div>
-                                    </div>
-                                    <div className="kanban-board">
-                                        <div className="kanban-title">
-                                            <p>PRODUCTION</p>
-                                            <span style={{ color: 'grey', marginTop: '2px' }}>
-                                                <i class="fas fa-ellipsis-h cursor"></i>
-                                            </span>
-                                        </div>
-                                        <div className="kanban-body">
-                                            <Card></Card>
 
-                                        </div>
-                                    </div>
-                                    <div className="kanban-board">
-                                        <div className="kanban-title">
-                                            <p>DONE</p>
-                                            <span style={{ color: 'grey', marginTop: '2px' }}>
-                                                <i class="fas fa-ellipsis-h cursor"></i>
-                                            </span>
-                                        </div>
-                                        <div className="kanban-body">
-                                            <Card></Card>
-                                        </div>
-                                    </div> */}
                                 </div>
-
+                                <ToastContainer />
                             </div>
+                            
+                            
                         </div>
                     </div>
 
