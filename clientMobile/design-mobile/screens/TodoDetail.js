@@ -83,18 +83,19 @@ const TodoDetail = ({ navigation, route }) => {
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-          setNotification(notification);
+            setNotification(notification);
+            console.log(expoPushToken, '<<<< EXPO')
         });
-    
+
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-          console.log(response);
+            console.log(response);
         });
-    
+
         return () => {
-          Notifications.removeNotificationSubscription(notificationListener);
-          Notifications.removeNotificationSubscription(responseListener);
+            Notifications.removeNotificationSubscription(notificationListener);
+            Notifications.removeNotificationSubscription(responseListener);
         };
-      }, []);
+    }, []);
 
     useEffect(() => {
         AsyncStorage.getItem('token')
@@ -165,15 +166,17 @@ const TodoDetail = ({ navigation, route }) => {
                         <Text style={styles.descriptionText}>{description}</Text>
                     </View>
                 </View>
-                <Picker selectedValue={categoryId}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => changeCategory(itemValue, title, deadline, priority, description, userId, id)} >
-                    {
-                        categories && categories.map((categoryOne, index) => {
-                            return <Picker.item key={index} label={categoryOne.name} value={categoryOne.id} />
-                        })
-                    }
-                </Picker>
+                <View style={styles.picker}>
+                    <Picker selectedValue={categoryId}
+                        style={{ height: 50, width: 125 }}
+                        onValueChange={(itemValue, itemIndex) => changeCategory(itemValue, title, deadline, priority, description, userId, id)} >
+                        {
+                            categories && categories.map((categoryOne, index) => {
+                                return <Picker.item key={index} label={categoryOne.name} value={categoryOne.id} />
+                            })
+                        }
+                    </Picker>
+                </View>
                 <View style={styles.btn}>
                     <View style={styles.trash}>
                         <Button onPress={(event) => backToHomepage(event)} title="BACK TO HOMEPAGE" />
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
         marginTop: 12
     },
     btn: {
-        marginTop: 20
+        marginTop: 10
     },
     title: {
         fontSize: 18,
@@ -227,8 +230,9 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     trash: {
-        width: 300,
-        marginLeft: 10,
+        width: 250,
+        marginLeft: "auto",
+        marginRight: 'auto',
         marginBottom: 20
     },
     descriptionTitle: {
@@ -241,7 +245,11 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     descDiv: {
-        height: 160
+        height: 100
+    },
+    picker: {
+        marginLeft: 'auto',
+        marginRight: 'auto'
     }
 })
 

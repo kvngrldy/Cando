@@ -55,6 +55,7 @@ async function registerForPushNotificationsAsync() {
 
 const Todo = ({ navigation }) => {
     let [todo, setTodo] = useState([])
+    let [debug, setDebug] = useState([])
     let [expoPushToken, setExpoPushToken] = useState('');
     let [notification, setNotification] = useState(false);
     let notificationListener = useRef();
@@ -63,18 +64,18 @@ const Todo = ({ navigation }) => {
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-          setNotification(notification);
+            setNotification(notification);
         });
-    
+
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-          console.log(response);
+            console.log(response);
         });
-    
+
         return () => {
-          Notifications.removeNotificationSubscription(notificationListener);
-          Notifications.removeNotificationSubscription(responseListener);
+            Notifications.removeNotificationSubscription(notificationListener);
+            Notifications.removeNotificationSubscription(responseListener);
         };
-      }, []);
+    }, []);
 
     function fetchData() {
         AsyncStorage.getItem('token')
@@ -113,47 +114,47 @@ const Todo = ({ navigation }) => {
 
     useEffect(() => {
         fetchData()
-    }, [todo])
+    }, [])
 
     useEffect(() => {
         let edit = todo && todo.map(e => {
-            let date =  Date.parse(e.deadline) - (1000 * 60 * 60 * 24)
+            let date = Date.parse(e.deadline) - (1000 * 60 * 60 * 24)
             let parsedBack = new Date(date)
             return parsedBack
         })
-        
-        for(let i = 0 ; i < todo.length ; i++){
-            if(Date.parse(edit[i]) === Date.parse(new Date())){
+
+        for (let i = 0; i < todo.length; i++) {
+            if (Date.parse(edit[i]) === Date.parse(new Date())) {
                 sendPushNotification(expoPushToken, todo[i].title)
             }
         }
-    }, [])
+    })
 
     return (
-        <SafeAreaView style={styles.container}>
-            {
-                todo && todo.map((todo, index) => {
-                    return <ScrollView key={index}>
-                        <View style={styles.task}>
+        <ScrollView>
+            <SafeAreaView style={styles.container}>
+                {
+                    todo && todo.map((todo, index) => {
+                        return <View key={index} style={styles.task}>
                             <View style={styles.description}>
                                 <View >
                                     <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.title}>{todo.title}</Text>
                                 </View>
                                 <View>
-                                    <Text style={styles.category}>Category: {todo.category.name}</Text>
+                                    <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.category}>Category: {todo.category.name}</Text>
                                 </View>
                                 <View>
-                                    <Text style={styles.deadline}>Deadline: {todo.deadline.slice(0, 10)}</Text>
+                                    <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.deadline}>Deadline: {todo.deadline.slice(0, 10)}</Text>
                                 </View>
                                 <View>
-                                    <Text style={styles.priorities}>Priorities: {todo.priority}</Text>
+                                    <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.priorities}>Priorities: {todo.priority}</Text>
                                 </View>
                             </View>
                         </View>
-                    </ScrollView>
-                })
-            }
-        </SafeAreaView>
+                    })
+                }
+            </SafeAreaView>
+        </ScrollView >
     );
 }
 
