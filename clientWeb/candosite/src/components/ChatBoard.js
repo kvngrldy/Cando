@@ -52,12 +52,12 @@ function Chatboard({ roomData, chats }) {
                 <div className="chat-division">
                     <div className="chat-app-box">
 
-                        {/* {chats && chats.map((chat) => (
+                        {chats && chats.map((chat) => (
                             <ChatBubble chat={chat}></ChatBubble>
-                        ))} */}
-                        {
+                        ))}
+                        {/* {
                             JSON.stringify(chats)
-                        }
+                        } */}
 
                         <div className="comment mx-3 my-3">
                             <div className="avatar-comment" href="#">

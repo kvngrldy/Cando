@@ -93,10 +93,10 @@ io.on('connection', socket => {
                 })
                     .then(({ data }) => {
                         console.log(data, `<<<<`)
-                        let alfredMessage = ''
+                        let alfredMessage = `Ini Data List Task : `
                         if (data.response.length > 1) {
                             for (let i = 0; i < data.response.length; i++) {
-                                alfredMessage += `${data.response[i].text.text[0]}`
+                                alfredMessage += `  ${data.response[i].text.text[0]}, \n`
                             }
                         }
                         else {
