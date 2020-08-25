@@ -15,6 +15,7 @@ export default function KanbanBoard() {
     socket.on('update-data', _ => {
         dispatch(getKanbanData(departmentId, token))
     })
+    
     return (
         <>
             <div className="kanban-group">
