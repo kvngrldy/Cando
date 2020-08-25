@@ -151,12 +151,44 @@ class AlfredController {
         }
     }
 
-    // static async editTodoCategory(req, res, next) {
-    //     let { departmentName, sender } = req.body
 
+    static async editTodoCategory(req, res, next) {
+        let { departmentName, todoId, categoryName } = req.body
+        try {
+            let { categories } = await department.findOne({ where: { name: departmentName }, include: { model: category } })
+            let categoryId = categories.filter(a => a.name === categoryName)
+            if (categoryId.length === 0) throw { msg: `Category tidak di temukan`, status: 400 }
+            let updatedTodo = await todo.update({
+                categoryId: categoryId[0].id
+            }, {
+                where: { id: todoId }
+            })
 
-    //     res.send('123')
-    // }
+            let todoData = await todo.findOne({ where: { id: todoId } })
+            res.status(200).json(todoData)
+
+        }
+        catch (err) {
+            next(err)
+        }
+
+    }
+
+    static async editTodoPriority(req, res, next) {
+        let { departmentName, todoId, priority } = req.body
+        try {
+
+            let todo123 = await todo.update({ priority }, { where: { id: todoId } })
+            if (!todo123) throw { msg: `Todo tidak ditemukan`, status: 400 }
+            let updatedTodo = await todo.findOne({ where: { id: todoId } })
+            res.status(200).json(updatedTodo)
+
+        }
+        catch (err) {
+            next(err)
+        }
+
+    }
 
 }
 
