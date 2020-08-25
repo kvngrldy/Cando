@@ -12,6 +12,7 @@ function Chatboard({ roomData, chats }) {
         const payload = {
             roomName: roomData.name,
             sender: localStorage.name,
+            position: localStorage.position,
             message: text,
             imageUrl: localStorage.imageUrl
         }
@@ -85,7 +86,7 @@ function Chatboard({ roomData, chats }) {
                                     onChange={setText}
                                     cleanOnEnter
                                     maxLength='500'
-                                    
+
                                     onEnter={handleOnEnter}
                                     placeholder="Type a message"
                                     borderColor="dodgerBlue"
