@@ -2,6 +2,7 @@
 const createRoom = require('./helpers/rooms')
 const io = require('socket.io')()
 const axios = require('axios')
+const dataRoute = require('./routes/dataRoute')
 let rooms = createRoom()
 
 // const createRoom = require('./helpers/rooms')
@@ -92,11 +93,23 @@ io.on('connection', socket => {
                 })
                     .then(({ data }) => {
                         console.log(data, `<<<<`)
+                        let alfredMessage = ''
+                        if (data.response.length > 1) {
+                            for (let i = 0; i < data.response.length; i++) {
+                                alfredMessage += `${data.response[i].text.text[0]}`
+                            }
+                        }
+                        else {
+                            alfredMessage = data.response
+                        }
+
+
+
 
                         rooms[roomIndex].messages.unshift({
                             sender: 'Alfred',
                             imageUrl: 'https://i.pinimg.com/564x/8a/72/b6/8a72b661a6aa5084a691a27320d7577d.jpg',
-                            message: data.response
+                            message: alfredMessage
                         })
                     })
                     .then(() => {
