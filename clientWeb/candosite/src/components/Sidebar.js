@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
-import logo from '../assets/logo.png'
+import logodark from '../assets/logo-dark.png'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import socket from '../config/socket'
@@ -13,7 +13,7 @@ function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
     const baseUrl = 'http://localhost:3001'
     const location = useLocation()
-    // console.log(location, `<<<<`)
+
 
     const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
@@ -48,7 +48,7 @@ function Sidebar({ roomData }) {
 
 
     function joinRoom(roomName) {
-        // console.log(`mau join di ${roomName}`);
+
         if (roomData) {
             const payloadExit = {
                 roomName: roomData.name,
@@ -114,18 +114,32 @@ function Sidebar({ roomData }) {
             }
             socket.emit('exit-room', payload)
             dispatch(getKanbanData(id, token))
-            
+
             history.push('/')
 
         } else {
             dispatch(getKanbanData(id, token))
-            
+
             history.push('/')
         }
     }
     function userProfile() {
-        history.push('/userProfile')
+        if (roomData) {
+            const payload = {
+                roomName: roomData.name,
+                exitUser: roomData.users.filter(user => user.name === localStorage.name)
+            }
+            socket.emit('exit-room', payload)
+
+
+            history.push('/userProfile')
+
+        } else {
+            history.push('/userProfile')
+        }
+
     }
+
     function adminPage() {
         history.push('/adminPage')
     }
@@ -133,57 +147,55 @@ function Sidebar({ roomData }) {
     return (
         <div className="board-sidebar">
             <div className="icon-sidebar">
-                <Image src={logo} fluid />
+                <Image src={logodark} fluid />
             </div>
-            <div>
-                <button onClick={() => userProfile()}>User Profile</button>
-            </div>
-            <div>
-                <button onClick={() => adminPage()}>Admin Page</button>
-            </div>
-            <div className="menu-sidebar mx-4" style={{ height: '90%' }}>
-                <div className="chatroom-menu mb-5">
-                    <div className="menu-title">
+
+
+            <div className="menu-sidebar " style={{ height: '90%' }}>
+                <div className="chatroom-menu">
+                    <div className="menu-title  ml-3">
                         <p className="text-muted">YOUR CHATROOM</p>
                     </div>
-                    <div>
-                        <h2 onClick={() => joinRoom('roomForAll')} className="room-text">Room for All</h2>
+                    <div className="div-room-text">
+                        <h2 onClick={() => joinRoom('roomForAll')} className="room-text"><i class="far fa-comment-alt"></i> Room for All</h2>
                     </div>
                     {
                         department && department.map((room, index) => (
-                            <div key={index}>
+                            <div className="div-room-text" key={index}>
 
-                                <h2 onClick={() => joinRoom(room.name)} className={location.pathname == `/room/${room.name}` ? 'room-text not-active' : 'room-text'}>{room.name}</h2>
+                                <h2 onClick={() => joinRoom(room.name)} className={location.pathname == `/room/${room.name}` ? 'room-text not-active' : 'room-text'}><i class="far fa-comment-alt"></i> {room.name}</h2>
                             </div>
                         ))
                     }
 
                 </div>
-                {/*  <div className="kanban-menu">
-                    <div className="menu-title">
-                        <p className="text-muted">TASKBOARD</p>
-                    </div>
-                    <div>
-                        <h2 onClick={() => goToPage('/')} className="room-text">KANBAN</h2>
-                    </div>
-                </div> */}
+
 
                 <div className="kanban-menu">
-                    <div className="menu-title">
-                        <p className="text-muted">DEPARTEMEN</p>
+                    <div className="menu-title  ml-3">
+                        <p className="text-muted ">DEPARTEMEN</p>
                     </div>
-
-                    <div>
-                        {
-                            department && department.map(dept => (
-                                <h2 onClick={() => departmentDetail(dept.id)} className="room-text">{dept.name}</h2>
-                            ))
-                        }
-
+                    {
+                        department && department.map(dept => (
+                            <div className="div-room-text">
+                                <h2 onClick={() => departmentDetail(dept.id)} className="room-text"><i class="far fa-clipboard"></i> {dept.name}</h2>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div className="kanban-menu">
+                    <div className="menu-title  ml-3">
+                        <p className="text-muted ">SETTING</p>
+                    </div>
+                    <div className="div-room-text">
+                        <h2 onClick={() => userProfile()} className="room-text"><i class="far fa-address-card"></i> Profile</h2>
                     </div>
                 </div>
-                <div className="logout-menu">
-                    <button onClick={(event) => logout(event)} className="logout-btn">LOGOUT</button>
+
+                <div className="kanban-menu">
+                    <div className="div-room-text">
+                        <h2 onClick={(event) => logout(event)} className="room-text"><i class="fas fa-sign-out-alt"></i> Logout</h2>
+                    </div>
                 </div>
 
 

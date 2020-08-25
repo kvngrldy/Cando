@@ -10,11 +10,14 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Room from './pages/Room'
 import UserProfile from './components/UserProfile';
+import Setting from './pages/Setting'
 import AdminPage from './components/AdminPage';
+import Sidebar from './components/Sidebar'
 
 function App() {
   return (
     <Router>
+  
       <Switch>
         <Route path="/login">
           <Login />
@@ -23,7 +26,7 @@ function App() {
           <AdminPage />
         </Route>
         <Route exact path="/userProfile">
-          <UserProfile />
+          <Setting />
         </Route>
         <Route path="/room/:roomname">
           <Room />

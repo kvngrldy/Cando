@@ -45,13 +45,12 @@ function Home() {
                     <div className="main-content">
                         <div className="main-section">
                             <div className="kanban-section">
-                                <div className="kanban-header">
-                                    <h1>{departmentName}</h1>
-                                </div>
+                                
                                 <KanbanBoard></KanbanBoard>
+
                             </div>
                         </div>
-                        <ToastContainer />   
+                        <ToastContainer />
                     </div>
                 </div>
             </div>
