@@ -2,7 +2,7 @@ import { SET_KANBAN_DETAILS } from './type'
 import axios from 'axios'
 
 
-let baseUrl = `http://localhost:3001/data`
+let baseUrl = `https://candone.herokuapp.com/data`
 
 
 export const setKanban = (data, id) => {

@@ -211,7 +211,39 @@ describe('Suite of unit tests', function () {
         done()
       })
     })
+
   })
+
+  // describe('Tes Alfred',()=>{
+  //   test('alfred 1',(done)=>{
+  //     const data = {
+  //       roomName: 'Teknologi Informasi',
+  //       sender: 'user 1',
+  //       message: '@alfred'
+  //     }
+
+  //     socket.emit('send-message', data)
+
+  //     socket.on('room-detail', dataRes => {
+  //       expect(dataRes).toBeInstanceOf(Object)
+  //       expect(dataRes).toHaveProperty('name')
+  //       expect(dataRes).toHaveProperty('admin')
+  //       expect(dataRes).toHaveProperty('users')
+  //       expect(dataRes).toHaveProperty('messages')
+  //       expect(dataRes.messages).not.toHaveLength(0);
+  //       expect(dataRes.messages).toBeInstanceOf(Array)
+  //       expect(dataRes.messages[0]).toBeInstanceOf(Object)
+  //       expect(dataRes.messages[0]).toEqual(
+  //         expect.objectContaining({
+  //           sender: data.sender,
+  //           message: data.message
+  //         })
+  //       )
+  //       done()
+  //     })
+
+  //   })
+  // })
 
 })
 

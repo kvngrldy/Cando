@@ -1,7 +1,7 @@
 import { USER_DATA, DELETE_USER_DATA, EDIT_USER_DATA } from './type'
 import axios from 'axios'
 
-let baseUrl = `http://localhost:3001/data`
+let baseUrl = `https://candone.herokuapp.com/data`
 
 export const setUserData = (data) => {
     return (dispatch) => {

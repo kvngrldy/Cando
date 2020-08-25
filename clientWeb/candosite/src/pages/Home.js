@@ -51,8 +51,9 @@ function Home() {
                                 <KanbanBoard></KanbanBoard>
                             </div>
                         </div>
-                        <ToastContainer />   
+
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </div >
