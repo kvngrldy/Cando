@@ -19,7 +19,7 @@ function Home() {
     // useEffect(async () => {
     //     try{
     //         let data = await localStorage.getItem('token')
-    //         let res = await fetch('https://dummycando.herokuapp.com/data/userData', {
+    //         let res = await fetch('http//192.168.0.126:3001/data/userData', {
     //             method: 'get',
     //             headers: {
     //                 'token': data

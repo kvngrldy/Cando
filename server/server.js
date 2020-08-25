@@ -8,7 +8,7 @@ let rooms = createRoom()
 
 
 io.on('connection', socket => {
-
+    console.log('connection masuk')
     socket.on('message', function (msg) {
 
         io.emit('message', msg)
@@ -131,7 +131,6 @@ io.on('connection', socket => {
 
     socket.on('typing-start', ({ name, room }) => {
         socket.join(room, () => {
-            // console.log(name);
             io.sockets.in(room).emit('typing-start', name)
         })
     })
@@ -141,6 +140,7 @@ io.on('connection', socket => {
     })
 
     socket.on('update-data', _ => {
+        console.log("<<<<< INI EMIT UPDATE")
         socket.broadcast.emit('update-data')
     })
 })

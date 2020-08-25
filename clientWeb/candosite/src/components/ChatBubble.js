@@ -5,7 +5,7 @@ function ChatBubble({ chat }) {
 
     return (
         <>
-            {chat.sender == 'Bot' ? <div className="comment-bot ml-3 my-2 user-chat">
+            {chat.sender === 'Bot' ? <div className="comment-bot ml-3 my-2 user-chat">
 
 
 
@@ -13,7 +13,7 @@ function ChatBubble({ chat }) {
                 <strong><p>{chat.message}</p></strong>
 
 
-            </div> : chat.sender != localStorage.name ? <div className="comment ml-3 mt-2 mb-3 user-chat">
+            </div> : chat.sender !== localStorage.name ? <div className="comment ml-3 mt-2 mb-3 user-chat">
                     <div className="avatar-comment" href="#">
                         <img
                             src={chat.imageUrl}

@@ -1,3 +1,3 @@
 import io from 'socket.io-client'
-
-export default io('https://dummycando.herokuapp.com')
+console.log('masuk socket')
+export default io('http//localhost:3001')

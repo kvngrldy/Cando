@@ -4,7 +4,7 @@ import '../App.css'
 
 
 function Login() {
-    const baseUrl = 'https://dummycando.herokuapp.com'
+    const baseUrl = 'http://localhost:3001'
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState("")
     let [status, setStatus] = useState('')

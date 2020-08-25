@@ -31,7 +31,7 @@ export default function CategoryList({ data }) {
     }
 
     socket.on('update-data', _ => {
-        console.log('<<< uda sampai sini beroooooooooooo');
+        console.log('<<<< CLIENT WEB')
         dispatch(getKanbanData(departmentId, token))
     })
     return (
@@ -63,10 +63,7 @@ export default function CategoryList({ data }) {
                         data.todos && data.todos.map((todo,idx) => (
                             <Card key={idx} data={todo}></Card>
                         ))
-
                     }
-
-                    
                 </div>
             </div>
 

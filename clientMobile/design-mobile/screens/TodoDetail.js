@@ -51,15 +51,6 @@ async function registerForPushNotificationsAsync() {
         alert('Must use physical device for Push Notifications');
     }
 
-    if (Platform.OS === 'android') {
-        Notifications.setNotificationChannelAsync('CanDo Task Manager', {
-            name: 'CanDo Task Manager',
-            importance: Notifications.AndroidImportance.MAX,
-            vibrationPattern: [0, 250, 250, 250],
-            lightColor: '#FF231F7C',
-        });
-    }
-
     return token;
 }
 
@@ -104,7 +95,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/${deptId}`, {
+                    return fetch(`http://192.168.0.126:3001/data/${deptId}`, {
                         method: 'get',
                         headers: {
                             "token": data
@@ -125,7 +116,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (!data) {
                     navigation.navigate('/login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/todo/${id}`, {
+                    return fetch(`http://192.168.0.126:3001/data/todo/${id}`, {
                         method: "PUT",
                         headers: {
                             'token': data,
@@ -143,7 +134,7 @@ const TodoDetail = ({ navigation, route }) => {
                 }
             })
             .then(_ => {
-                console.log('<<<<<<<<<<< ini uda mau masuk emit');
+                console.log('<<<<<< UPDATE MOBILE')
                 socket.emit('update-data')
             })
             .then(_ => {
@@ -174,10 +165,10 @@ const TodoDetail = ({ navigation, route }) => {
                 <View style={styles.picker}>
                     <Picker selectedValue={categoryId}
                         style={{ height: 50, width: 125 }}
-                        onValueChange={(itemValue, itemIndex) => changeCategory(itemValue, title, deadline, priority, description, userId, id)} >
+                        onValueChange={(itemValue) => changeCategory(itemValue, title, deadline, priority, description, userId, id)} >
                         {
                             categories && categories.map((categoryOne, index) => {
-                                return <Picker.item key={index} label={categoryOne.name} value={categoryOne.id} />
+                                return <Picker.Item key={index} label={categoryOne.name} value={categoryOne.id} />
                             })
                         }
                     </Picker>

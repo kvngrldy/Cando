@@ -1,3 +1,3 @@
 import io from 'socket.io-client'
 
-export default io('https://dummycando.herokuapp.com/')
+export default io('http://localhost:3001/')

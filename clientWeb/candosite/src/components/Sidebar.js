@@ -11,9 +11,9 @@ import { getKanbanData } from '../store/actions/kanbanActions'
 
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
-    const baseUrl = 'https://dummycando.herokuapp.com'
+    const baseUrl = 'http://localhost:3001'
     const location = useLocation()
-    console.log(location, `<<<<`)
+    // console.log(location, `<<<<`)
 
     const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
@@ -23,7 +23,7 @@ function Sidebar({ roomData }) {
     let [departmentName, setDepartmentName] = useState('')
     let [allUser, setAllUser] = useState('')
     let [allCategory, setAllCategory] = useState('')
-    console.log(department, `<<<`)
+    // console.log(department, `<<<`)
 
     useEffect(() => {
         socket.emit('get-rooms')
