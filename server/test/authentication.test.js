@@ -24,4 +24,22 @@ describe('Test Authentication', () => {
                 }
             })
     })
+    test('Test Authentication Token Unidentified', (done) => {
+        request(app)
+            .get('/data/userData')
+            .set('token', tokenMember)
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .expect(data => {
+                expect(data.body).toBe('User tidak terdaftar dalam sistem')
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+            })
+    })
 })

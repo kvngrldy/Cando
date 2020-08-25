@@ -8,7 +8,9 @@ const uuid = require('uuid');
 class AlfredController {
     static async createTodo(req, res, next) {
         let { title, deadline, priority, description, userName, departmentName } = req.body;
+
         try {
+
             if (deadline.toString().toLowerCase() === "besok") {
                 deadline = 1
             }
@@ -24,7 +26,7 @@ class AlfredController {
             if (!userName || !departmentName) throw { msg: 'User Name dan Department Name Harus di Isi', status: 400 }
 
             let userData = await user.findOne({ where: { name: userName } })
-            if (!userData) throw { msg: `User Name Tidak Terregister`, status: 400 }
+            if (!userData) { throw { msg: `User Name Tidak Terregister`, status: 400 } }
             let userId = userData.id
 
             let departmentData = await department.findOne({ where: { name: departmentName } })
@@ -51,14 +53,14 @@ class AlfredController {
                 userId
             })
             if (newTodo) {
-                res.status(200).json(newTodo)
+                res.status(201).json([newTodo])
             }
             else {
                 throw { msg: `Tidak Bisa Create Todo`, status: 400 }
             }
         }
         catch (err) {
-            next()
+            next(err)
         }
 
     }
@@ -97,6 +99,55 @@ class AlfredController {
                 console.log('masuk finally')
             })
     }
+
+    static async getAllTodo(req, res, next) {
+        let { departmentName } = req.body
+
+        let { categories } = await department.findOne({ where: { name: departmentName }, include: { model: category, include: { model: todo } } })
+        let getAllTodo = categories.map(cat => {
+            return cat.todos
+        })
+
+        let categoryName = await category.findAll()
+        let todoData = []
+        for (let i = 0; i < getAllTodo.length; i++) {
+            for (let j = 0; j < getAllTodo[i].length; j++) {
+                todoData.push(getAllTodo[i][j])
+            }
+        }
+        for (let i = 0; i < todoData.length; i++) {
+            for (let j = 0; j < categoryName.length; j++) {
+                if (todoData[i].categoryId == categoryName[j].id) {
+                    todoData[i].categoryId = categoryName[j].name
+                }
+            }
+        }
+
+        res.status(200).json(todoData)
+    }
+
+    static async deleteTodo(req, res, next) {
+        let { departmentName, todoId } = req.body
+        try {
+            let findOneTodo = await todo.findOne({ where: { id: todoId } })
+            if (!findOneTodo) throw { msg: 'Todo Tidak Ditemukan', status: 400 }
+            await todo.destroy({ where: { id: todoId } })
+
+            res.status(200).json([{ msg: findOneTodo.title }])
+        }
+
+        catch (err) {
+            next(err)
+        }
+    }
+
+    // static async editTodoCategory(req, res, next) {
+    //     let { departmentName, sender } = req.body
+
+
+    //     res.send('123')
+    // }
+
 }
 
 module.exports = AlfredController

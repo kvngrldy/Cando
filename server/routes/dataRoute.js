@@ -16,13 +16,15 @@ dataRoute.post('/login', UserController.login)
 dataRoute.post('/todo', TodoController.createTodo)
 dataRoute.get('/userData', authentication, UserController.findOneUserData)
 dataRoute.use('/user', authentication, userRoute)
-dataRoute.get('/:id', authentication, authorizationDepartment, DataController.findAllData)
 dataRoute.use('/todo', authentication, todoRoute)
 dataRoute.use('/category', authentication, categoryRoute)
 dataRoute.delete('/remove', authentication, authorizationAdmin, UserController.removeUserFromDepartment)
-
-dataRoute.post('/alfred',AlfredController.createTodo)
+dataRoute.post('/alfred', AlfredController.createTodo)
+dataRoute.put('/alfrededittodocategory', AlfredController.editTodoCategory)
+dataRoute.post('/alfredfetchtodo', AlfredController.getAllTodo)
+dataRoute.delete('/alfreddeletetodo', AlfredController.deleteTodo)
 dataRoute.post('/alfredatyourservice', AlfredController.getMsg)
+dataRoute.get('/:id', authentication, authorizationDepartment, DataController.findAllData)
 
 
 module.exports = dataRoute

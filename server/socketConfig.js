@@ -81,13 +81,13 @@ io.on('connection', socket => {
                 forAlfred.splice(0, 1)
                 forAlfred.push(data.roomName)
                 message = forAlfred.join(' ')
-                
+
                 console.log(message, `< ini balasan user`)
                 axios({
                     method: 'post',
                     url: 'https://candone.herokuapp.com/data/alfredatyourservice',
                     data: {
-                        msg: message
+                        msg: message,
                     }
                 })
                     .then(({ data }) => {
@@ -124,7 +124,7 @@ io.on('connection', socket => {
                 message: `${data.exitUser[0].name} has left room`,
                 imageUrl: 'https://s3.envato.com/files/263450170/LP_06.jpg'
             })
-            
+
             if (rooms[roomIndex].name !== 'roomForAll') {
                 if (remainUsers.length === 0) {
                     rooms[roomIndex].messages = []
@@ -154,7 +154,7 @@ io.on('connection', socket => {
     })
 
     socket.on('add-alfred-notif', _ => {
-       socket.broadcast.emit('add-alfred-notif')
+        socket.broadcast.emit('add-alfred-notif')
     })
 })
 

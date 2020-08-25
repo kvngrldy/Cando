@@ -441,6 +441,32 @@ describe('Test Remove User From Department', () => {
 
 })
 
+describe('Test Edit One User Data', () => {
+    test('Test Berhasil Edit User Data', (done) => {
+        let dummyData ={name:'bobo'}
+        request(app)
+            .put('/data/user/userData')
+            .set('token', tokenMember)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .expect(data => {
+                expect(data.body.name).toBe('user 2')
+
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+            })
+    })
+
+    
+})
+
+
 
 describe('Test Delete User', () => {
     test('Test Delete User Berhasil Admin Account', (done) => {
@@ -506,3 +532,4 @@ describe('Test Find One User Data', () => {
             })
     })
 })
+
