@@ -50,8 +50,8 @@ function Home() {
 
                             </div>
                         </div>
-                        <ToastContainer />
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </div >
