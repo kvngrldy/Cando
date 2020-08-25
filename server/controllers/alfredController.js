@@ -2,6 +2,11 @@ const dataRoute = require("../routes/dataRoute");
 const { department, user, todo, category } = require('../models')
 const dialogflow = require('dialogflow');
 const uuid = require('uuid');
+const nodemailer = require('nodemailer')
+const mailFormat = require('../helpers/newTaskMail')
+const updateFormat = require('../helpers/updateTaskMail')
+const deleteFormat = require('../helpers/deleteTaskMail')
+
 
 
 

@@ -4,6 +4,17 @@ const fs = require('fs')
 
 
 
-let jokes = fs.readFileSync('../jokes.txt').toString().split("\n");
 
 
+
+class ApiController {
+
+    static async yoMomma(req, res, next) {
+        let jokes = fs.readFileSync('../jokes.txt').toString().split("\n");
+        
+    }
+
+
+}
+
+module.exports = ApiController
