@@ -92,19 +92,18 @@ io.on('connection', socket => {
                     }
                 })
                     .then(({ data }) => {
-                        console.log(data, `<<<<`)
-                        let alfredMessage = `Ini Data List Task : `
-                        if (data.response.length > 1) {
+                        let alfredMessage = ``
+                        if (Array.isArray(data.response)) {
+                            console.log(`${data}MASUK DATA RESPONSE .LENGTH > 1`)
+                            alfredMessage = `Ini Data List Task :`
                             for (let i = 0; i < data.response.length; i++) {
                                 alfredMessage += `  ${data.response[i].text.text[0]}, \n`
                             }
                         }
                         else {
+                            console.log(`${data} <<<<<<<<<<<<<<<, NON ARRAY`)
                             alfredMessage = data.response
                         }
-
-
-
 
                         rooms[roomIndex].messages.unshift({
                             sender: 'Alfred',

@@ -97,6 +97,7 @@ class AlfredController {
                     res.status(200).json({ response: response[0].queryResult.fulfillmentMessages })
                 }
                 else {
+                    console.log(`${response[0].queryResult.fulfillmentText} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FULFILLMENT TEXT`)
                     res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
                 }
 
