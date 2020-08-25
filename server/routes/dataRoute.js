@@ -8,6 +8,7 @@ const userRoute = require('./userRoute')
 const TodoController = require('../controllers/todoController')
 const authorizationAdmin = require('../middleware/authorizationAdmin')
 const AlfredController = require('../controllers/alfredController')
+const ApiController = require('../controllers/apiController')
 
 const dataRoute = require('express').Router()
 
@@ -25,6 +26,7 @@ dataRoute.put('/alfrededittodopriority', AlfredController.editTodoPriority)
 dataRoute.post('/alfredfetchtodo', AlfredController.getAllTodo)
 dataRoute.delete('/alfreddeletetodo', AlfredController.deleteTodo)
 dataRoute.post('/alfredatyourservice', AlfredController.getMsg)
+dataRoute.get('/yomomma', ApiController.yoMomma)
 dataRoute.get('/:id', authentication, authorizationDepartment, DataController.findAllData)
 
 
