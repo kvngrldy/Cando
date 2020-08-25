@@ -89,10 +89,17 @@ class AlfredController {
 
         sessionClient.detectIntent(request)
             .then(response => {
-                console.log(response,'<<<<<<<<<<<<<<<<<<< RESPONSE')
+
                 console.log(response[0].queryResult, `<<<<<<<<<<<<<<<<<<<<< RESPONSE[0]`)
                 const result = response[0].queryResult;
-                res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
+                if (response[0].queryResult.fulfillmentText === '') {
+                    console.log(`${response[0].queryResult.fulfillmentMessages[0].text} <<<<<<<<<<<<<<<<<< RESPONSE QUERY RESULT`)
+                    res.status(200).json({ response: response[0].queryResult.fulfillmentMessages })
+                }
+                else {
+                    res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
+                }
+
             })
             .catch(err => {
                 console.log('masuk err', err)
