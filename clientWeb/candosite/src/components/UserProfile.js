@@ -13,7 +13,7 @@ export default function UserProfile() {
         imageUrl: userData.imageUrl,
         email: userData.email,
         name: userData.name,
-        token: userData.token
+        token: localStorage.token
     })
 
     function gantiEditStatus() {

@@ -8,7 +8,8 @@ import AdminPage from '../components/AdminPage'
 
 export default function KanbanBoard() {
     const departmentCategory = useSelector(state => state.kanban.category)
-    const { token } = useSelector(state => state.userData)
+    // const { token } = useSelector(state => state.userData)
+    const token = localStorage.token
     const { departmentId } = useSelector(state => state.kanban)
     const dispatch = useDispatch()
     const departmentName = useSelector(state => state.kanban.departmentName)

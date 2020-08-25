@@ -219,6 +219,7 @@ body {
   height: 100%;
   background-color: #F0F0F0;
   margin-left: 15%;
+  
   overflow-x: auto;
   flex-direction: column;
 }
@@ -408,9 +409,7 @@ body {
   height: 100%;
 }
 
-.chat-bar{
-  
-}
+
 
 .textbox{
   width: 85%;

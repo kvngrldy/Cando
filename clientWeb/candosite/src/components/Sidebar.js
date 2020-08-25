@@ -11,7 +11,7 @@ import { getKanbanData } from '../store/actions/kanbanActions'
 
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
-    const baseUrl = 'http://localhost:3001'
+    const baseUrl = 'https://candone.herokuapp.com'
     const location = useLocation()
 
 
