@@ -60,36 +60,36 @@ class AlfredController {
 
 
 
-            const assignedUser = await user.findOne(
-                {
-                    where: { id: userId }
-                }
-            )
+            // const assignedUser = await user.findOne(
+            //     {
+            //         where: { id: userId }
+            //     }
+            // )
 
 
-            const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
+            // const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
 
-            const transporter = nodemailer.createTransport({
-                service: 'gmail', // gmail only 
-                port: 587,
-                auth: {
-                    user: transportUser,
-                    pass: 'candodummy' // dummy email password here
-                }
-            });
+            // const transporter = nodemailer.createTransport({
+            //     service: 'gmail', // gmail only 
+            //     port: 587,
+            //     auth: {
+            //         user: transportUser,
+            //         pass: 'candodummy' // dummy email password here
+            //     }
+            // });
 
-            let info = {
-                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `${userData.email}`, // list of receivers
-                subject: "New Task", // Subject line
-                text: "You have successfully create a to-do list!",
-                html: mailFormat, // html body
-            };
-            transporter.sendMail(info, (error, info) => {
-                if (error) {
-                    throw error
-                }
-            })
+            // let info = {
+            //     from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+            //     to: `${userData.email}`, // list of receivers
+            //     subject: "New Task", // Subject line
+            //     text: "You have successfully create a to-do list!",
+            //     html: mailFormat, // html body
+            // };
+            // transporter.sendMail(info, (error, info) => {
+            //     if (error) {
+            //         throw error
+            //     }
+            // })
 
 
 
