@@ -2,8 +2,6 @@ const { user, department, department_user, todo, category } = require('../models
 const { checkPassword } = require('../helpers/bcryptjs')
 const { createToken } = require('../helpers/jwt')
 
-
-
 class UserController {
     static async login(req, res, next) {
         let { email, password } = req.body
@@ -186,8 +184,6 @@ class UserController {
         userDept = userDept.map(a => {
             return { id: a.id, name: a.name }
         })
-
-
 
         res.status(200).json({ userData, userDept, userTodo })
     }

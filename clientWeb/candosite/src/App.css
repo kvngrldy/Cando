@@ -94,12 +94,20 @@ body {
   display: flex;                 
 }
 
+.menu-sidebar{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  
+}
+
 .board-sidebar{
   width: 15%;
   height: 100%;
-  background-color: black;
+  background-color: #f9fcfb;
+  box-shadow: 0px 0px 5px grey;
   opacity: 0.9;
-  box-shadow: 2px 0px 5px black;
+  
   position: fixed;
   display:flex;
   flex-direction: column;
@@ -109,6 +117,7 @@ body {
 .menu-title{
  font-size: small; 
  font-weight: 700;
+ 
 }
 
 .room-title{
@@ -125,6 +134,24 @@ body {
   border-bottom: 2px solid black;
 }
 
+.div-room-text{
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+
+}
+
+
+
+.div-room-text:hover{
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  background-color: #163172;
+  color: red;
+}
+
+
 
 
 .room-section{
@@ -135,15 +162,28 @@ body {
 
 .room-text{
   font-size: 16px;
-  margin-top: 15%;
-  color: white;
+  margin-left: 1rem;
+  color: grey;
   cursor: pointer;
   transition: .2s ease-out;
+  
+}
+
+.logout-menu {
+  display: flex;
+  align-items: center;
 }
 
 .room-text:hover{
-  color: aquamarine;
+  font-size: 16px;
+  margin-left: 1rem;
+  color: white;
+  cursor: pointer;
+  transition: .2s ease-out;
+  
 }
+
+
 
 .react-input-emoji--wrapper {
   
@@ -154,7 +194,7 @@ body {
   pointer-events: none;
   cursor: pointer;
   text-decoration: none;
-  color: greenyellow;
+  
 }
 
 .react-input-emoji--input {
@@ -179,6 +219,7 @@ body {
   height: 100%;
   background-color: #F0F0F0;
   margin-left: 15%;
+  
   overflow-x: auto;
   flex-direction: column;
 }
@@ -197,16 +238,17 @@ body {
   padding-top: 1rem;
   padding-left: 3rem;
   height: 15%;
-  background-color: white;
+  background-color: #f9fcfb;
   box-shadow: 0px 0px 5px grey;
+  display: flex;
+  flex-direction: row;
 }
 
 .kanban-board{
   background-color: transparent;
   height: 90%;
   margin-right: 5rem;
-  width: 100%;
-  
+  width: 17rem;
 }
 
 .chat-section{
@@ -239,7 +281,7 @@ body {
   margin-top: 7%;
   display: flex;
   justify-content: space-between;
-  
+  width: 15rem;
   color: black;
   font-weight: bold;
 }
@@ -258,7 +300,7 @@ body {
 }
 
 .logout-btn{
-  margin-top: 40%;
+  
   width: 70%;
   height: 50px;
   background-color: red;
@@ -367,9 +409,7 @@ body {
   height: 100%;
 }
 
-.chat-bar{
-  
-}
+
 
 .textbox{
   width: 85%;

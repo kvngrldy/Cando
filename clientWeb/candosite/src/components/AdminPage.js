@@ -6,9 +6,10 @@ import socket from '../config/socket'
 
 
 
-export default function AdminPage() {
+export default function AdminPage(isAdmin) {
     const { departmentId, category, allUser, allUserNonDepartment } = useSelector(state => state.kanban)
-    const { token, email } = useSelector(state => state.userData)
+    const { email } = useSelector(state => state.userData)
+    const token = localStorage.token
     const dispatch = useDispatch()
     const history = useHistory()
     const [categoryName, setCategoryName] = useState('')
@@ -22,9 +23,10 @@ export default function AdminPage() {
             departmentId,
             token
         }
-        dispatch(createCategory(payload))
         
+        dispatch(createCategory(payload))
         history.push('/')
+        
         socket.emit('update-data')
 
     }
@@ -44,6 +46,8 @@ export default function AdminPage() {
     function backHome() {
         history.push('/')
     }
+
+    
 
     function handleRemoveUser(e) {
         e.preventDefault()
@@ -72,7 +76,6 @@ export default function AdminPage() {
 
 
         <>
-            <button onClick={() => backHome()} >Home</button>
             <h1>Admin Page</h1>
             <div>
                 <form onSubmit={(event) => handleCategory(event)}>
@@ -129,6 +132,8 @@ export default function AdminPage() {
                     <button type="submit">Submit</button>
                 </form>
             </div>
+                        
+            
 
         </>
     )

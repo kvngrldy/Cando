@@ -17,25 +17,13 @@ const Login = ({ navigation }) => {
     setEmail(email)
   }
 
-  // useEffect(() => {
-  //   AsyncStorage.getItem('token')
-  //   .then(data => {
-  //     if(data){
-  //       navigation.navigate('TodoPage', {
-  //         screen: 'TASKS'
-  //       })
-  //     }
-  //   })
-  //   .catch(err => console.log)
-  // }, [])
-
   function passwordHandler(password) {
     setPassword(password)
   }
 
   function loginHandler(event) {
     event.preventDefault()
-    fetch('http://localhost:3001/data/login', {
+    fetch('https://candone.herokuapp.com/data/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
