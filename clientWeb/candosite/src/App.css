@@ -612,18 +612,18 @@ margin-top: 7px;
   background: #464444;
 }
 ::-webkit-scrollbar-thumb:active {
-  background: #000000;
+  background: transparent;
 }
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: transparent;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
 ::-webkit-scrollbar-track:hover {
-  background: #dfdddd;
+  background: transparent;
 }
 ::-webkit-scrollbar-track:active {
-  background: #dedede;
+  background: transparent;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;

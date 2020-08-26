@@ -87,6 +87,8 @@ class AlfredController {
 
         sessionClient.detectIntent(request)
             .then(response => {
+                console.log(response, `<<<<<<<<<<<<<<<,`)
+                console.log(response[0].queryResult, `<<<<<<<<<<<<<<<<<<<<<`)
                 const result = response[0].queryResult;
                 res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
             })
