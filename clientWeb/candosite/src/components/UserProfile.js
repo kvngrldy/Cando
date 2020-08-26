@@ -21,10 +21,6 @@ export default function UserProfile() {
         setEditStatus(!editStatus)
     }
 
-    function backHome() {
-        history.push('/')
-    }
-
     function handleSubmit(event) {
         event.preventDefault()
         dispatch(editUserData(editedUserData))
