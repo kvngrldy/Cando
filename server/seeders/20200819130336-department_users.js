@@ -64,16 +64,20 @@ module.exports = {
       userId: 6,
       createdAt: new Date(),
       updatedAt: new Date(),
+    }, {
+      departmentId: 3,
+      userId: 4,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      departmentId: 3,
+      userId: 5,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }], {})
   },
 
   down: (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
     return queryInterface.bulkDelete('department_users', null, {})
   }
 };
