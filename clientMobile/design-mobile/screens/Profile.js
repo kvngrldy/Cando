@@ -13,7 +13,7 @@ const Profile = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`http://192.168.0.126:3001/data/userData`, {
+                    return fetch(`https://candone.herokuapp.com/data/userData`, {
                         method: 'get',
                         headers: {
                             "token": data

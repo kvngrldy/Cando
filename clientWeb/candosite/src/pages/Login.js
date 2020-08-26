@@ -7,7 +7,7 @@ import axios from 'axios'
 
 
 function Login() {
-    const baseUrl = 'http://localhost:3001'
+    const baseUrl = 'https://candone.herokuapp.com'
     let [email, setEmail] = useState('')
     let [password, setPassword] = useState("")
     let [status, setStatus] = useState('')

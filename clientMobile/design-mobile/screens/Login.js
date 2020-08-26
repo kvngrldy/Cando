@@ -23,7 +23,7 @@ const Login = ({ navigation }) => {
 
   function loginHandler(event) {
     event.preventDefault()
-    fetch('http://192.168.0.126:3001/data/login', {
+    fetch('https://candone.herokuapp.com/data/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
