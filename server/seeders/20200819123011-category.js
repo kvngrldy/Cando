@@ -2,36 +2,67 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
     return queryInterface.bulkInsert('categories', [{
-      name: "Preparation",
+      name: "Backlog",
       departmentId:1,
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      name: "Launch",
+      name: "On Going",
+      departmentId:1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },{
+      name: "QC",
       departmentId:1,
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      name: "Preparation",
+      name: "Done",
+      departmentId:1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },{
+      name: "Backlog",
       departmentId:2,
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      name: "Launch",
+      name: "On Going",
       departmentId:2,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }])
+    },{
+      name: "QC",
+      departmentId:2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      name: "Done",
+      departmentId:2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },{
+      name: "Backlog",
+      departmentId:3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      name: "On Going",
+      departmentId:3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },{
+      name: "QC",
+      departmentId:3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      name: "Done",
+      departmentId:3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    } ])
   },
 
   down: (queryInterface, Sequelize) => {
