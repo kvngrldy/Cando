@@ -5,7 +5,8 @@ import {
   View,
   TextInput,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 
 const Login = ({ navigation }) => {
@@ -35,7 +36,7 @@ const Login = ({ navigation }) => {
     })
       .then(res => res.json())
       .then(data => {
-        if(data === 'Password dan Email Harus Di Isi' || data === 'Password atau Email Salah'){
+        if (data === 'Password dan Email Harus Di Isi' || data === 'Password atau Email Salah') {
           setStatus(data)
         } else {
           navigation.navigate("TodoPage", {
@@ -58,27 +59,34 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CANDO</Text>
-      <Text style={styles.textStatus}>{status}</Text>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.inputs}
-          placeholder="Email"
-          keyboardType="email-address"
-          underlineColorAndroid='transparent'
-          onChangeText={(email) => emailHandler(email)} />
-      </View>
+      <View style={styles.divContainer}>
+        <Image
+          style={styles.tinyLogo}
+          source={{
+            uri: 'https://thumbs2.imgbox.com/69/dd/UnwMpA98_t.jpg',
+          }}
+        />
+        <Text style={styles.textStatus}>{status}</Text>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.inputs}
+            placeholder="Email"
+            keyboardType="email-address"
+            underlineColorAndroid='transparent'
+            onChangeText={(email) => emailHandler(email)} />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.inputs}
-          placeholder="Password"
-          secureTextEntry={true}
-          underlineColorAndroid='transparent'
-          onChangeText={(password) => passwordHandler(password)} />
-      </View>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.inputs}
+            placeholder="Password"
+            secureTextEntry={true}
+            underlineColorAndroid='transparent'
+            onChangeText={(password) => passwordHandler(password)} />
+        </View>
 
-      <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={(event) => loginHandler(event)}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableHighlight>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={(event) => loginHandler(event)}>
+          <Text style={styles.loginText}>LOGIN</Text>
+        </TouchableHighlight>
+      </View>
 
     </View>
   );
@@ -89,14 +97,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#DCDCDC',
+    backgroundColor: 'white',
   },
   inputContainer: {
     borderBottomColor: '#F5FCFF',
     backgroundColor: '#FFFFFF',
     borderRadius: 5,
     borderBottomWidth: 1,
-    width: 250,
+    width: 230,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     height: 45,
     marginBottom: 20,
     flexDirection: 'row',
@@ -120,26 +130,48 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    width: 250,
-    borderRadius: 5,
+    width: 230,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: 5
   },
   loginButton: {
-    backgroundColor: "black",
-    marginTop: 20
+    backgroundColor: "#32CD32",
+    marginTop: 10
   },
   loginText: {
     color: 'white',
     fontSize: 16,
     fontWeight: "bold"
   },
-  title: {
-    marginBottom: 15,
-    fontSize: 32,
-    fontWeight: "bold",
-    marginTop: -50
-  },
   textStatus: {
-    marginBottom: 25
+    marginTop: 10,
+    marginBottom: 30,
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  divContainer: {
+    backgroundColor: 'black',
+    height: 450,
+    width: 300,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
+    elevation: 24,
+  },
+  tinyLogo: {
+    width: 200,
+    height: 200,
+    marginLeft: 'auto',
+    marginBottom: -30,
+    marginRight: 'auto',
+    borderRadius: 100000000
   }
 });
 

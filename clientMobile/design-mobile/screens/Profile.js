@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, Image, AsyncStorage, Button } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faEnvelopeSquare, faUsers, faBuilding } from '@fortawesome/free-solid-svg-icons'
 
 const Profile = ({ navigation, route }) => {
 
     let { name, email, position, imageUrl } = route.params
     let [department, setDepartment] = useState('')
+    let [bar, setBar] = useState([])
 
     useEffect(() => {
         AsyncStorage.getItem('token')
@@ -24,6 +27,7 @@ const Profile = ({ navigation, route }) => {
             .then(res => res.json())
             .then(response => {
                 setDepartment(response.userDept)
+                setBar(response.userTodo)
             })
             .catch(err => console.log)
     }, [])
@@ -40,27 +44,39 @@ const Profile = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.task}>
                 <View style={styles.description}>
-                    <View>
-                        <Image resizeMode="center" style={{ width: "50%", height: 150, borderRadius: 100000, borderWidth: 1, borderColor: "black", marginBottom: 30, marginTop: 50, marginLeft: "25%" }} source={{ uri: imageUrl }} />
+                    <View style={styles.imgContainer}>
+                        <Image style={{ width: 150, height: 150, marginBottom: 30, marginTop: 100, borderRadius: 100000000, marginLeft: 'auto', borderWidth: 5, borderColor: 'white', marginRight: 'auto' }} source={{ uri: imageUrl }} />
                     </View>
                     <View>
-                        <Text style={styles.category}>{name}</Text>
+                        <Text style={styles.category}>Handana Williyantoro</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '70%', marginLeft: '15%', marginBottom: '5%' }}>
+                        <View>
+                            <Text style={styles.email}><FontAwesomeIcon icon={faEnvelopeSquare} /> {email}</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.position}><FontAwesomeIcon icon={faUsers} /> {position}</Text>
+                        </View>
                     </View>
                     <View>
-                        <Text style={styles.email}>Email: {email}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.position}>Position: {position}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.department}>Department: {
+                        <Text style={styles.department}> <FontAwesomeIcon icon={faBuilding} /> {
                             department && department.map((text, index) => {
                                 return text.name
                             })
                         }</Text>
                     </View>
-                    <View style={styles.btn}>
-                        <Button onPress={() => logout()} title="LOGOUT" />
+                    <View style={{ width: '100%', backgroundColor: '#32CD32', marginTop: 32, height: '50%' }}>
+                        <Text style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 20, fontSize: 21, fontWeight: 'bold' }}>TASK OVERVIEW</Text>
+                        <View>
+                            {
+                                bar && bar.map((datum, index) => {
+                                    return <Text style={{ textAlign: 'center' }} key={index}>{JSON.stringify(datum.category.name)}</Text>
+                                })
+                            }
+                        </View>
+                        <View style={styles.btn}>
+                            <Button onPress={() => logout()} title="LOGOUT" />
+                        </View>
                     </View>
                 </View>
             </View>
@@ -79,36 +95,44 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         marginTop: 10,
         marginBottom: 20,
-        width: 320,
-        height: 500,
-        borderRadius: 30
+        width: '100%',
+        height: '100%',
     },
     category: {
-        fontSize: 24,
+        fontSize: 21,
         textAlign: "center",
         marginBottom: 20,
-        marginLeft: 10,
-        marginRight: 10
+        width: '80%',
+        marginLeft: '10%',
+        marginTop: 50,
     },
     email: {
-        textAlign: "center",
         fontSize: 14,
-        marginBottom: 10
+        textAlign: 'center',
     },
     position: {
-        textAlign: "center",
+        textAlign: "left",
         fontSize: 14,
-        marginBottom: 10
+        marginBottom: 10,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     department: {
-        textAlign: "center",
-        fontSize: 14
+        textAlign: "left",
+        fontSize: 14,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     btn: {
-        marginTop: 40,
+        marginTop: 50,
         width: '50%',
         marginLeft: 'auto',
         marginRight: 'auto'
+    },
+    imgContainer: {
+        width: '100%',
+        height: '30%',
+        backgroundColor: '#32CD32',
     }
 })
 
