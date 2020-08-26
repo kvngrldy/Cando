@@ -182,21 +182,18 @@ const Todo = ({ navigation }) => {
     }
 
     function sortByDeadline(itemValue) {
+        let deepCloneTodo = JSON.parse(JSON.stringify(todo))
         if (itemValue === 'oldest') {
-            let data = todo.sort(function (a, b) {
+            let data = deepCloneTodo.sort(function (a, b) {
                 return new Date(a.deadline) - new Date(b.deadline)
             })
-            console.log(data, '<<<< SBELUM OLDEST')
             setTodo(data)
-            console.log(data, '<<<<< SESUDAH OLDEST')
         }
         else if (itemValue === 'newest') {
-            let data = todo.sort(function (a, b) {
+            let data = deepCloneTodo.sort(function (a, b) {
                 return new Date(a.deadline) - new Date(b.deadline)
             }).reverse()
-            console.log(data, '<<<< SBELUM NEWEST')
             setTodo(data)
-            console.log(data, '<<<<< SESUDAH NEWEST')
         } else {
             fetchData()
         }
@@ -204,7 +201,7 @@ const Todo = ({ navigation }) => {
 
     useEffect(() => {
         fetchData()
-    }, [todo])
+    }, [])
 
     return (
         <ScrollView>
