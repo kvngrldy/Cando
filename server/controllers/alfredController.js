@@ -2,13 +2,20 @@ const dataRoute = require("../routes/dataRoute");
 const { department, user, todo, category } = require('../models')
 const dialogflow = require('dialogflow');
 const uuid = require('uuid');
+const nodemailer = require('nodemailer')
+const mailFormat = require('../helpers/newTaskMail')
+const updateFormat = require('../helpers/updateTaskMail')
+const deleteFormat = require('../helpers/deleteTaskMail')
+
 
 
 
 class AlfredController {
     static async createTodo(req, res, next) {
         let { title, deadline, priority, description, userName, departmentName } = req.body;
+
         try {
+
             if (deadline.toString().toLowerCase() === "besok") {
                 deadline = 1
             }
@@ -24,7 +31,7 @@ class AlfredController {
             if (!userName || !departmentName) throw { msg: 'User Name dan Department Name Harus di Isi', status: 400 }
 
             let userData = await user.findOne({ where: { name: userName } })
-            if (!userData) throw { msg: `User Name Tidak Terregister`, status: 400 }
+            if (!userData) { throw { msg: `User Name Tidak Terregister`, status: 400 } }
             let userId = userData.id
 
             let departmentData = await department.findOne({ where: { name: departmentName } })
@@ -50,15 +57,54 @@ class AlfredController {
                 categoryId,
                 userId
             })
+
+
+
+            const assignedUser = await user.findOne(
+                {
+                    where: { id: userId }
+                }
+            )
+
+
+            const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail', // gmail only 
+                port: 587,
+                auth: {
+                    user: transportUser,
+                    pass: 'candodummy' // dummy email password here
+                }
+            });
+
+            let info = {
+                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+                to: `${userData.email}`, // list of receivers
+                subject: "New Task", // Subject line
+                text: "You have successfully create a to-do list!",
+                html: mailFormat, // html body
+            };
+            transporter.sendMail(info, (error, info) => {
+                if (error) {
+                    throw error
+                }
+            })
+
+
+
+
+
+
             if (newTodo) {
-                res.status(200).json(newTodo)
+                res.status(201).json([newTodo])
             }
             else {
                 throw { msg: `Tidak Bisa Create Todo`, status: 400 }
             }
         }
         catch (err) {
-            next()
+            next(err)
         }
 
     }
@@ -87,8 +133,18 @@ class AlfredController {
 
         sessionClient.detectIntent(request)
             .then(response => {
+
+                console.log(response[0].queryResult, `<<<<<<<<<<<<<<<<<<<<< RESPONSE[0]`)
                 const result = response[0].queryResult;
-                res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
+                if (response[0].queryResult.fulfillmentText === '') {
+                    console.log(`${response[0].queryResult.fulfillmentMessages[0].text} <<<<<<<<<<<<<<<<<< RESPONSE QUERY RESULT`)
+                    res.status(200).json({ response: response[0].queryResult.fulfillmentMessages })
+                }
+                else {
+                    console.log(`${response[0].queryResult.fulfillmentText} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FULFILLMENT TEXT`)
+                    res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
+                }
+
             })
             .catch(err => {
                 console.log('masuk err', err)
@@ -97,6 +153,87 @@ class AlfredController {
                 console.log('masuk finally')
             })
     }
+
+    static async getAllTodo(req, res, next) {
+        let { departmentName } = req.body
+
+        let { categories } = await department.findOne({ where: { name: departmentName }, include: { model: category, include: { model: todo } } })
+        let getAllTodo = categories.map(cat => {
+            return cat.todos
+        })
+
+        let categoryName = await category.findAll()
+        let todoData = []
+        for (let i = 0; i < getAllTodo.length; i++) {
+            for (let j = 0; j < getAllTodo[i].length; j++) {
+                todoData.push(getAllTodo[i][j])
+            }
+        }
+        for (let i = 0; i < todoData.length; i++) {
+            for (let j = 0; j < categoryName.length; j++) {
+                if (todoData[i].categoryId == categoryName[j].id) {
+                    todoData[i].categoryId = categoryName[j].name
+                }
+            }
+        }
+
+        res.status(200).json(todoData)
+    }
+
+    static async deleteTodo(req, res, next) {
+        let { departmentName, todoId } = req.body
+        try {
+            let findOneTodo = await todo.findOne({ where: { id: todoId } })
+            if (!findOneTodo) throw { msg: 'Todo Tidak Ditemukan', status: 400 }
+            await todo.destroy({ where: { id: todoId } })
+
+            res.status(200).json([{ msg: findOneTodo.title }])
+        }
+
+        catch (err) {
+            next(err)
+        }
+    }
+
+
+    static async editTodoCategory(req, res, next) {
+        let { departmentName, todoId, categoryName } = req.body
+        try {
+            let { categories } = await department.findOne({ where: { name: departmentName }, include: { model: category } })
+            let categoryId = categories.filter(a => a.name === categoryName)
+            if (categoryId.length === 0) throw { msg: `Category tidak di temukan`, status: 400 }
+            let updatedTodo = await todo.update({
+                categoryId: categoryId[0].id
+            }, {
+                where: { id: todoId }
+            })
+
+            let todoData = await todo.findOne({ where: { id: todoId } })
+            res.status(200).json(todoData)
+
+        }
+        catch (err) {
+            next(err)
+        }
+
+    }
+
+    static async editTodoPriority(req, res, next) {
+        let { departmentName, todoId, priority } = req.body
+        try {
+
+            let todo123 = await todo.update({ priority }, { where: { id: todoId } })
+            if (!todo123) throw { msg: `Todo tidak ditemukan`, status: 400 }
+            let updatedTodo = await todo.findOne({ where: { id: todoId } })
+            res.status(200).json(updatedTodo)
+
+        }
+        catch (err) {
+            next(err)
+        }
+
+    }
+
 }
 
 module.exports = AlfredController
