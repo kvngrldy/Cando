@@ -46,6 +46,7 @@ io.on('connection', socket => {
 
             rooms[roomIndex].users.push({
                 name: data.username,
+                imageUrl: data.imageUrl,
                 index: !rooms[roomIndex].users.length ? 0 : rooms[roomIndex].users[rooms[roomIndex].users.length - 1].index + 1
             })
 
