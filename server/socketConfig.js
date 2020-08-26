@@ -114,7 +114,7 @@ io.on('connection', socket => {
                     .then(() => {
                         io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
                         io.emit('update-data')
-                        // io.broadcast.emit('add-alfred-notif')
+                        io.broadcast.emit('add-alfred-notif')
                     })
                     
                     .catch(console.log)

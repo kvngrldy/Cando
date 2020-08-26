@@ -12,10 +12,10 @@ export default function KanbanBoard() {
     const dispatch = useDispatch()
 
 
-    socket.on('update-data', _ => {
+    socket.off('update-data').on('update-data', _ => {
         dispatch(getKanbanData(departmentId, token))
     })
-    
+
     return (
         <>
             <div className="kanban-group">
