@@ -9,7 +9,6 @@ export const setKanban = (data, id) => {
     return (dispatch) => {
         // console.log(data)
 
-
         dispatch({
             type: SET_KANBAN_DETAILS,
             payload: { data, id }
