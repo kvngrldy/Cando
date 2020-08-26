@@ -46,6 +46,7 @@ io.on('connection', socket => {
 
             rooms[roomIndex].users.push({
                 name: data.username,
+                imageUrl: data.imageUrl,
                 index: !rooms[roomIndex].users.length ? 0 : rooms[roomIndex].users[rooms[roomIndex].users.length - 1].index + 1
             })
 
@@ -134,7 +135,7 @@ io.on('connection', socket => {
 
             rooms[roomIndex].messages.unshift({
                 sender: 'Bot',
-                message: `${data.exitUser[0].name} has left room`,
+                message: `${data.exitUser[0].name} has left the room`,
                 imageUrl: 'https://s3.envato.com/files/263450170/LP_06.jpg'
             })
 
