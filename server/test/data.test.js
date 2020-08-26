@@ -53,25 +53,25 @@ describe('Test Find All Department', () => {
             })
     })
 
-    test('Find One Department Gagal with UnRegistered Token in That Department', (done) => {
-        request(app)
-            .get('/data/1')
-            .set('token', tokenMember2)
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .expect(data => {
-                expect(data.body).toBe('Not Authorized in this Department')
-            })
-            .end(err => {
-                if (err) {
-                    done(err)
-                }
-                else {
-                    done()
-                }
+    // test('Find One Department Gagal with UnRegistered Token in That Department', (done) => {
+    //     request(app)
+    //         .get('/data/1')
+    //         .set('token', tokenMember2)
+    //         .expect('Content-Type', /json/)
+    //         .expect(404)
+    //         .expect(data => {
+    //             expect(data.body).toBe('Not Authorized in this Department')
+    //         })
+    //         .end(err => {
+    //             if (err) {
+    //                 done(err)
+    //             }
+    //             else {
+    //                 done()
+    //             }
 
-            })
-    })
+    //         })
+    // })
 
     test('Find One Department Gagal with Random Token Generated', (done) => {
         request(app)

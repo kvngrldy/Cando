@@ -3,7 +3,7 @@ const { department, user, todo, category } = require('../models')
 const dialogflow = require('dialogflow');
 const uuid = require('uuid');
 const nodemailer = require('nodemailer')
-const mailFormat = require('../helpers/newTaskMail')
+// const mailFormatCreateTodo = require('../helpers/newTaskMail')
 const updateFormat = require('../helpers/updateTaskMail')
 const deleteFormat = require('../helpers/deleteTaskMail')
 
@@ -60,38 +60,36 @@ class AlfredController {
 
 
 
-            const assignedUser = await user.findOne(
-                {
-                    where: { id: userId }
-                }
-            )
+            // const assignedUser = await user.findOne(
+            //     {
+            //         where: { id: userId }
+            //     }
+            // )
 
 
-            const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
+            // const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
 
-            const transporter = nodemailer.createTransport({
-                service: 'gmail', // gmail only 
-                port: 587,
-                auth: {
-                    user: transportUser,
-                    pass: 'candodummy' // dummy email password here
-                }
-            });
+            // const transporter = nodemailer.createTransport({
+            //     service: 'gmail', // gmail only 
+            //     port: 587,
+            //     auth: {
+            //         user: transportUser,
+            //         pass: 'candodummy' // dummy email password here
+            //     }
+            // });
 
-            let info = {
-                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `${userData.email}`, // list of receivers
-                subject: "New Task", // Subject line
-                text: "You have successfully create a to-do list!",
-                html: mailFormat, // html body
-            };
-            transporter.sendMail(info, (error, info) => {
-                if (error) {
-                    throw error
-                }
-            })
-
-
+            // let info = {
+            //     from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+            //     to: `${userData.email}`, // list of receivers
+            //     subject: "New Task", // Subject line
+            //     text: "You have successfully create a to-do list!",
+            //     html: mailFormat, // html body
+            // };
+            // transporter.sendMail(info, (error, info) => {
+            //     if (error) {
+            //         throw error
+            //     }
+            // })
 
 
 
@@ -144,7 +142,6 @@ class AlfredController {
                     // console.log(`${response[0].queryResult.fulfillmentText} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FULFILLMENT TEXT`)
                     res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
                 }
-
             })
             .catch(err => {
                 console.log('masuk err', err)
@@ -186,7 +183,6 @@ class AlfredController {
             let findOneTodo = await todo.findOne({ where: { id: todoId } })
             if (!findOneTodo) throw { msg: 'Todo Tidak Ditemukan', status: 400 }
             await todo.destroy({ where: { id: todoId } })
-
             res.status(200).json([{ msg: findOneTodo.title }])
         }
 

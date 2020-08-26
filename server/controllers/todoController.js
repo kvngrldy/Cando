@@ -1,6 +1,6 @@
 const { todo, category_todo, department_category, category, user } = require('../models')
 const nodemailer = require('nodemailer')
-const mailFormat = require('../helpers/newTaskMail')
+// const mailFormat = require('../helpers/newTaskMail')
 const updateFormat = require('../helpers/updateTaskMail')
 const deleteFormat = require('../helpers/deleteTaskMail')
 
@@ -27,39 +27,6 @@ class TodoController {
 
         try {
             let addData = await todo.create({ title, deadline, priority, description, categoryId, userId })
-
-
-            // const assignedUser = await user.findOne(
-            //     {
-            //         where: { id: userId }
-            //     }
-            // )
-
-
-            // const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
-
-            // const transporter = nodemailer.createTransport({
-            //     service: 'gmail', // gmail only 
-            //     port: 587,
-            //     auth: {
-            //         user: transportUser,
-            //         pass: 'candodummy' // dummy email password here
-            //     }
-            // });
-
-            // let info = {
-            //     from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-            //     to: `${addData.email}`, // list of receivers
-            //     subject: "New Task", // Subject line
-            //     text: "You have successfully create a to-do list!",
-            //     html: mailFormat, // html body
-            // };
-            // transporter.sendMail(info, (error, info) => {
-            //     if (error) {
-            //         throw error
-            //     }
-            // })
-
             res.status(201).json(addData)
         }
         catch (err) {

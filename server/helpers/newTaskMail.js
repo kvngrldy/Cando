@@ -1,4 +1,19 @@
-const mailFormat = `
+const nodemailer = require('nodemailer')
+
+const mailFormatCreateTodo = (todoData) => {
+    const { email, title, description, deadline, priority } = todoData
+    const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail', // gmail only 
+        port: 587,
+        auth: {
+            user: transportUser,
+            pass: 'candodummy' // dummy email password here
+        }
+    });
+
+    let mailBody = `
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -213,9 +228,11 @@ const mailFormat = `
                     <tr>
                     <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
                         <div style='color:#999999;font-family:Open Sans, Arial, sans-serif;font-size:15px;line-height:22px;text-align:center;'>
-                        A new task has been successfully assigned to you!
-                        <br />
-                        Please check your CanDo mobile phone app to check task specifications
+                            <p>A new task has been successfully assigned to you!</p>
+                            <p>${title}</p>
+                            <p>${description}</p>
+                            <p>${deadline}</p>
+                            <p>${priority}</p>
                         </div>
                     </td>
                     </tr>
@@ -276,4 +293,18 @@ const mailFormat = `
 </html>
 `
 
-module.exports = mailFormat
+    let info = {
+        from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
+        to: `${email}`, // list of receivers
+        subject: "New Task", // Subject line
+        text: "You have successfully create a to-do list!",
+        html: mailBody, // html body
+    };
+    transporter.sendMail(info, (error, info) => {
+        if (error) {
+            throw error
+        }
+    })
+}
+
+module.exports = mailFormatCreateTodo

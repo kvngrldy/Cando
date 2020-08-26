@@ -98,7 +98,7 @@ io.on('connection', socket => {
                             // console.log(`${data}MASUK DATA RESPONSE .LENGTH > 1`)
                             alfredMessage = `Ini Data List Task :`
                             for (let i = 0; i < data.response.length; i++) {
-                                alfredMessage += `  ${data.response[i].text.text[0]}, \n`
+                                alfredMessage += `  ${data.response[i].text.text[0]}, \r\n`
                             }
                         }
                         else {
@@ -135,7 +135,7 @@ io.on('connection', socket => {
 
             rooms[roomIndex].messages.unshift({
                 sender: 'Bot',
-                message: `${data.exitUser[0].name} has left room`,
+                message: `${data.exitUser[0].name} has left the room`,
                 imageUrl: 'https://s3.envato.com/files/263450170/LP_06.jpg'
             })
 
@@ -164,7 +164,7 @@ io.on('connection', socket => {
     })
 
     socket.on('update-data', _ => {
-        socket.broadcast.emit('update-data')
+        io.emit('update-data')
     })
 
     socket.on('add-alfred-notif', _ => {

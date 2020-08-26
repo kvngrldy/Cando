@@ -2,8 +2,8 @@ const request = require('supertest')
 const app = require('../app')
 const { verifyToken, createToken } = require('../helpers/jwt')
 const e = require('express')
-let dummyAdmin = { id: 4, name: "user 4", email: 'user4@gmail.com', position: 'admin' }
-let dummyMember = { id: 2, name: 'user 2', email: 'user2@gmail.com', position: 'member' }
+let dummyAdmin = { id: 4, name: "Kevin", email: 'kevin@gmail.com', position: 'admin' }
+let dummyMember = { id: 1, name: 'Theo', email: 'theo@gmail.com', position: 'member' }
 let tokenAdmin = createToken(dummyAdmin)
 let tokenMember = createToken(dummyMember)
 let realUserId = 1
@@ -19,8 +19,8 @@ describe('test Alfred Controller', () => {
             deadline: "lusa",
             priority: "low",
             description: "Di sini ada siapa ya",
-            departmentName: "Teknologi Informasi",
-            userName: "user 1"
+            departmentName: "Engineering",
+            userName: "Theo"
         }
         request(app)
             .post('/data/alfred')
@@ -50,7 +50,12 @@ describe('test Alfred Controller', () => {
 
     test('Alfred Create To Do besok', (done) => {
         let dummyData = {
-            title: 'create Todo', deadline: 'besok', priority: 'low', description: 'TBA', userName: 'user 1', departmentName: 'Bisnis'
+            title: "Buatan Alfred",
+            deadline: "besok",
+            priority: "low",
+            description: "Di sini ada siapa ya",
+            departmentName: "Engineering",
+            userName: "Theo"
         }
         request(app)
             .post('/data/alfred')
@@ -76,7 +81,12 @@ describe('test Alfred Controller', () => {
 
     test('Alfred Create To Do minggu depan', (done) => {
         let dummyData = {
-            title: 'create Todo', deadline: 'minggu depan', priority: 'low', description: 'TBA', userName: 'user 1', departmentName: 'Bisnis'
+            title: "Buatan Alfred",
+            deadline: "minggu depan",
+            priority: "low",
+            description: "Di sini ada siapa ya",
+            departmentName: "Engineering",
+            userName: "Theo"
         }
         request(app)
             .post('/data/alfred')
@@ -101,7 +111,12 @@ describe('test Alfred Controller', () => {
 
     test('Alfred Create To Do hari', (done) => {
         let dummyData = {
-            title: 'create Todo', deadline: 5, priority: 'low', description: 'TBA', userName: 'user 1', departmentName: 'Bisnis'
+            title: "Buatan Alfred",
+            deadline: "5",
+            priority: "low",
+            description: "Di sini ada siapa ya",
+            departmentName: "Engineering",
+            userName: "Theo"
         }
         request(app)
             .post('/data/alfred')
@@ -151,7 +166,7 @@ describe('test Alfred Controller', () => {
 
     test('Alfred Send Msg', (done) => {
         let dummyData = {
-            msg: '@alfred assign user 1 untuk perbaiki dari alfred deadline besok prioritas low'
+            msg: '@alfred tell me a joke'
         }
         request(app)
             .post('/data/alfredatyourservice')
@@ -195,35 +210,13 @@ describe('test Alfred Controller', () => {
 
     })
 
-    test('Alfred Delete To Do', (done) => {
-        let dummyData = {
-            departmentName: 'Bisnis',
-            todoId: createdTodoData.id
-        }
-        request(app)
-            .delete('/data/alfreddeletetodo')
-            .send(dummyData)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .expect(data => {
-                expect(data.body[0].msg).toBe(`${createdTodoData.title}`)
-            })
-            .end(err => {
-                if (err) {
-                    done(err)
-                }
-                else {
-                    done()
-                }
-            })
-
-    })
+    
 
     test('Alfred Edit To Do', (done) => {
         let dummyData = {
             departmentName: 'Bisnis',
             todoId: createdTodoData.id,
-            categoryName: 'Launch'
+            categoryName: 'Backlog'
         }
         request(app)
             .put('/data/alfrededittodocategory')
@@ -347,7 +340,7 @@ describe('test Alfred Controller', () => {
 
 
 
-    test('Alfred Delete To Do', (done) => {
+    test('Alfred Delete To Do Gagal', (done) => {
         let dummyData = {
             departmentName: 'Bisnis',
             todoId: 1000000000
@@ -359,6 +352,30 @@ describe('test Alfred Controller', () => {
             .expect(400)
             .expect(data => {
                 expect(data.body).toBe(`Todo Tidak Ditemukan`)
+            })
+            .end(err => {
+                if (err) {
+                    done(err)
+                }
+                else {
+                    done()
+                }
+            })
+
+    })
+
+    test('Alfred Delete To Do Berhasil', (done) => {
+        let dummyData = {
+            departmentName: 'Engineering',
+            todoId: createdTodoData.id
+        }
+        request(app)
+            .delete('/data/alfreddeletetodo')
+            .send(dummyData)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .expect(data => {
+                expect(data.body[0].msg).toBe(createdTodoData.title)
             })
             .end(err => {
                 if (err) {

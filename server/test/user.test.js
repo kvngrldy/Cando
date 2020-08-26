@@ -314,7 +314,7 @@ describe('Test Remove User From Department', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .expect(data => {
-                expect(data.body).toBe('User user test3123123 berhasil di keluarkan dari department Teknologi Informasi')
+                expect(data.body).toBe('User user test3123123 berhasil di keluarkan dari department Engineering')
             })
             .end(err => {
                 if (err) {
@@ -450,7 +450,7 @@ describe('Test Edit One User Data', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .expect(data => {
-                expect(data.body.name).toBe('user 2')
+                expect(data.body.name).toBe('Handana')
 
             })
             .end(err => {

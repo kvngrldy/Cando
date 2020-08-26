@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { editUserData } from '../store/actions/userdataActions'
+import { Image, Container, Button } from 'react-bootstrap'
 
 export default function UserProfile() {
     const allData = useSelector(state => state.kanban)
@@ -20,10 +21,6 @@ export default function UserProfile() {
         setEditStatus(!editStatus)
     }
 
-    function backHome() {
-        history.push('/')
-    }
-
     function handleSubmit(event) {
         event.preventDefault()
         dispatch(editUserData(editedUserData))
@@ -33,37 +30,110 @@ export default function UserProfile() {
 
     return (
         <>
-            <button onClick={() => backHome()}>Home</button>
-            <button onClick={() => gantiEditStatus()}>Click buat Edit</button>
-            {
-                editStatus ?
-                    <div>
-                        <form onSubmit={(event) => handleSubmit(event)}>
-                            <label>Nama : </label>
-                            <input type="text" value={editedUserData.name} onChange={(event) => setEditedUserData({
-                                ...editedUserData, name: event.target.value
-                            })}></input>
-                            <label>Email : </label>
-                            <input type="text" value={editedUserData.email} onChange={(event) => setEditedUserData({
-                                ...editedUserData, email: event.target.value
-                            })}></input>
-                            <label>Image Url : </label>
-                            <input type="text" value={editedUserData.imageUrl} onChange={(event) => setEditedUserData({
-                                ...editedUserData, imageUrl: event.target.value
-                            })}></input>
-                            <button type="submit">Submit</button>
-                        </form>
-                    </div>
-                    :
-                    <div>
-                        <img src={userData.imageUrl} style={{ height: 100, width: 100 }}></img>
-                        <p>{userData.name}</p>
-                        <p>{userData.email}</p>
-                        <p>{userData.position}</p>
-                        <p>{JSON.stringify(allData.todoStatus)}</p>
-                    </div>
-            }
+            <Container>
+                {
+                    editStatus ?
+                        <div className="profile-setting">
+                            
+                                <div className="profile-card">
+                                    <div className="card-center">
+                                        <div className="profile-card-header mb-3">
+                                            <div>
 
+                                                <Image src={userData.imageUrl} className="setting-profile-img" roundedCircle />
+                                            </div>
+                                        </div>
+                                        <div className="edit-button" >
+
+                                        </div>
+                                        <form onSubmit={(event) => handleSubmit(event)}>
+
+
+                                            <div className="profile-data mt-3">
+                                                <div className="profile-data-email">
+                                                    <div className="email-text">
+                                                        <h6 className="text-muted data-label">Email:</h6>
+                                                        <input style={{ border: "0px" }} type="text" value={editedUserData.email} onChange={(event) => setEditedUserData({
+                                                            ...editedUserData, email: event.target.value
+                                                        })}></input>
+
+                                                    </div>
+                                                </div>
+                                                <div className="profile-data-email">
+                                                    <div className="email-text">
+                                                        <h6 className="text-muted data-label">Name:</h6>
+                                                        <input style={{ border: "0px" }} className="text-margin-lower" type="text" value={editedUserData.name} onChange={(event) => setEditedUserData({
+                                                            ...editedUserData, name: event.target.value
+                                                        })}></input>
+
+                                                    </div>
+                                                </div>
+                                                <div className="profile-data-email mb-2">
+                                                    <div className="email-text">
+                                                        <h6 className="text-muted data-label">Image URL:</h6>
+                                                        <input style={{ border: "0px" }} type="text" value={editedUserData.imageUrl} onChange={(event) => setEditedUserData({
+                                                            ...editedUserData, imageUrl: event.target.value
+                                                        })}></input>
+                                                    </div>
+                                                </div>
+                                                <div className="submit-button-profile">
+
+                                                    <Button variant="outline-primary" type="submit">Edit</Button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div>
+                                <Image src="https://opendoodles.s3-us-west-1.amazonaws.com/selfie.png" className="setting-illustration-img" rounded />
+                                </div>
+                        </div>
+
+                        :
+                        <div className="profile-setting">
+                           
+                                <div className="profile-card">
+                                    <div className="card-center">
+                                        <div className="profile-card-header mb-3">
+                                            <div>
+
+                                                <Image src={userData.imageUrl} className="setting-profile-img" roundedCircle />
+                                            </div>
+                                        </div>
+                                        <div className="edit-button" onClick={() => gantiEditStatus()}>
+                                            <i class="fas fa-pen"></i>
+                                        </div>
+                                        <div className="profile-data mt-3">
+                                            <div className="profile-data-email">
+                                                <div className="email-text">
+                                                    <h6 className="text-muted data-label">Email:</h6>
+                                                    <strong><p className="text-margin-lower">{userData.email}</p></strong>
+                                                </div>
+                                            </div>
+                                            <div className="profile-data-email">
+                                                <div className="email-text">
+                                                    <h6 className="text-muted data-label">Name:</h6>
+                                                    <strong><p className="text-margin-lower">{userData.name}</p></strong>
+                                                </div>
+                                            </div>
+                                            <div className="profile-data-email">
+                                                <div className="email-text">
+                                                    <h6 className="text-muted data-label">Position:</h6>
+                                                    <strong><p className="text-margin-lower">{userData.position}</p></strong>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                <Image src="https://opendoodles.s3-us-west-1.amazonaws.com/selfie.png" className="setting-illustration-img" rounded />
+                                </div>
+                            
+                        </div>
+                }
+            </Container>
 
         </>
     )

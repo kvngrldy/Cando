@@ -53,7 +53,7 @@ function Chatboard({ roomData, chats }) {
                     <div className="chat-app-box">
 
                         {chats && chats.map((chat) => (
-                            <ChatBubble chat={chat}></ChatBubble>
+                            <ChatBubble chat={chat} ></ChatBubble>
                         ))}
                         {/* {
                             JSON.stringify(chats)
