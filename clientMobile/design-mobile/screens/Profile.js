@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, Image, AsyncStorage, Button } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Profile = ({ navigation, route }) => {
 
@@ -14,7 +13,7 @@ const Profile = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`http://localhost:3001/data/userData`, {
+                    return fetch(`http://192.168.0.126:3001/data/userData`, {
                         method: 'get',
                         headers: {
                             "token": data

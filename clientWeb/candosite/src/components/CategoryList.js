@@ -30,9 +30,9 @@ export default function CategoryList({ data }) {
         socket.emit('update-data')
     }
 
-    // socket.on('update-data', _ => {
-    //     dispatch(getKanbanData(departmentId, token))
-    // })
+    socket.on('update-data', _ => {
+        dispatch(getKanbanData(departmentId, token))
+    })
     return (
         <>
             <div className="kanban-board">
@@ -62,10 +62,7 @@ export default function CategoryList({ data }) {
                         data.todos && data.todos.map((todo,idx) => (
                             <Card key={idx} data={todo}></Card>
                         ))
-
                     }
-
-                    
                 </div>
             </div>
 

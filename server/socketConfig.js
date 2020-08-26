@@ -85,7 +85,7 @@ io.on('connection', socket => {
                 console.log(message, `< ini balasan user`)
                 axios({
                     method: 'post',
-                    url: 'https://candone.herokuapp.com/data/alfredatyourservice',
+                    url: 'http://localhost:3001/data/alfredatyourservice',
                     data: {
                         msg: message
                     }
