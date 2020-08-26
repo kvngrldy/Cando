@@ -126,7 +126,7 @@ describe('Suite of unit tests', function () {
     socket.emit('join-room', data)
 
     socket.on('room-detail', dataRes => {
-      console.log(dataRes);
+      // console.log(dataRes);
       expect(dataRes).toBeInstanceOf(Object)
       expect(dataRes).toHaveProperty('name')
       expect(dataRes).toHaveProperty('admin')

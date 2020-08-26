@@ -96,12 +96,12 @@ class AlfredController {
 
 
 
-            if (newTodo) {
-                res.status(201).json([newTodo])
-            }
-            else {
-                throw { msg: `Tidak Bisa Create Todo`, status: 400 }
-            }
+            // if (newTodo) {
+            res.status(201).json([newTodo])
+            // }
+            // else {
+            //     throw { msg: `Tidak Bisa Create Todo`, status: 400 }
+            // }
         }
         catch (err) {
             next(err)
@@ -134,14 +134,14 @@ class AlfredController {
         sessionClient.detectIntent(request)
             .then(response => {
 
-                console.log(response[0].queryResult, `<<<<<<<<<<<<<<<<<<<<< RESPONSE[0]`)
+                // console.log(response[0].queryResult, `<<<<<<<<<<<<<<<<<<<<< RESPONSE[0]`)
                 const result = response[0].queryResult;
                 if (response[0].queryResult.fulfillmentText === '') {
                     console.log(`${response[0].queryResult.fulfillmentMessages[0].text} <<<<<<<<<<<<<<<<<< RESPONSE QUERY RESULT`)
                     res.status(200).json({ response: response[0].queryResult.fulfillmentMessages })
                 }
                 else {
-                    console.log(`${response[0].queryResult.fulfillmentText} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FULFILLMENT TEXT`)
+                    // console.log(`${response[0].queryResult.fulfillmentText} <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FULFILLMENT TEXT`)
                     res.status(200).json({ response: `${response[0].queryResult.fulfillmentText}` })
                 }
 
@@ -221,11 +221,18 @@ class AlfredController {
     static async editTodoPriority(req, res, next) {
         let { departmentName, todoId, priority } = req.body
         try {
+            if (priority === 'low' || priority === 'medium' || priority === 'high' || priority === 'urgent') {
+                let todo123 = await todo.findOne({ where: { id: todoId } })
+                if (!todo123) throw { msg: `Todo tidak ditemukan`, status: 400 }
+                await todo.update({ priority }, { where: { id: todoId } })
 
-            let todo123 = await todo.update({ priority }, { where: { id: todoId } })
-            if (!todo123) throw { msg: `Todo tidak ditemukan`, status: 400 }
-            let updatedTodo = await todo.findOne({ where: { id: todoId } })
-            res.status(200).json(updatedTodo)
+                let updatedTodo = await todo.findOne({ where: { id: todoId } })
+                res.status(200).json(updatedTodo)
+            }
+            else {
+                throw { msg: `Priority Tidak Terdaftar`, status: 400 }
+            }
+
 
         }
         catch (err) {

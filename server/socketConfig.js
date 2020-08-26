@@ -46,6 +46,7 @@ io.on('connection', socket => {
 
             rooms[roomIndex].users.push({
                 name: data.username,
+                imageUrl: data.imageUrl,
                 index: !rooms[roomIndex].users.length ? 0 : rooms[roomIndex].users[rooms[roomIndex].users.length - 1].index + 1
             })
 
@@ -94,14 +95,14 @@ io.on('connection', socket => {
                     .then(({ data }) => {
                         let alfredMessage = ``
                         if (Array.isArray(data.response)) {
-                            console.log(`${data}MASUK DATA RESPONSE .LENGTH > 1`)
+                            // console.log(`${data}MASUK DATA RESPONSE .LENGTH > 1`)
                             alfredMessage = `Ini Data List Task :`
                             for (let i = 0; i < data.response.length; i++) {
                                 alfredMessage += `  ${data.response[i].text.text[0]}, \n`
                             }
                         }
                         else {
-                            console.log(`${data} <<<<<<<<<<<<<<<, NON ARRAY`)
+                            // console.log(`${data} <<<<<<<<<<<<<<<, NON ARRAY`)
                             alfredMessage = data.response
                         }
 

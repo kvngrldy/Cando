@@ -123,7 +123,7 @@ describe('Test Category Create', () => {
 
 
     test('Category Create with Admin Account DepartmentId tidak terdaftar', (done) => {
-        let dummyCategory = { name: 'Test Category', departmentId:10000 }
+        let dummyCategory = { name: 'Test Category', departmentId: 10000 }
         request(app)
             .post('/data/category')
             .send(dummyCategory)
@@ -208,8 +208,8 @@ describe('Test Category FindOne', () => {
 
     // test('Test Find One But Category does not exist', (done) => {
     //     request(app)
-    //         .get(`/data/category/111111111111`)
-    //         .set('token', tokenAdmin)
+    //         .get(`/data/category/11111111110000000000`)
+    //         .set('token', tokenMember)
     //         .expect('Content-Type', /json/)
     //         .expect(400)
     //         .expect(data => {
@@ -225,6 +225,12 @@ describe('Test Category FindOne', () => {
 
     //         })
     // })
+
+
+
+
+
+
 })
 
 describe('Test Category Delete', () => {
