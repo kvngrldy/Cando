@@ -40,7 +40,7 @@ export default function CategoryList({ data }) {
                     isEditCategory == false ?
                         <div className="kanban-title">
                             <p>{data.name}</p>
-                            {localStorage.position == 'admin' ? <span style={{ color: 'grey', marginTop: '2px' }}>
+                            {localStorage.position == 'admin' ? <span className="hvr-bounce-in" style={{ color: 'grey', marginTop: '2px' }}>
                                 <i onClick={() => categoryEdit()} class="fas fa-ellipsis-h cursor"></i>
                             </span> : <div></div>}
                         </div> : <div className="kanban-title-edit">
