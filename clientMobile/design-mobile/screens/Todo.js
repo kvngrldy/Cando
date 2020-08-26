@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { ScrollView, Text, StyleSheet, View, Button, AsyncStorage, Picker } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
+import socket from '../config/socket';
+import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import socket from '../../../clientWeb/clientTest/src/config/socket';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -14,11 +14,48 @@ Notifications.setNotificationHandler({
     }),
 });
 
-async function sendPushNotification(expoPushToken, title) {
+async function registerForPushNotificationsAsync() {
+    try {
+        let token;
+        if (Constants.isDevice) {
+            const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+            let finalStatus = existingStatus;
+            if (existingStatus !== 'granted') {
+                const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                finalStatus = status;
+            }
+            if (finalStatus !== 'granted') {
+                alert('Failed to get push token for push notification!');
+                return;
+            }
+            token = (await Notifications.getExpoPushTokenAsync()).data;
+            console.log(token);
+        } else {
+            alert('Must use physical device for Push Notifications');
+        }
+
+        if (Platform.OS === 'android') {
+            Notifications.setNotificationChannelAsync('default', {
+                name: 'default',
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: '#FF231F7C',
+            });
+        }
+
+        return token;
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+async function sendPushNotification(expoPushToken, title, body) {
     const message = {
         to: expoPushToken,
-        title: 'Please check your task!!',
-        body: `${title} must be finished before tomorrow!`,
+        sound: 'default',
+        title: title,
+        body: body,
         data: { data: 'goes here' },
     };
 
@@ -33,43 +70,31 @@ async function sendPushNotification(expoPushToken, title) {
     });
 }
 
-async function registerForPushNotificationsAsync() {
-    let token;
-    if (Constants.isDevice) {
-        const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-        let finalStatus = existingStatus;
-        if (existingStatus !== 'granted') {
-            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-            finalStatus = status;
-        }
-        if (finalStatus !== 'granted') {
-            alert('Failed to get push token for push notification!');
-            return;
-        }
-        token = (await Notifications.getExpoPushTokenAsync()).data;
-        console.log(token);
-    } else {
-        alert('Must use physical device for Push Notifications');
-    }
-    return token;
-}
-
 const Todo = ({ navigation }) => {
     let [todo, setTodo] = useState([])
-    let [debug, setDebug] = useState([])
-    let [expoPushToken, setExpoPushToken] = useState('');
-    let [notification, setNotification] = useState(false);
-    let notificationListener = useRef();
-    let responseListener = useRef();
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    let [notif, setNotif] = useState([])
+    const notificationListener = useRef();
+    const responseListener = useRef();
 
+    socket.off('update-data').on('update-data', _ => {
+        fetchDataSocket()
+    })
+    
     useEffect(() => {
-        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+        registerForPushNotificationsAsync().then(token => {
+            setExpoPushToken(token)
+        });
+
+        // This listener is fired whenever a notification is received while the app is foregrounded
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
             setNotification(notification);
         });
 
+        // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
         responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-            console.log(response);
+            console.log(response, 'dont mind this');
         });
 
         return () => {
@@ -78,17 +103,13 @@ const Todo = ({ navigation }) => {
         };
     }, []);
 
-    socket.on('update-date', _ => {
-        fetchData()
-    })
-
     function fetchData() {
         AsyncStorage.getItem('token')
             .then(data => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`https://dummycando.herokuapp.com/data/userData`, {
+                    return fetch(`https://candone.herokuapp.com/data/userData`, {
                         method: 'get',
                         headers: {
                             "token": data
@@ -99,6 +120,49 @@ const Todo = ({ navigation }) => {
             .then(res => res.json())
             .then(response => {
                 setTodo(response.userTodo)
+            })
+            .catch(err => console.log)
+    }
+
+    function fetchDataSocket() {
+        AsyncStorage.getItem('token')
+            .then(data => {
+                if (data === null || data === '' || data === undefined) {
+                    navigation.navigate('login')
+                } else {
+                    return fetch(`https://candone.herokuapp.com/data/userData`, {
+                        method: 'get',
+                        headers: {
+                            "token": data
+                        }
+                    })
+                }
+            })
+            .then(res => res.json())
+            .then(response => {
+                console.log(response)
+                if (response.userTodo.length > todo.length) {
+                    let temp = []
+                    for (let i = 0; i < response.userTodo.length; i++) {
+                        temp.push(response.userTodo[i])
+                    }
+                    setTodo(temp)
+                    sendPushNotification(expoPushToken, 'New task', 'Task has been successfully assigned')
+                } else if (response.userTodo.length < todo.length) {
+                    let temp = []
+                    for (let i = 0; i < response.userTodo.length; i++) {
+                        temp.push(response.userTodo[i])
+                    }
+                    setTodo(temp)
+                    sendPushNotification(expoPushToken, 'Delete task', 'Task has been successfully deleted')
+                } else {
+                    let temp = []
+                    for (let i = 0; i < response.userTodo.length; i++) {
+                        temp.push(response.userTodo[i])
+                    }
+                    setTodo(temp)
+                    sendPushNotification(expoPushToken, 'Update task', 'Task has been successfully updated')
+                }
             })
             .catch(err => console.log)
     }
@@ -117,27 +181,38 @@ const Todo = ({ navigation }) => {
         })
     }
 
+    function sortByDeadline(itemValue) {
+        let deepCloneTodo = JSON.parse(JSON.stringify(todo))
+        if (itemValue === 'oldest') {
+            let data = deepCloneTodo.sort(function (a, b) {
+                return new Date(a.deadline) - new Date(b.deadline)
+            })
+            setTodo(data)
+        }
+        else if (itemValue === 'newest') {
+            let data = deepCloneTodo.sort(function (a, b) {
+                return new Date(a.deadline) - new Date(b.deadline)
+            }).reverse()
+            setTodo(data)
+        } else {
+            fetchData()
+        }
+    }
+
     useEffect(() => {
         fetchData()
-    }, [todo])
-
-    useEffect(() => {
-        let edit = todo && todo.map(e => {
-            let date = Date.parse(e.deadline) - (1000 * 60 * 60 * 24)
-            let parsedBack = new Date(date)
-            return parsedBack
-        })
-
-        for (let i = 0; i < todo.length; i++) {
-            if (Date.parse(edit[i]) === Date.parse(new Date())) {
-                sendPushNotification(expoPushToken, todo[i].title)
-            }
-        }
     }, [])
 
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
+                <View style={styles.headersContainer}>
+                    <Picker selectedValue='' style={styles.pickerDeadline} onValueChange={(itemValue, itemIndex) => sortByDeadline(itemValue)}>
+                        <Picker.Item label="Sort by deadline" value='' />
+                        <Picker.Item label="Sort by oldest" value="oldest" />
+                        <Picker.Item label="Sort by newest" value="newest" />
+                    </Picker>
+                </View>
                 {
                     todo && todo.map((todo, index) => {
                         return <View key={index} style={styles.task}>
@@ -168,8 +243,7 @@ export default Todo
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        marginTop: 50
+        alignItems: 'center'
     },
     task: {
         backgroundColor: "white",
@@ -208,5 +282,17 @@ const styles = StyleSheet.create({
         marginLeft: 60,
         marginBottom: 10,
         marginTop: 20
+    },
+    pickerDeadline: {
+        height: 50,
+        width: 150,
+        color: '#344953',
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        justifyContent: 'center',
+    },
+    headersContainer: {
+        width: '100%',
+        flexDirection: 'row'
     }
 })

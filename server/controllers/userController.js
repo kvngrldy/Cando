@@ -2,8 +2,6 @@ const { user, department, department_user, todo, category } = require('../models
 const { checkPassword } = require('../helpers/bcryptjs')
 const { createToken } = require('../helpers/jwt')
 
-
-
 class UserController {
     static async login(req, res, next) {
         let { email, password } = req.body
@@ -187,22 +185,20 @@ class UserController {
             return { id: a.id, name: a.name }
         })
 
-
-
         res.status(200).json({ userData, userDept, userTodo })
     }
 
     static async editUserData(req, res, next) {
         let { id } = req.userData
         let { name, email, imageUrl } = req.body
-        try {
+        // try {
             let updateData = await user.update({ name, email, imageUrl }, { where: { id } })
             let updatedUserData = await user.findOne({ where: { id }, attributes: ['name', 'id', 'email', 'position', 'imageUrl'] })
             res.status(200).json(updatedUserData)
-        }
-        catch (err) {
-            next(err)
-        }
+        // }
+        // catch (err) {
+        //     next(err)
+        // }
     }
 
 }

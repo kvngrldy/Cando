@@ -15,7 +15,7 @@ export default function KanbanBoard() {
     const departmentName = useSelector(state => state.kanban.departmentName)
     const [isAdmin, setIsAdmin] = useState(false)
 
-    socket.on('update-data', _ => {
+    socket.off('update-data').on('update-data', _ => {
         dispatch(getKanbanData(departmentId, token))
     })
 

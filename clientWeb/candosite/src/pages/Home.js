@@ -13,10 +13,10 @@ import KanbanBoard from '../components/KanbanBoard'
 function Home() {
     const departmentName = useSelector(state => state.kanban.departmentName)
     const departmentCategory = useSelector(state => state.kanban.category)
-    socket.on('add-alfred-notif', _ => {
+    socket.off('add-alfred-notif').on('add-alfred-notif', _ => {
         toast.info('New Task Added', {
             position: "bottom-right",
-            autoClose: false,
+            autoClose: true,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
