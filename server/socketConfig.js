@@ -2,6 +2,7 @@
 const createRoom = require('./helpers/rooms')
 const io = require('socket.io')()
 const axios = require('axios')
+const dataRoute = require('./routes/dataRoute')
 let rooms = createRoom()
 
 // const createRoom = require('./helpers/rooms')
@@ -45,6 +46,7 @@ io.on('connection', socket => {
 
             rooms[roomIndex].users.push({
                 name: data.username,
+                imageUrl: data.imageUrl,
                 index: !rooms[roomIndex].users.length ? 0 : rooms[roomIndex].users[rooms[roomIndex].users.length - 1].index + 1
             })
 
@@ -81,29 +83,41 @@ io.on('connection', socket => {
                 forAlfred.splice(0, 1)
                 forAlfred.push(data.roomName)
                 message = forAlfred.join(' ')
-                
+
                 console.log(message, `< ini balasan user`)
                 axios({
                     method: 'post',
-                    url: 'http://localhost:3001/data/alfredatyourservice',
+                    url: 'https://candone.herokuapp.com/data/alfredatyourservice',
                     data: {
-                        msg: message
+                        msg: message,
                     }
                 })
                     .then(({ data }) => {
-                        console.log(data, `<<<<`)
+                        let alfredMessage = ``
+                        if (Array.isArray(data.response)) {
+                            console.log(`${data}MASUK DATA RESPONSE .LENGTH > 1`)
+                            alfredMessage = `Ini Data List Task :`
+                            for (let i = 0; i < data.response.length; i++) {
+                                alfredMessage += `  ${data.response[i].text.text[0]}, \r\n`
+                            }
+                        }
+                        else {
+                            console.log(`${data} <<<<<<<<<<<<<<<, NON ARRAY`)
+                            alfredMessage = data.response
+                        }
 
                         rooms[roomIndex].messages.unshift({
                             sender: 'Alfred',
                             imageUrl: 'https://i.pinimg.com/564x/8a/72/b6/8a72b661a6aa5084a691a27320d7577d.jpg',
-                            message: data.response
+                            message: alfredMessage
                         })
                     })
                     .then(() => {
                         io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
+                        io.emit('update-data')
                         io.emit('add-alfred-notif')
-                        io.broadcast.emit('update-data')
                     })
+
                     .catch(console.log)
             }
 
@@ -121,10 +135,10 @@ io.on('connection', socket => {
 
             rooms[roomIndex].messages.unshift({
                 sender: 'Bot',
-                message: `${data.exitUser[0].name} has left room`,
+                message: `${data.exitUser[0].name} has left the room`,
                 imageUrl: 'https://s3.envato.com/files/263450170/LP_06.jpg'
             })
-            
+
             if (rooms[roomIndex].name !== 'roomForAll') {
                 if (remainUsers.length === 0) {
                     rooms[roomIndex].messages = []
@@ -150,11 +164,11 @@ io.on('connection', socket => {
     })
 
     socket.on('update-data', _ => {
-        socket.broadcast.emit('update-data')
+        io.emit('update-data')
     })
 
     socket.on('add-alfred-notif', _ => {
-       socket.broadcast.emit('add-alfred-notif')
+        socket.emit('add-alfred-notif')
     })
 })
 

@@ -5,10 +5,6 @@ function ChatBubble({ chat }) {
     return (
         <>
             {chat.sender == 'Bot' ? <div className="comment-bot ml-3 my-2 user-chat">
-
-
-
-
                 <strong><p>{chat.message}</p></strong>
 
 

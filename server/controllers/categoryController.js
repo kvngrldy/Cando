@@ -20,12 +20,15 @@ class CategoryController {
     static async findOne(req, res, next) {
         let { id } = req.params
         try {
-            let findOneCategory = await category.findOne({ where: { id }, include: { model: todo, separate: true, order: [['deadline', 'desc']] } })
+
+            let findOneCategory = await category.findOne({ where: { id } })
+            
             if (!findOneCategory) {
                 throw { msg: `Category tidak di temukan`, status: 400 }
             }
             else {
-                res.status(200).json(findOneCategory)
+                let findOneCat = await category.findOne({ where: { id }, include: { model: todo, separate: true, order: [['deadline', 'desc']] } })
+                res.status(200).json(findOneCat)
             }
         }
         catch (err) {

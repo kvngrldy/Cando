@@ -12,6 +12,7 @@ function Chatboard({ roomData, chats }) {
         const payload = {
             roomName: roomData.name,
             sender: localStorage.name,
+            position: localStorage.position,
             message: text,
             imageUrl: localStorage.imageUrl
         }
@@ -52,9 +53,11 @@ function Chatboard({ roomData, chats }) {
                     <div className="chat-app-box">
 
                         {chats && chats.map((chat) => (
-                            <ChatBubble chat={chat}></ChatBubble>
+                            <ChatBubble chat={chat} ></ChatBubble>
                         ))}
-
+                        {/* {
+                            JSON.stringify(chats)
+                        } */}
 
                         <div className="comment mx-3 my-3">
                             <div className="avatar-comment" href="#">
@@ -85,7 +88,7 @@ function Chatboard({ roomData, chats }) {
                                     onChange={setText}
                                     cleanOnEnter
                                     maxLength='500'
-                                    
+
                                     onEnter={handleOnEnter}
                                     placeholder="Type a message"
                                     borderColor="dodgerBlue"

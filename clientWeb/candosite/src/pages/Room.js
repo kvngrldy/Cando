@@ -13,18 +13,40 @@ function Room() {
   const [typingNames, setTypingNames] = useState('')
   const history = useHistory()
 
-
-
-
   socket.on('room-detail', (roomDetail) => {
     setRoomData(roomDetail)
-
-    // console.log(roomDetail, `detail`)
-
   })
 
   useEffect(() => {
-    setChats(roomData.messages)
+    if (roomData.messages) {
+      let processedMessages = []
+      roomData.messages.forEach(message => {
+        if (message.message.slice(0, 18) === 'Ini Data List Task' && message.sender === 'Alfred') {
+          let dataList = message.message.slice(20)
+          dataList = dataList.split(', \n')
+          dataList.forEach(messageList => {
+            const shownMessage = {
+              sender: message.sender,
+              imageUrl: message.imageUrl,
+              message: messageList
+            }
+            processedMessages.push(shownMessage)
+          });
+          
+          processedMessages.pop()
+          processedMessages.push({
+            sender: message.sender,
+            imageUrl: message.imageUrl,
+            message: 'Ini Data List Task:'
+          })
+        } else {
+          processedMessages.push(message)
+        }
+      })
+      // console.log(processedMessages);
+      
+      setChats(processedMessages)
+    }
 
   }, [roomData])
 

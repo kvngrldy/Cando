@@ -20,9 +20,11 @@ body {
 
 .form-login{
   background-color: white;
+  box-shadow: 2px 2px 5px grey;
   width: 30vw;
   height: 60vh;
   margin-top: 15vh;
+  border-radius: 2rem;
 }
 
 .account-login{
@@ -583,11 +585,89 @@ margin-top: 7px;
   justify-content: space-between;
 }
 
+.profile-card {
+  display: flex;
+  align-items: center;
+  
+  flex-direction: column;
+}
+
+.card-center {
+  background-color: white;
+  box-shadow: 2px 2px 5px grey;
+  border-radius: 2rem;
+  padding: 1rem;
+  width: 25rem;
+}
+
 .profile-picture-card{
   width: 27px;
   height: 27px;
   border-radius: 5rem;
   box-shadow: 0px 0px 2px grey;
+}
+
+.data-label {
+  margin-top: 1rem;
+  margin: 0%!important;
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+.text-margin-lower{
+  margin-bottom: 5px!important;
+}
+
+.profile-setting {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.profile-data-email{
+  display: flex;
+  margin-top: 10px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(30,144,255 ,0.2 );
+
+}
+
+.setting-profile-img {
+  width: 15rem;
+  height: auto;
+}
+
+.setting-illustration-img {
+  width: 30rem;
+  height: auto;
+}
+
+.profile-card-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  cursor: pointer;
+  color: dodgerblue;
+}
+
+.submit-button-profile {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+textarea:focus, input:focus{
+  outline: none;
 }
 
 .cursor {
@@ -612,18 +692,18 @@ margin-top: 7px;
   background: #464444;
 }
 ::-webkit-scrollbar-thumb:active {
-  background: #000000;
+  background: transparent;
 }
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: transparent;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
 ::-webkit-scrollbar-track:hover {
-  background: #dfdddd;
+  background: transparent;
 }
 ::-webkit-scrollbar-track:active {
-  background: #dedede;
+  background: transparent;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;

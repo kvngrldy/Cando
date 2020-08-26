@@ -22,7 +22,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (data === null || data === '' || data === undefined) {
                     navigation.navigate('login')
                 } else {
-                    return fetch(`http://192.168.0.126:3001/data/${deptId}`, {
+                    return fetch(`https://candone.herokuapp.com/data/${deptId}`, {
                         method: 'get',
                         headers: {
                             "token": data
@@ -43,7 +43,7 @@ const TodoDetail = ({ navigation, route }) => {
                 if (!data) {
                     navigation.navigate('/login')
                 } else {
-                    return fetch(`http://192.168.0.126:3001/data/todo/${id}`, {
+                    return fetch(`https://candone.herokuapp.com/data/todo/${id}`, {
                         method: "PUT",
                         headers: {
                             'token': data,

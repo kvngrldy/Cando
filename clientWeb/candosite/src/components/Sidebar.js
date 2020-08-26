@@ -4,17 +4,18 @@ import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
 import logodark from '../assets/logo-dark.png'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import socket from '../config/socket'
 import { getKanbanData } from '../store/actions/kanbanActions'
 
 
 function Sidebar({ roomData }) {
     //INGAT DISABLE BUTTON KLAU UDAH MASUK
-    const baseUrl = 'http://localhost:3001'
+    const baseUrl = 'https://candone.herokuapp.com'
     const location = useLocation()
 
-
+    const {imageUrl} = useSelector(state => state.userData)
+    console.log(imageUrl, `<<><><><><><><><><><>><>>><>.`)
     const dispatch = useDispatch()
     const [rooms, setRooms] = useState([])
     let [token, setToken] = useState('')
@@ -58,7 +59,9 @@ function Sidebar({ roomData }) {
         }
         const payload = {
             roomName,
-            username: localStorage.name
+            username: localStorage.name,
+            imageUrl
+
         }
         socket.emit('join-room', payload)
         history.push(`/room/${roomName}`)
