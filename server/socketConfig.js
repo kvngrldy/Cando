@@ -104,10 +104,10 @@ io.on('connection', socket => {
                         else {
                             // console.log(`${data} <<<<<<<<<<<<<<<, NON ARRAY`)
                             alfredMessage = data.response
-                            let newMsg = alfredMessage.split(' ')
-                            if(newMsg.includes('ditambahkan')){
-                                io.emit('add-alfred-notif')
-                            }
+                            // let newMsg = alfredMessage.split(' ')
+                            // if(newMsg.includes('ditambahkan')){
+                            //     io.emit('add-alfred-notif')
+                            // }
 
                         }
 
@@ -120,7 +120,7 @@ io.on('connection', socket => {
                     .then(() => {
                         io.sockets.in(data.roomName).emit('room-detail', rooms[roomIndex])
                         io.emit('update-data')
-                        // io.emit('add-alfred-notif')
+                        io.emit('add-alfred-notif')
                     })
 
                     .catch(console.log)
