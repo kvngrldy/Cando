@@ -3,7 +3,7 @@ const { department, user, todo, category } = require('../models')
 const dialogflow = require('dialogflow');
 const uuid = require('uuid');
 const nodemailer = require('nodemailer')
-const mailFormat = require('../helpers/newTaskMail')
+const mailFormatCreateTodo = require('../helpers/newTaskMail')
 const updateFormat = require('../helpers/updateTaskMail')
 const deleteFormat = require('../helpers/deleteTaskMail')
 
@@ -57,45 +57,9 @@ class AlfredController {
                 categoryId,
                 userId
             })
-
-
-
-            const assignedUser = await user.findOne(
-                {
-                    where: { id: userId }
-                }
-            )
-
-
-            const transportUser = 'candoteam.official@gmail.com'; // dummy email here (gmail preferred)
-
-            const transporter = nodemailer.createTransport({
-                service: 'gmail', // gmail only 
-                port: 587,
-                auth: {
-                    user: transportUser,
-                    pass: 'candodummy' // dummy email password here
-                }
-            });
-
-            let info = {
-                from: `"Your Personal Recorder :D" ${transportUser}`, // sender address
-                to: `${userData.email}`, // list of receivers
-                subject: "New Task", // Subject line
-                text: "You have successfully create a to-do list!",
-                html: mailFormat, // html body
-            };
-            transporter.sendMail(info, (error, info) => {
-                if (error) {
-                    throw error
-                }
-            })
-
-
-
-
-
-
+            
+            mailFormatCreateTodo(newTodo)
+            
             if (newTodo) {
                 res.status(201).json([newTodo])
             }

@@ -97,7 +97,7 @@ io.on('connection', socket => {
                             console.log(`${data}MASUK DATA RESPONSE .LENGTH > 1`)
                             alfredMessage = `Ini Data List Task :`
                             for (let i = 0; i < data.response.length; i++) {
-                                alfredMessage += `  ${data.response[i].text.text[0]}, \n`
+                                alfredMessage += `  ${data.response[i].text.text[0]}, \r\n`
                             }
                         }
                         else {
@@ -163,7 +163,7 @@ io.on('connection', socket => {
     })
 
     socket.on('update-data', _ => {
-        socket.broadcast.emit('update-data')
+        io.emit('update-data')
     })
 
     socket.on('add-alfred-notif', _ => {
