@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginBottom: -30,
     marginRight: 'auto',
-    borderRadius: 100000000
+    borderRadius: 100000000,
   }
 });
 

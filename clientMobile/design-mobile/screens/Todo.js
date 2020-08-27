@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { ScrollView, Text, StyleSheet, View, Button, AsyncStorage, Picker } from 'react-native'
+import { ScrollView, Text, StyleSheet, View, Button, AsyncStorage, Picker, Dimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Notifications from 'expo-notifications';
 import socket from '../config/socket';
@@ -77,11 +77,13 @@ const Todo = ({ navigation }) => {
     let [notif, setNotif] = useState([])
     const notificationListener = useRef();
     const responseListener = useRef();
+    const [name, setName] = useState('')
+    let [picker, setPicker] = useState('')
 
     socket.off('update-data').on('update-data', _ => {
         fetchDataSocket()
     })
-    
+
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => {
             setExpoPushToken(token)
@@ -120,6 +122,7 @@ const Todo = ({ navigation }) => {
             .then(res => res.json())
             .then(response => {
                 setTodo(response.userTodo)
+                setName(response.userData.name)
             })
             .catch(err => console.log)
     }
@@ -188,12 +191,14 @@ const Todo = ({ navigation }) => {
                 return new Date(a.deadline) - new Date(b.deadline)
             })
             setTodo(data)
+            setPicker(itemValue)
         }
         else if (itemValue === 'newest') {
             let data = deepCloneTodo.sort(function (a, b) {
                 return new Date(a.deadline) - new Date(b.deadline)
             }).reverse()
             setTodo(data)
+            setPicker(itemValue)
         } else {
             fetchData()
         }
@@ -204,37 +209,46 @@ const Todo = ({ navigation }) => {
     }, [])
 
     return (
-        <ScrollView>
-            <SafeAreaView style={styles.container}>
-                <View style={styles.headersContainer}>
-                    <Picker selectedValue='' style={styles.pickerDeadline} onValueChange={(itemValue, itemIndex) => sortByDeadline(itemValue)}>
-                        <Picker.Item label="Sort by deadline" value='' />
-                        <Picker.Item label="Sort by oldest" value="oldest" />
-                        <Picker.Item label="Sort by newest" value="newest" />
-                    </Picker>
-                </View>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.headerUser}>
+                <Text style={styles.hello}>Hello,</Text>
+                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.length}>You have {todo.length} task at this moment.</Text>
+            </View>
+            <View style={styles.headersContainer}>
+                <Picker selectedValue={picker} style={styles.pickerDeadline} onValueChange={(itemValue, itemIndex) => sortByDeadline(itemValue)}>
+                    <Picker.Item label="Sort by oldest" value="oldest" />
+                    <Picker.Item label="Sort by newest" value="newest" />
+                </Picker>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={true}>
                 {
                     todo && todo.map((todo, index) => {
-                        return <View key={index} style={styles.task}>
-                            <View style={styles.description}>
+                        return <View key={index} onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.task}>
+                            <View onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.description}>
                                 <View >
                                     <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.title}>{todo.title}</Text>
                                 </View>
                                 <View>
-                                    <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.category}>Category: {todo.category.name}</Text>
-                                </View>
-                                <View>
                                     <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.deadline}>Deadline: {todo.deadline.slice(0, 10)}</Text>
                                 </View>
-                                <View>
-                                    <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.priorities}>Priorities: {todo.priority}</Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 50, width: 200 }}>
+                                    <View style={todo.category.name === 'Backlog' ? { backgroundColor: 'green', width: 70 } : todo.category.name === 'Done' ? { backgroundColor: 'red', width: 50 } : { backgroundColor: 'purple', width: 70 }}>
+                                        <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.category}>{todo.category.name}</Text>
+                                    </View>
+                                    <View style={todo.priority === 'low' ? { backgroundColor: 'green', width: 50 } : todo.priority === 'urgent' ? { backgroundColor: 'red', width: 50 } : { backgroundColor: 'orange', width: 70 }}>
+                                        <Text onPress={() => goToDetail(todo.title, todo.category.name, todo.deadline.slice(0, 10), todo.priority, todo.description, todo.categoryId, todo.category.departmentId, todo.userId, todo.id)} style={styles.priorities}>{todo.priority}</Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
                     })
                 }
-            </SafeAreaView>
-        </ScrollView >
+            </ScrollView >
+            <View style={{height: 10}}>
+                <Text></Text>
+            </View>
+        </SafeAreaView>
     );
 }
 
@@ -246,36 +260,45 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     task: {
-        backgroundColor: "white",
-        marginTop: 10,
-        width: 320,
-        height: 200,
+        backgroundColor: "black",
+        marginTop: 5,
+        marginBottom: 5,
+        width: 250,
+        height: 150,
+        borderRightColor: 'whitesmoke',
     },
     description: {
-        marginLeft: 12,
-        marginTop: 12
+        marginTop: 12,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     btn: {
         marginTop: 20
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "bold",
-        marginBottom: 20,
         textAlign: "center",
-        height: 30
+        color: 'white'
     },
     category: {
-        fontSize: 10,
-        textAlign: "center"
+        fontSize: 14,
+        textAlign: "center",
+        color: 'white'
+
     },
     deadline: {
-        fontSize: 10,
-        textAlign: "center"
+        fontSize: 14,
+        textAlign: "center",
+        marginBottom: 10,
+        color: 'white'
+
     },
     priorities: {
-        fontSize: 10,
-        textAlign: "center"
+        fontSize: 14,
+        textAlign: "center",
+        color: 'white'
+
     },
     done: {
         width: 200,
@@ -284,8 +307,8 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     pickerDeadline: {
-        height: 50,
-        width: 150,
+        height: 80,
+        width: '50%',
         color: '#344953',
         marginRight: 'auto',
         marginLeft: 'auto',
@@ -294,5 +317,29 @@ const styles = StyleSheet.create({
     headersContainer: {
         width: '100%',
         flexDirection: 'row'
+    },
+    headerUser: {
+        height: '25%',
+        width: '100%',
+        backgroundColor: 'grey',
+        borderBottomRightRadius: 80
+    },
+    hello: {
+        color: 'white',
+        fontSize: 32,
+        marginTop: '10%',
+        marginLeft: 10
+    },
+    name: {
+        color: 'white',
+        marginLeft: 10,
+        fontSize: 26,
+        fontWeight: 'bold'
+    },
+    length: {
+        color: 'whitesmoke',
+        opacity: 0.5,
+        marginLeft: 10,
+        marginTop: 10
     }
 })
