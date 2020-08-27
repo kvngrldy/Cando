@@ -78,8 +78,8 @@ function Card({ data }) {
 
 
     return (
-        <div>
-            {isEdit == false ? <div className='task-card mb-3'>
+        <div className="">
+            {isEdit == false ? <div className='task-card mb-3 hvr-underline-from-left'>
                 <div className="task-priority">
                     {data.priority == 'urgent' && <Badge pill variant="danger">
                         {data.priority}
@@ -96,13 +96,13 @@ function Card({ data }) {
 
                     {localStorage.position == 'admin' ? <div className="task-card-menu">
 
-                        <span style={{ color: 'grey', marginRight: '7px' }}>
+                        <span style={{ color: 'grey', marginRight: '7px' }} className="hvr-bounce-in">
                             <i onClick={() => cardEdit()} class="far fa-edit cursor"></i>
                         </span>
                         {
 
                         }
-                        <span style={{ color: 'grey' }} onClick={() => deleteTodo(data.id)} >
+                        <span style={{ color: 'grey' }} onClick={() => deleteTodo(data.id)} className="hvr-bounce-in">
                             <i class="fas fa-minus-square cursor"></i>
                         </span>
                     </div> : <div className="task-card-menu"></div>}

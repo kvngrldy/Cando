@@ -33,22 +33,17 @@ export default function UserProfile() {
             <Container>
                 {
                     editStatus ?
-                        <div className="profile-setting">
-                            
+                        <div className="profile-setting">    
                                 <div className="profile-card">
                                     <div className="card-center">
                                         <div className="profile-card-header mb-3">
                                             <div>
-
                                                 <Image src={userData.imageUrl} className="setting-profile-img" roundedCircle />
                                             </div>
                                         </div>
                                         <div className="edit-button" >
-
                                         </div>
                                         <form onSubmit={(event) => handleSubmit(event)}>
-
-
                                             <div className="profile-data mt-3">
                                                 <div className="profile-data-email">
                                                     <div className="email-text">
@@ -89,7 +84,6 @@ export default function UserProfile() {
                                 <Image src="https://opendoodles.s3-us-west-1.amazonaws.com/selfie.png" className="setting-illustration-img" rounded />
                                 </div>
                         </div>
-
                         :
                         <div className="profile-setting">
                            
@@ -130,11 +124,9 @@ export default function UserProfile() {
                                 <div>
                                 <Image src="https://opendoodles.s3-us-west-1.amazonaws.com/selfie.png" className="setting-illustration-img" rounded />
                                 </div>
-                            
                         </div>
                 }
             </Container>
-
         </>
     )
 }

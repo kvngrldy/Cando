@@ -150,7 +150,7 @@ body {
   display: flex;
   align-items: center;
   background-color: #163172;
-  color: red;
+  
 }
 
 
@@ -472,6 +472,7 @@ body {
 .comment{
   display: flex;
   padding-right: 12rem;
+  
 }
 
 .comment-self{
@@ -501,6 +502,7 @@ body {
 }
 
 .ini-test{
+  max-width: 90%;
   display: flex;
   flex-direction: column;
 }
@@ -567,6 +569,34 @@ margin-top: 7px;
   padding: 1rem;
   background-color: white;
   border-radius: 1rem;
+}
+
+.hvr-underline-from-left {
+  
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  overflow: hidden;
+}
+.hvr-underline-from-left:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  background: #2098D1;
+  height: 4px;
+  -webkit-transition-property: right;
+  transition-property: right;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-underline-from-left:hover:before, .hvr-underline-from-left:focus:before, .hvr-underline-from-left:active:before {
+  right: 0;
 }
 
 .task-title {
@@ -670,9 +700,24 @@ textarea:focus, input:focus{
   outline: none;
 }
 
+.full-w {
+  width: 100%;
+
+  
+}
+
+.form-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
 .cursor {
   cursor: pointer;
 }
+
+
+
+
 
 
 ::-webkit-scrollbar {
@@ -707,4 +752,20 @@ textarea:focus, input:focus{
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+.hvr-bounce-in {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.hvr-bounce-in:hover, .hvr-bounce-in:focus, .hvr-bounce-in:active {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
 }

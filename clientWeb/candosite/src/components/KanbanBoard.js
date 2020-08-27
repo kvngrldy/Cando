@@ -14,6 +14,9 @@ export default function KanbanBoard() {
     const dispatch = useDispatch()
     const departmentName = useSelector(state => state.kanban.departmentName)
     const [isAdmin, setIsAdmin] = useState(false)
+    const {position} = useSelector(state => state.userData.position)
+
+    console.log(position, `<<<<<<`)
 
     socket.off('update-data').on('update-data', _ => {
         dispatch(getKanbanData(departmentId, token))
@@ -23,17 +26,18 @@ export default function KanbanBoard() {
         setIsAdmin(!isAdmin)
     }
 
+
+
     return (
         <>
             <div className="kanban-header">
-                
-                    <div className="mr-5">
-                        <h1>Board {departmentName}</h1>
-                    </div>
-                    <div className="mt-2">
-                        {isAdmin ? <Button onClick={() => openAdmin()} variant="outline-primary">Close admin page</Button> : <Button onClick={() => openAdmin()} variant="outline-primary">Edit this board</Button>}
-                    </div>
-               
+                <div className="mr-5">
+                    <h1>Board {departmentName}</h1>
+                </div>
+                {localStorage.position == 'admin' ? <div className="mt-2">
+                    {isAdmin ? <Button onClick={() => openAdmin()} variant="outline-primary">Close admin page</Button> : <Button onClick={() => openAdmin()} variant="outline-primary">Edit this board</Button>}
+                </div> : <div />}
+
             </div>
             {isAdmin == false ? <div className="kanban-group">
                 {
