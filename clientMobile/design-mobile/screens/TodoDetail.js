@@ -79,9 +79,15 @@ const TodoDetail = ({ navigation, route }) => {
             <View style={styles.task}>
                 <View style={styles.description}>
                     <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.category}>Category: {category}</Text>
                     <Text style={styles.deadline}>Deadline: {deadline}</Text>
-                    <Text style={styles.priorities}>Priorities: {priority}</Text>
+                    <View style={{ flexDirection: 'row', marginLeft: 'auto', marginRight: 'auto', width: '50%', justifyContent: 'space-between', marginBottom: 30 }}>
+                        <View style={category === 'Backlog' ? { backgroundColor: 'green', width: 70 } : category === 'Done' ? { backgroundColor: 'red', width: 50 } : { backgroundColor: 'purple', width: 70 }}>
+                            <Text style={styles.category}>{category}</Text>
+                        </View>
+                        <View style={priority === 'low' ? { backgroundColor: 'green', width: 50 } : priority === 'urgent' ? { backgroundColor: 'red', width: 50 } : { backgroundColor: 'orange', width: 70 }} >
+                            <Text style={styles.priorities}>{priority}</Text>
+                        </View>
+                    </View>
                     <Text style={styles.descriptionTitle}>Description:</Text>
                     <View style={styles.descDiv}>
                         <Text style={styles.descriptionText}>{description}</Text>
@@ -131,24 +137,27 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        marginBottom: 10,
         marginTop: 20,
         textAlign: "center",
-        height: 50,
+        height: 30,
         marginRight: 20,
         marginLeft: 20
     },
     category: {
         fontSize: 10,
-        textAlign: "center"
+        textAlign: "center",
+        color: 'white'
     },
     deadline: {
-        fontSize: 10,
-        textAlign: "center"
+        fontSize: 12,
+        textAlign: "center",
+        marginBottom: 20,
+        color: 'grey'
     },
     priorities: {
         fontSize: 10,
-        textAlign: "center"
+        textAlign: "center",
+        color: 'white'
     },
     trash: {
         width: 250,
@@ -166,7 +175,9 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     descDiv: {
-        height: 100
+        height: 100,
+        marginLeft: '5%',
+        marginRight: '5%'
     },
     picker: {
         marginLeft: 'auto',
