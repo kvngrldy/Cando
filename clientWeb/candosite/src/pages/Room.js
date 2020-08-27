@@ -43,7 +43,7 @@ function Room() {
           processedMessages.push(message)
         }
       })
-      // console.log(processedMessages);
+      console.log(processedMessages);
       
       setChats(processedMessages)
     }

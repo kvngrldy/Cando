@@ -12,13 +12,17 @@ module.exports = {
      * }], {});
     */
     return queryInterface.bulkInsert('departments', [{
-      name: "Teknologi Informasi",
+      name: "Engineering",
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       name: "Bisnis",
       createdAt: new Date(),
       updatedAt: new Date(),
+    },{
+      name: "Marketing",
+      createdAt: new Date(),
+      updatedAt: new Date()
     }])
   },
 

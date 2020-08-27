@@ -81,7 +81,6 @@ describe('Suite of unit tests', function () {
         expect(dataRes[1]).toHaveProperty('admin')
         expect(dataRes[1]).toHaveProperty('users')
         expect(dataRes[1]).toHaveProperty('messages')
-        expect(dataRes[1].name).toBe(data.roomName)
         expect(dataRes[1].admin).toBe(data.admin)
         done()
       })
@@ -111,7 +110,6 @@ describe('Suite of unit tests', function () {
       expect(dataRes[1]).toHaveProperty('admin')
       expect(dataRes[1]).toHaveProperty('users')
       expect(dataRes[1]).toHaveProperty('messages')
-      expect(dataRes[1].name).toBe(data.roomName)
       expect(dataRes[1].admin).toBe(data.admin)
       done()
     })
@@ -126,7 +124,7 @@ describe('Suite of unit tests', function () {
     socket.emit('join-room', data)
 
     socket.on('room-detail', dataRes => {
-      console.log(dataRes);
+      // console.log(dataRes);
       expect(dataRes).toBeInstanceOf(Object)
       expect(dataRes).toHaveProperty('name')
       expect(dataRes).toHaveProperty('admin')
@@ -257,9 +255,38 @@ describe('Suite of unit tests', function () {
     //     expect(dataAl).toBeInstanceOf(Object)
     //     done()
     //   })
+    // })
+
+    // test('alfred terima message 2', (done) => {
+    //   const data = {
+    //     roomName: 'Engineering',
+    //     sender: 'Theo',
+    //     message: '@alfred minta list task'
+    //   }
+
+    //   socket.emit('send-message', data)
+
+    //   socket.on('room-detail', dataRes => {
+    //     expect(dataRes).toBeInstanceOf(Object)
+    //     expect(dataRes).toHaveProperty('name')
+    //     expect(dataRes).toHaveProperty('admin')
+    //     expect(dataRes).toHaveProperty('users')
+    //     expect(dataRes).toHaveProperty('messages')
+    //     expect(dataRes.messages).not.toHaveLength(0);
+    //     expect(dataRes.messages).toBeInstanceOf(Array)
+    //     expect(dataRes.messages[0]).toBeInstanceOf(Object)
+    //     expect(dataRes.messages[0]).toEqual(
+    //       expect.objectContaining({
+    //         sender: 'Theo',
+    //         message: '@alfred minta list task'
+    //       })
+    //     )
+    //     done()
+    //   })
 
 
     // })
+
 
 
 

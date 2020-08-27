@@ -1,6 +1,6 @@
 const { todo, category_todo, department_category, category, user } = require('../models')
 const nodemailer = require('nodemailer')
-const mailFormat = require('../helpers/newTaskMail')
+// const mailFormat = require('../helpers/newTaskMail')
 const updateFormat = require('../helpers/updateTaskMail')
 const deleteFormat = require('../helpers/deleteTaskMail')
 

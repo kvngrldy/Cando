@@ -3,59 +3,51 @@ const { hashPassword } = require('../helpers/bcryptjs')
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+   
     return queryInterface.bulkInsert('users', [{
-      name: 'user 1',
+      name: 'Theo',
       password: hashPassword('123'),
-      email: 'user1@gmail.com',
+      email: 'theo@gmail.com',
+      position: 'member',
+      imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      name: 'Handana',
+      password: hashPassword('123'),
+      email: 'handana@gmail.com',
+      position: 'member',
+      imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      name: 'Roy',
+      password: hashPassword('123'),
+      email: 'roy@gmail.com',
+      position: 'member',
+      imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      name: 'Kevin',
+      password: hashPassword('123'),
+      email: 'kevin@gmail.com',
       position: 'admin',
       imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      name: 'user 2',
+      name: 'Eldwin',
       password: hashPassword('123'),
-      email: 'user2@gmail.com',
-      position: 'member',
-      imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }, {
-      name: 'user 3',
-      password: hashPassword('123'),
-      email: 'user3@gmail.com',
-      position: 'member',
-      imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }, {
-      name: 'user 4',
-      password: hashPassword('123'),
-      email: 'user4@gmail.com',
+      email: 'eldwin@gmail.com',
       position: 'admin',
       imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      name: 'user 5',
+      name: 'Jafar',
       password: hashPassword('123'),
-      email: 'user5@gmail.com',
-      position: 'member',
-      imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }, {
-      name: 'user 6',
-      password: hashPassword('123'),
-      email: 'user6@gmail.com',
+      email: 'jafar@gmail.com',
       position: 'member',
       imageUrl:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Rubber_Duck_Front_View_in_Fine_Day_20140107.jpg',
       createdAt: new Date(),
