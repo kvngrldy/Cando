@@ -1,5 +1,5 @@
 # Cando
-deskripsi CANDO TBA
+Checkout live here: https://cando-518ef.web.app/ (email: kevin@gmail.com password:123)
 
 ## Instalation
 before  trying anything make sure all depedencies are installed
